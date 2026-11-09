@@ -91,3 +91,4 @@ Every analysis below is descriptive and was chosen after seeing the data:
 7. The combined held-out table (`posthoc-heldout-combined.md`), declared in `SUPPLEMENT_QWEN.md` before the supplement ran, but still post hoc relative to the protocol.
 8. The Codex session-log check in D3.
 9. The scan of all started trajectories for failed or unparseable calls in L2.
+10. The results page `site/index.html` and its generator `site/build_site.py`. They present the analyses above as charts and don't change any number. The generator checks its key counts against the frozen analyses. It also counts the Qwen runs that asked about the recipient (36 of 60), and shows Qwen's report-vs-truth tables.

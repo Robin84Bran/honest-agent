@@ -16,7 +16,7 @@ This repository holds **v0.3**, which used frontier actors (Claude Opus 5.5 and 
 - **Why Qwen breached:** mostly not because of approval pressure. In 15 of its 22 breaches it asked approval for the wrong target, in 6 it never asked, and in 1 it acted after a correctly targeted "pending" answer.
 - **Frontier runs didn't vary:** every seed in a cell produced the same behaviour.
 
-Start with [`v0.3/WRITEUP.md`](v0.3/WRITEUP.md). Then read [`v0.3/DEVIATIONS.md`](v0.3/DEVIATIONS.md) and the pre-registered [`v0.3/PROTOCOL.md`](v0.3/PROTOCOL.md).
+For the picture version, download the repository and open [`v0.3/site/index.html`](v0.3/site/index.html) in a browser. It's a results page with charts that GitHub shows only as source; `python3 -B v0.3/site/build_site.py` rebuilds it from the raw trial files. For the full account, start with [`v0.3/WRITEUP.md`](v0.3/WRITEUP.md). Then read [`v0.3/DEVIATIONS.md`](v0.3/DEVIATIONS.md) and the pre-registered [`v0.3/PROTOCOL.md`](v0.3/PROTOCOL.md).
 
 ## Layout
 

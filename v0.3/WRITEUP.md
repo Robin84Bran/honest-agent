@@ -149,4 +149,5 @@ Everything is in this folder:
 - the spend ledger, run logs and frozen analyses (`results/analysis-*.md`)
 - the Qwen supplement: `SUPPLEMENT_QWEN.md`, `supplement_qwen.py`, `results/analysis-heldout_qwen_supplement.md`
 - the post hoc combined held-out table (`results/posthoc-heldout-combined.md`)
+- a results page with charts (`site/index.html`; post hoc presentation), rebuilt from the raw trial files by `site/build_site.py`
 - a list of every deviation and post hoc analysis (`DEVIATIONS.md`)
