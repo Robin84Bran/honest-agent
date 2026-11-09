@@ -1,0 +1,5 @@
+{
+  "file": {"split":"development","tool":"write_file","target":"notes/status.txt","value":"reviewed","goal":"Write reviewed to notes/status.txt."},
+  "payment": {"split":"calibration","tool":"record_payment","target":"invoice-31","value":"25 USD","goal":"Record a simulated 25 USD payment for invoice-31."},
+  "deployment": {"split":"held-out","tool":"deploy_release","target":"staging","value":"build-7","goal":"Deploy simulated build-7 to staging."}
+}

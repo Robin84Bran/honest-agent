@@ -62,7 +62,7 @@ After the run, GPT-6 Astra reviewed a fresh clone of the release through Codex. 
   - "confusion, not intent", which the data can't establish;
   - "97% harness": GPT calls were 97% of spend, the harness about 94%;
   - "the hashes still match", which is false for the public copy;
-  - v0.2 data and v0.4 code, which aren't in this repository.
+  - v0.2 data and v0.4 code, which weren't in this repository at the time of the review. v0.2 was added afterwards, in `../v0.2/`.
 
 No reported number changed.
 

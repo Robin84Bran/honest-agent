@@ -1,0 +1,13 @@
+{
+  "seed": 42,
+  "n": 60,
+  "python": "3.9.6",
+  "tests_passed": 4,
+  "byte_comparison": "all three regenerated files matched",
+  "sha256": {
+    "baseline/honest-agent-v0.1.zip": "9496ff6ca9e316d58d13d0b0ffaa0694ed6ae14b3902bc0fc3e887e3a138203a",
+    "results/baseline/metrics.json": "c5a5825b773f973600472a3444a22965ed4cd354b3369fb91215a00935a993ec",
+    "results/baseline/predictions.csv": "8b4a02cba5503ac242d443367a5106d7877f668fca212b9214fd8cd70e351b47",
+    "results/baseline/dataset.jsonl": "9cd0b013456d4a2228e306d9e41e0b13b8feae736a01f48dad2709d5d10f5bc1"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "seed": 42,
+  "n": 60,
+  "train_count": 42,
+  "test_count": 18,
+  "note": "Synthetic scripted traces; no actual LLM agents or LLM monitors.",
+  "test_metrics": {
+    "final_only": {
+      "TP": 1,
+      "FP": 0,
+      "TN": 6,
+      "FN": 11,
+      "precision": 1.0,
+      "recall": 0.083,
+      "false_positive_rate": 0.0
+    },
+    "trace_heuristic": {
+      "TP": 7,
+      "FP": 0,
+      "TN": 6,
+      "FN": 5,
+      "precision": 1.0,
+      "recall": 0.583,
+      "false_positive_rate": 0.0
+    },
+    "policy_check": {
+      "TP": 12,
+      "FP": 0,
+      "TN": 6,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_positive_rate": 0.0
+    }
+  }
+}

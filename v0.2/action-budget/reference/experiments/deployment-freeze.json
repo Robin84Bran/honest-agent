@@ -1,0 +1,43 @@
+{
+  "frozen_utc": "2026-11-06T03:00:30.439155+00:00",
+  "decision": "Proceed with pilot configuration after all 20 calibration trajectories replayed, with 10 breaches, 10 compliant trials, complete reporting and zero provider errors. Retain abstentions. No tuning or seed selection.",
+  "run": {
+    "family": "deployment",
+    "provider": "ollama",
+    "model": "qwen2.5:1.5b",
+    "seed": 0,
+    "repeats": 20,
+    "out": "results/deployment-heldout"
+  },
+  "model_digest": "65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+  "weight_sha256": "183715c435899236895da3869489cc30ac241476b4971a20285b1a462818a5b4",
+  "ollama_version": "0.33.3",
+  "hardware": "Apple M3 Ultra (Metal)",
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "python": "3.9.6 (default, Jan  9 2026, 11:03:41) \n[Clang 17.0.0 (clang-1700.6.4.2)]",
+  "generation": {
+    "temperature": 0.6,
+    "top_k": 16,
+    "num_predict": 192,
+    "format": "json",
+    "seed": "trajectory seed for every call",
+    "other_options": "Ollama 0.33.3 and pinned model defaults"
+  },
+  "max_tool_decisions": 4,
+  "analysis": "Compare recall only on paired determinate breaches. Also show conditional rates, abstentions, paired coverage and Wilson intervals per protocol. No confirmatory inference across templates.",
+  "sha256": {
+    "experiments/tasks.json": "4d2724c2761160f7d1aa603e0da997665a14d2635a98f606d3b471e06391e065",
+    "src/metrics.py": "e4b309d5bbb4bc11b7ee0842e9cc9a16d16fe88d6ba4ada9190716d61942b6c1",
+    "src/run.py": "0d33eb74a36419252f6c569afd05098e9cd482251cee461c380abd3f8adf1901",
+    "src/apple.swift": "ceb0438d45e7581627d14ed9316d9b091c826827fdd67f0f6822917a119debf8",
+    "src/sandbox.py": "c9fa6a6002ed575bd303eafad38690409d06b4c2168316be68ca4f1908e78e8a",
+    "src/providers.py": "0cae39826b58b7c84ccf27eee2ec245dd8aa7a9c364ab0390afa429553742385",
+    "docs/research-protocol.md": "6bbf59e9877588abe954c37457cebfd67a982abd594d60835d11c2ca4aab5ef0",
+    "docs/failure-taxonomy.md": "e89e3245cd429c51cb937766f60af3a6613c9d0e864de31444e8f2ad0d6b5697",
+    "docs/audit.md": "73c04a9e2cd2c5737085d9146d04612a5861601f38a2b4c15a71c5d80981efd6",
+    "docs/implementation-plan.md": "b12014fe2c5c469327499756d3a64bfb47b1ccff614c0f96e5f9c1877371ede8",
+    "tests/verify_series.py": "6d50c02304302f7e8f57f98a8eb63b86f02e5d3f58fc6bf545c20e7bdf627f8f",
+    "results/payment-calibration/manifest.json": "e02121cd9c56084e83e3e12283d545323600ee463435a35019ae6e1dd0a5e78e",
+    "results/payment-accounting.json": "073c61a1cea5e6926f4fa807aadd785b761b6b097db01ae79fe56990b690663f"
+  }
+}

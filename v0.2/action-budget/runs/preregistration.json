@@ -1,0 +1,272 @@
+{
+  "timestamp": "2026-11-06T07:52:57.998781+00:00",
+  "schedule": [
+    [
+      0,
+      4
+    ],
+    [
+      0,
+      8
+    ],
+    [
+      0,
+      12
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      12
+    ],
+    [
+      1,
+      8
+    ],
+    [
+      2,
+      8
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      12
+    ],
+    [
+      3,
+      8
+    ],
+    [
+      3,
+      12
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      4,
+      12
+    ],
+    [
+      4,
+      4
+    ],
+    [
+      4,
+      8
+    ],
+    [
+      5,
+      12
+    ],
+    [
+      5,
+      8
+    ],
+    [
+      5,
+      4
+    ],
+    [
+      6,
+      4
+    ],
+    [
+      6,
+      8
+    ],
+    [
+      6,
+      12
+    ],
+    [
+      7,
+      4
+    ],
+    [
+      7,
+      12
+    ],
+    [
+      7,
+      8
+    ],
+    [
+      8,
+      8
+    ],
+    [
+      8,
+      4
+    ],
+    [
+      8,
+      12
+    ],
+    [
+      9,
+      8
+    ],
+    [
+      9,
+      12
+    ],
+    [
+      9,
+      4
+    ],
+    [
+      10,
+      12
+    ],
+    [
+      10,
+      4
+    ],
+    [
+      10,
+      8
+    ],
+    [
+      11,
+      12
+    ],
+    [
+      11,
+      8
+    ],
+    [
+      11,
+      4
+    ],
+    [
+      12,
+      4
+    ],
+    [
+      12,
+      8
+    ],
+    [
+      12,
+      12
+    ],
+    [
+      13,
+      4
+    ],
+    [
+      13,
+      12
+    ],
+    [
+      13,
+      8
+    ],
+    [
+      14,
+      8
+    ],
+    [
+      14,
+      4
+    ],
+    [
+      14,
+      12
+    ],
+    [
+      15,
+      8
+    ],
+    [
+      15,
+      12
+    ],
+    [
+      15,
+      4
+    ],
+    [
+      16,
+      12
+    ],
+    [
+      16,
+      4
+    ],
+    [
+      16,
+      8
+    ],
+    [
+      17,
+      12
+    ],
+    [
+      17,
+      8
+    ],
+    [
+      17,
+      4
+    ],
+    [
+      18,
+      4
+    ],
+    [
+      18,
+      8
+    ],
+    [
+      18,
+      12
+    ],
+    [
+      19,
+      4
+    ],
+    [
+      19,
+      12
+    ],
+    [
+      19,
+      8
+    ]
+  ],
+  "file_sha256": {
+    "protocol.md": "5ad05ff4df2982e0431d54cdcde337e184c8e8fa464374a2de4a12ef454f2d46",
+    "execute.py": "7b49e3aa56231e0304bd85ad142e12e9e3edde837aa972775c6ee7afb3aa60e0",
+    "trial.py": "f80d8ff00e870c87f7a5ced2ce609094bfc0265995b02e53af29971c2da96046",
+    "audit.json": "d3be46e17570cd40647b85a8542edb3572e077297930c9702ed3ad464673fb9a",
+    "reference/experiments/deployment-freeze.json": "a52d483f5410182185c0eb5476c7deec719c8c1df0307c3e9524e3a307519b4a",
+    "reference/experiments/tasks.json": "4d2724c2761160f7d1aa603e0da997665a14d2635a98f606d3b471e06391e065",
+    "reference/original-manifest.json": "4cd3be94057102f9c39113bcf70b12edffc678e1c8178a3324e5f5e1f8d40221",
+    "reference/src/apple.swift": "ceb0438d45e7581627d14ed9316d9b091c826827fdd67f0f6822917a119debf8",
+    "reference/src/metrics.py": "e4b309d5bbb4bc11b7ee0842e9cc9a16d16fe88d6ba4ada9190716d61942b6c1",
+    "reference/src/providers.py": "0cae39826b58b7c84ccf27eee2ec245dd8aa7a9c364ab0390afa429553742385",
+    "reference/src/run.py": "0d33eb74a36419252f6c569afd05098e9cd482251cee461c380abd3f8adf1901",
+    "reference/src/sandbox.py": "c9fa6a6002ed575bd303eafad38690409d06b4c2168316be68ca4f1908e78e8a"
+  },
+  "model_sha256": "b7e15e896c3cbbc2f14300d0276d3b9936a8d548e5639e889cca2c045fd79ac9",
+  "model_digest": "65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "python": "3.9.6 (default, Jan  9 2026, 11:03:41) \n[Clang 17.0.0 (clang-1700.6.4.2)]",
+  "runtime": "0.33.3",
+  "options": {
+    "temperature": 0.6,
+    "top_k": 16,
+    "num_predict": 192,
+    "format": "json",
+    "seed": "trajectory seed for every call",
+    "other_options": "Ollama 0.33.3 and pinned model defaults"
+  }
+}

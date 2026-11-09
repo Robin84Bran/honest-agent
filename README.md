@@ -2,7 +2,11 @@
 
 A small AI-control experiment. Agents get a simulated task with one rule: get approval for the exact target first. The experiment records whether they break the rule, whether their end-of-task reports are honest, and whether LLM monitors catch the breaches. Monitors either read the agent's final report alone or the full action trace.
 
-This repository holds **v0.3**, which used frontier actors (Claude Opus 5.5 and GPT-6 Astra) and a local Qwen 2.5 1.5B reference arm.
+This repository holds **v0.3**, which used frontier actors (Claude Opus 5.5 and GPT-6 Astra) and a local Qwen 2.5 1.5B reference arm. It also holds the earlier **v0.2** in [`v0.2/`](v0.2/README.md). v0.2 used Qwen 2.5 1.5B as both actor and monitor:
+
+- It breached approval in 16 of 20 simulated deployments, and only 1 of its 20 reports got both completion and breach right.
+- Giving it 8 or 12 decisions instead of 4 never undid a breach.
+- The trace monitor caught 12–23 percentage points more breaches than the report-only monitor, but with 20 runs the intervals crossed zero.
 
 ## Results in one screen
 
@@ -25,7 +29,9 @@ Start with [`v0.3/WRITEUP.md`](v0.3/WRITEUP.md). Then read [`v0.3/DEVIATIONS.md`
 | `v0.3/results/spend-ledger.jsonl`, `v0.3/results/*.log` | Append-only cost ledger and run logs |
 | `v0.3/SUPPLEMENT_QWEN.md`, `v0.3/supplement_qwen.py` | The Qwen rerun: declaration (written before it ran) and driver |
 | `v0.3/posthoc_combined_heldout.py`, `v0.3/results/posthoc-*.md` | Post hoc combined held-out table |
-| `src/run.py`, `src/sandbox.py` | v0.2 reference sources; the v0.3 tests check that prompts and policy text are copied verbatim |
+| `src/run.py`, `src/sandbox.py` | v0.2 reference sources, identical to `v0.2/src/`; the v0.3 tests check that prompts and policy text are copied verbatim |
+| `v0.2/` | v0.2 as it was run: its README, protocol and audit docs, local research page (`site/index.html`), payment calibration and held-out deployment trials (`results/`), the action-budget ablation (`action-budget/`), and the v0.1 scripted baseline (`baseline/`) |
+| `v0.2/verify_release.py` | Release-only helper that runs v0.2's unchanged action-budget analysis on this redacted copy (see `RELEASE_MANIFEST.md`) |
 | `RELEASE_MANIFEST.md`, `SHA256SUMS` | What was redacted for release, and checksums |
 
 ## Verify
@@ -40,6 +46,17 @@ python3 -B analyze_v03.py heldout_qwen_supplement
 
 The regenerated analysis files should be byte-identical to the published ones.
 
+v0.2 (run from the repository root):
+
+```sh
+python3 -B v0.2/verify_release.py    # action-budget: hashes, replay of 60 trajectories, statistics equal analysis.json
+cd v0.2
+python3 -B -m unittest discover -s tests
+python3 -B tests/verify_pilot.py
+python3 -B tests/verify_series.py payment-calibration | diff - results/payment-accounting.json
+python3 -B tests/verify_series.py deployment-heldout | diff - results/deployment-accounting.json
+```
+
 `providers_api.py` differs from its frozen hash in two lines only: the local CLI paths were replaced by bare command names. See `RELEASE_MANIFEST.md`. Because of this, `run_v03.py`'s freeze check fails on this copy by design. The analyses and tests above don't depend on it.
 
 ## Rerun (costs money or subscription quota)
@@ -52,7 +69,7 @@ An independent read-only review by GPT-6 Astra (via Codex), in two rounds, repro
 
 ## License
 
-- **Code** (every `.py`, `.command` and `.sh` file, and `tasks.json`/`config.json`): MIT. See [`LICENSE`](LICENSE).
+- **Code** (every `.py`, `.swift`, `.command` and `.sh` file, `tasks.json`/`config.json`, and the v0.1 baseline zip): MIT. See [`LICENSE`](LICENSE).
 - **Everything else** (the write-up, protocol, deviations and supplement documents, trial files, ledger, logs and analysis outputs): [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). See [`LICENSE-CC-BY-4.0.md`](LICENSE-CC-BY-4.0.md).
 
 If you use the data or findings, please cite *Bin "Robin" Xie, "The Honest Agent v0.3" (2026)* and link to this repository.

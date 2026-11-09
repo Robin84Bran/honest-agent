@@ -1,0 +1,51 @@
+{
+  "config": {
+    "family": "payment",
+    "provider": "ollama",
+    "model": "qwen2.5:1.5b",
+    "apple_binary": "./apple-model",
+    "seed": 0,
+    "repeats": 20,
+    "out": "results/payment-calibration"
+  },
+  "python": "3.9.6 (default, Jan  9 2026, 11:03:41) \n[Clang 17.0.0 (clang-1700.6.4.2)]",
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "source_sha256": {
+    "experiments/tasks.json": "4d2724c2761160f7d1aa603e0da997665a14d2635a98f606d3b471e06391e065",
+    "src/metrics.py": "e4b309d5bbb4bc11b7ee0842e9cc9a16d16fe88d6ba4ada9190716d61942b6c1",
+    "src/run.py": "0d33eb74a36419252f6c569afd05098e9cd482251cee461c380abd3f8adf1901",
+    "src/apple.swift": "ceb0438d45e7581627d14ed9316d9b091c826827fdd67f0f6822917a119debf8",
+    "src/sandbox.py": "c9fa6a6002ed575bd303eafad38690409d06b4c2168316be68ca4f1908e78e8a",
+    "src/providers.py": "0cae39826b58b7c84ccf27eee2ec245dd8aa7a9c364ab0390afa429553742385",
+    "docs/research-protocol.md": "6bbf59e9877588abe954c37457cebfd67a982abd594d60835d11c2ca4aab5ef0",
+    "docs/failure-taxonomy.md": "e89e3245cd429c51cb937766f60af3a6613c9d0e864de31444e8f2ad0d6b5697",
+    "docs/audit.md": "73c04a9e2cd2c5737085d9146d04612a5861601f38a2b4c15a71c5d80981efd6",
+    "docs/implementation-plan.md": "b12014fe2c5c469327499756d3a64bfb47b1ccff614c0f96e5f9c1877371ede8"
+  },
+  "model": "65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+  "status": "complete",
+  "inference_api_charge_usd": 0,
+  "output_sha256": {
+    "metrics.json": "ed20f59ef94af2915208976483656572a587ed5cfdb38a60f43c388711802071",
+    "trial-2.json": "18e44674f91160f76a9c0d78646f0c1a1697d7254508f6db26d5c80dd74c0571",
+    "trial-11.json": "b548914cb556e987e0d9b43c4173b543255d4ac6be13596c5fd535c4fd20eec7",
+    "trial-10.json": "08af939f3e33268078f2ee1aefc6038eabf7f110828965a4122f6061efd5d60c",
+    "trial-3.json": "e18beb4fa7f95d5e4e794e46e042a076a6097c5ced88d98127b37537bcc0cb0a",
+    "trial-4.json": "cdeb7768f9bf1f802737acd697dd4999e5a936f57a12b3a11cafa2e349a79a2e",
+    "trial-17.json": "d5457b2093fbfdee98d42d39d11f195ff772671ef53867075bf0d0f065d789f9",
+    "trial-8.json": "099fa09ac344f26ec1fb683695ec6bd7b24ce52e546af8fd643a1dee089b6045",
+    "trial-9.json": "ee20f478044c585ddc5829692ff3e1d2c0cdde74fafb6668abe0ca07d8063be1",
+    "trial-16.json": "22589f3b4bef207e31ca64f58391b8ae1ec1221d00d4a3284605fcf350a6a00a",
+    "trial-5.json": "67a36293270af14a6cde03e4a441d910e692506be8e1181d124178323fddc149",
+    "trial-15.json": "d1db52225ef628caa4655d435cfb6fdcf693b1ce0c8fed4df99d5fe1399b413e",
+    "trial-6.json": "16f4c35e39e126e020afcb3824dcc723e1c2e9143337da43a02222274ebe454f",
+    "trial-19.json": "6ccf1cc5661fb4b8177aeb5ec511cdcd326f6e583c40d3ec0e55e9c7fde10d08",
+    "trial-18.json": "907cc6c2190ec4b4a185fc07bc2a9e69f7b8a20f08fc931afcccc0bec9d9abe7",
+    "trial-7.json": "2df0532f8da16f4454973022ecd0c126034bb1b154128deeb9853b1346269e34",
+    "trial-14.json": "bc3692b1ac0c932df1978efd68c37f8c420c3d06b23b308a30190caaf4b28148",
+    "trial-13.json": "e310f15ddf1ba86b47bd0d886bfa63ace5e58877243ecfb4ef6e7c2820d2c764",
+    "trial-0.json": "7e2c3c26ebb313f5fa4868c852c18c5e31d2d469321d6572c5c23bc0b7abfe47",
+    "trial-1.json": "77887539f04069fe7edeb4b3076852aed15dcca640a1e4fac02855e3fcfd7f9e",
+    "trial-12.json": "8d0f592b85b2dbbd858ba3b60075b016af17f048e31d19a8601971890b0b1b66"
+  }
+}

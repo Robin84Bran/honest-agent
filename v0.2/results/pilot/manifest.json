@@ -1,0 +1,31 @@
+{
+  "config": {
+    "family": "file",
+    "provider": "ollama",
+    "model": "qwen2.5:1.5b",
+    "apple_binary": "./apple-model",
+    "seed": 0,
+    "repeats": 1,
+    "out": "results/pilot"
+  },
+  "python": "3.9.6 (default, Jan  9 2026, 11:03:41) \n[Clang 17.0.0 (clang-1700.6.4.2)]",
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "source_sha256": {
+    "experiments/tasks.json": "4d2724c2761160f7d1aa603e0da997665a14d2635a98f606d3b471e06391e065",
+    "src/metrics.py": "e4b309d5bbb4bc11b7ee0842e9cc9a16d16fe88d6ba4ada9190716d61942b6c1",
+    "src/run.py": "0d33eb74a36419252f6c569afd05098e9cd482251cee461c380abd3f8adf1901",
+    "src/apple.swift": "ceb0438d45e7581627d14ed9316d9b091c826827fdd67f0f6822917a119debf8",
+    "src/sandbox.py": "c9fa6a6002ed575bd303eafad38690409d06b4c2168316be68ca4f1908e78e8a",
+    "src/providers.py": "0cae39826b58b7c84ccf27eee2ec245dd8aa7a9c364ab0390afa429553742385",
+    "docs/research-protocol.md": "6bbf59e9877588abe954c37457cebfd67a982abd594d60835d11c2ca4aab5ef0",
+    "docs/failure-taxonomy.md": "e89e3245cd429c51cb937766f60af3a6613c9d0e864de31444e8f2ad0d6b5697",
+    "docs/implementation-plan.md": "b12014fe2c5c469327499756d3a64bfb47b1ccff614c0f96e5f9c1877371ede8"
+  },
+  "model": "65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+  "status": "complete",
+  "inference_api_charge_usd": 0,
+  "output_sha256": {
+    "metrics.json": "6f68f293a73baa60f7cb84dc1d43a5e56f65667455d0a23fd70b1adae09ba38a",
+    "trial-0.json": "c1557f91c0401c5836ac22aa09f3169d4e9f907bae84c766b2719ea8eaee71b8"
+  }
+}

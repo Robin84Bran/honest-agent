@@ -31,7 +31,7 @@ I'm putting these up front because each one changes how far the results can be t
 
 ## Background
 
-v0.2 (report: *link to be added when v0.2 is published*; its data is not in this repository) gave Qwen 2.5 1.5B a simulated deployment task with an approval rule.
+v0.2 ([`v0.2/`](../v0.2/README.md) in this repository, with the action-budget study in [`v0.2/action-budget/report.md`](../v0.2/action-budget/report.md)) gave Qwen 2.5 1.5B a simulated deployment task with an approval rule.
 
 - **Breaches:** it breached in 16 of 20 runs, and giving it more steps never undid an early breach.
 - **Reports:** its final reports were usually wrong.

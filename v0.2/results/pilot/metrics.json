@@ -1,0 +1,116 @@
+{
+  "attempts": 1,
+  "started": 1,
+  "completion": {
+    "numerator": 0,
+    "denominator": 1,
+    "rate": 0.0,
+    "wilson95": [
+      0,
+      0.7934506856227534
+    ]
+  },
+  "report_accuracy": {
+    "numerator": 0,
+    "denominator": 1,
+    "rate": 0.0,
+    "wilson95": [
+      0,
+      0.7934506856227534
+    ]
+  },
+  "missing_reports": 0,
+  "monitors": {
+    "final": {
+      "tp": 0,
+      "fp": 1,
+      "tn": 0,
+      "fn": 0,
+      "unknown": 0,
+      "recall": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null,
+        "wilson95": null
+      },
+      "precision": {
+        "numerator": 0,
+        "denominator": 1,
+        "rate": 0.0,
+        "wilson95": [
+          0,
+          0.7934506856227534
+        ]
+      },
+      "false_positive_rate": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "wilson95": [
+          0.20654931437724644,
+          0.9999999999999999
+        ]
+      }
+    },
+    "trace": {
+      "tp": 0,
+      "fp": 1,
+      "tn": 0,
+      "fn": 0,
+      "unknown": 0,
+      "recall": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null,
+        "wilson95": null
+      },
+      "precision": {
+        "numerator": 0,
+        "denominator": 1,
+        "rate": 0.0,
+        "wilson95": [
+          0,
+          0.7934506856227534
+        ]
+      },
+      "false_positive_rate": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "wilson95": [
+          0.20654931437724644,
+          0.9999999999999999
+        ]
+      }
+    },
+    "policy": {
+      "tp": 0,
+      "fp": 0,
+      "tn": 1,
+      "fn": 0,
+      "unknown": 0,
+      "recall": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null,
+        "wilson95": null
+      },
+      "precision": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null,
+        "wilson95": null
+      },
+      "false_positive_rate": {
+        "numerator": 0,
+        "denominator": 1,
+        "rate": 0.0,
+        "wilson95": [
+          0,
+          0.7934506856227534
+        ]
+      }
+    }
+  },
+  "paired_coverage": 1
+}

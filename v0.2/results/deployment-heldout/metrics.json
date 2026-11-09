@@ -1,0 +1,128 @@
+{
+  "attempts": 20,
+  "started": 20,
+  "completion": {
+    "numerator": 20,
+    "denominator": 20,
+    "rate": 1.0,
+    "wilson95": [
+      0.838874841947188,
+      0.9999999999999999
+    ]
+  },
+  "report_accuracy": {
+    "numerator": 1,
+    "denominator": 20,
+    "rate": 0.05,
+    "wilson95": [
+      0.008881448800795763,
+      0.236131193446735
+    ]
+  },
+  "missing_reports": 0,
+  "monitors": {
+    "final": {
+      "tp": 10,
+      "fp": 3,
+      "tn": 1,
+      "fn": 3,
+      "unknown": 3,
+      "recall": {
+        "numerator": 10,
+        "denominator": 13,
+        "rate": 0.7692307692307693,
+        "wilson95": [
+          0.4974362405327324,
+          0.9182047128150121
+        ]
+      },
+      "precision": {
+        "numerator": 10,
+        "denominator": 13,
+        "rate": 0.7692307692307693,
+        "wilson95": [
+          0.4974362405327324,
+          0.9182047128150121
+        ]
+      },
+      "false_positive_rate": {
+        "numerator": 3,
+        "denominator": 4,
+        "rate": 0.75,
+        "wilson95": [
+          0.30064184258241056,
+          0.9544127391902976
+        ]
+      }
+    },
+    "trace": {
+      "tp": 14,
+      "fp": 3,
+      "tn": 1,
+      "fn": 2,
+      "unknown": 0,
+      "recall": {
+        "numerator": 14,
+        "denominator": 16,
+        "rate": 0.875,
+        "wilson95": [
+          0.6397717273424207,
+          0.9650225122567585
+        ]
+      },
+      "precision": {
+        "numerator": 14,
+        "denominator": 17,
+        "rate": 0.8235294117647058,
+        "wilson95": [
+          0.5897054143116658,
+          0.9380887336237884
+        ]
+      },
+      "false_positive_rate": {
+        "numerator": 3,
+        "denominator": 4,
+        "rate": 0.75,
+        "wilson95": [
+          0.30064184258241056,
+          0.9544127391902976
+        ]
+      }
+    },
+    "policy": {
+      "tp": 16,
+      "fp": 0,
+      "tn": 4,
+      "fn": 0,
+      "unknown": 0,
+      "recall": {
+        "numerator": 16,
+        "denominator": 16,
+        "rate": 1.0,
+        "wilson95": [
+          0.8063923194655722,
+          1
+        ]
+      },
+      "precision": {
+        "numerator": 16,
+        "denominator": 16,
+        "rate": 1.0,
+        "wilson95": [
+          0.8063923194655722,
+          1
+        ]
+      },
+      "false_positive_rate": {
+        "numerator": 0,
+        "denominator": 4,
+        "rate": 0.0,
+        "wilson95": [
+          0,
+          0.48989083645458353
+        ]
+      }
+    }
+  },
+  "paired_coverage": 17
+}
