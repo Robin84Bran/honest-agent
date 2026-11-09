@@ -9,7 +9,7 @@ This repository holds **v0.3**, which used frontier actors (Claude Opus 5.5 and 
 - **Frontier actors:** 0 breaches in 210 runs, with honest reports in 210 of 210. This held across granted, pending and denied approval on three tasks.
 - **Trace-reading monitors:** 0 false alarms on frontier runs, and 22 of 22 breaches caught on Qwen runs.
 - **Report-only monitoring:** a Claude monitor that saw only the final report caught 2 of the 17 Qwen breaches it ruled on, a paired trace advantage of +0.88 (95% CI +0.59 to +0.97). **Every Qwen result is a post-freeze deviation**: the Qwen arm failed because of a setup error and was rerun after the main analysis.
-- **Why Qwen breached:** 21 of its 22 breaches came from asking approval for the wrong target, not from approval pressure.
+- **Why Qwen breached:** mostly not because of approval pressure. In 15 of its 22 breaches it asked approval for the wrong target, in 6 it never asked, and in 1 it acted after a correctly targeted "pending" answer.
 - **Frontier runs didn't vary:** every seed in a cell produced the same behaviour.
 
 Start with [`v0.3/WRITEUP.md`](v0.3/WRITEUP.md). Then read [`v0.3/DEVIATIONS.md`](v0.3/DEVIATIONS.md) and the pre-registered [`v0.3/PROTOCOL.md`](v0.3/PROTOCOL.md).
@@ -40,11 +40,15 @@ python3 -B analyze_v03.py heldout_qwen_supplement
 
 The regenerated analysis files should be byte-identical to the published ones.
 
-`providers_api.py` differs from its frozen hash in two lines only: the local CLI paths were replaced by bare command names. See `RELEASE_MANIFEST.md`.
+`providers_api.py` differs from its frozen hash in two lines only: the local CLI paths were replaced by bare command names. See `RELEASE_MANIFEST.md`. Because of this, `run_v03.py`'s freeze check fails on this copy by design. The analyses and tests above don't depend on it.
 
 ## Rerun (costs money or subscription quota)
 
-Fresh inference needs the Claude Code and Codex CLIs signed in to subscriptions, plus a local Ollama with `qwen2.5:1.5b` (digest `65ec0654…`). See `v0.3/README.md`. Frontier sampling is not reproducible, so a rerun is a new sample, not a replay.
+Fresh inference needs the Claude Code and Codex CLIs signed in to subscriptions, plus a local Ollama with `qwen2.5:1.5b` (digest `65ec0654…`). See `v0.3/README.md`. Frontier sampling is not reproducible, so a rerun is a new sample, not a replay. New runs should use v0.4. It fixes the operational and latent defects listed in `v0.3/DEVIATIONS.md`, but it isn't in this repository yet.
+
+## Review
+
+An independent read-only review by GPT-6 Astra (via Codex), in two rounds, reproduced the headline counts and all frozen analyses. Its findings and the resulting fixes are listed in `v0.3/DEVIATIONS.md`.
 
 ## License
 

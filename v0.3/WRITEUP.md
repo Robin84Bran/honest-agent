@@ -1,6 +1,6 @@
 # The Honest Agent v0.3: do frontier agents ask before they act, and can a monitor tell when they don't?
 
-*DRAFT for Robin's review, 9 Nov 2026. Not published. Prepared with Claude (claude-opus-5-5).*
+*DRAFT for Robin's review, 9 Nov 2026. Not published. Prepared with Claude (claude-opus-5-5). Independently reviewed in two read-only rounds by GPT-6 Astra (via Codex); its findings and the fixes are listed in `DEVIATIONS.md`.*
 
 ## In short
 
@@ -9,7 +9,7 @@ I gave two frontier models, Claude Opus 5.5 and GPT-6 Astra, a small simulated j
 - **Both frontier models followed the rule every time:** 0 breaches in 210 runs, and 210/210 honest end-of-task reports. Monitors reading the full action trace raised **zero false alarms**.
 - **The small model breached; trace monitors caught everything; report-only monitoring did not.** The interesting monitor result comes from the small reference model, Qwen 2.5 1.5B, which breached in 22 of 60 runs and usually reported "no violation". Monitors reading the trace caught **22/22**. A Claude monitor reading only the model's final report caught 2 of the 17 breaches it gave a verdict on: a paired difference of **+0.88 (95% CI +0.59 to +0.97)** in favour of the trace.
 - **That number comes from a deviation.** The Qwen arm had to be rerun after the pre-registered analysis, because of a setup mistake (details below).
-- **Most of Qwen's breaches were confusion, not pressure.** It asked approval for the wrong thing and then went ahead anyway.
+- **Most of Qwen's breaches weren't a response to approval pressure.** In 15 of 22 it asked approval for the wrong thing and then went ahead anyway; in 6 it never asked.
 
 The pre-registered replication question, whether the v0.2 trace advantage holds with frontier actors, could not be answered: frontier actors never breached, so there was nothing to catch.
 
@@ -18,7 +18,7 @@ The pre-registered replication question, whether the v0.2 trace advantage holds 
 I'm putting these up front because each one changes how far the results can be trusted.
 
 1. **The Qwen arm is a post-freeze deviation.** The model wasn't installed when the pre-registered held-out run started. All 60 Qwen trials failed at the first call (HTTP 404), and the runner saved those failures as permanent trial files.
-   - I installed the identical model build (the same digest as v0.2) and ran the Qwen arm once more, as a separately named series. The run used the frozen code unchanged, and the deviation and analysis plan were written down before it started.
+   - I installed the identical model build (the same digest as v0.2) and ran the Qwen arm once more, as a separately named series. The run used the frozen code unchanged. The deviation and analysis plan (`SUPPLEMENT_QWEN.md`) were written down 36 seconds before the run started, according to local file metadata that outside readers can't check. The "~16:20" written inside that document is a wrong estimate (see `DEVIATIONS.md`).
    - It still ran about three hours later, after I had seen the frontier held-out results. **Every number involving Qwen, including the only RQ1 result, is a deviation, not a pre-registered finding.** The 60 failed files are kept and published.
 2. **Qwen's breaches were mostly not about approval.** In 21 of 22 breaches Qwen never saw the approval answer at all:
    - In 15 runs it requested approval for the recipient's email address instead of the document, got "unknown target", and shared anyway.
@@ -31,7 +31,7 @@ I'm putting these up front because each one changes how far the results can be t
 
 ## Background
 
-v0.2 (report: *link to be added when v0.2 is published*) gave Qwen 2.5 1.5B a simulated deployment task with an approval rule.
+v0.2 (report: *link to be added when v0.2 is published*; its data is not in this repository) gave Qwen 2.5 1.5B a simulated deployment task with an approval rule.
 
 - **Breaches:** it breached in 16 of 20 runs, and giving it more steps never undid an early breach.
 - **Reports:** its final reports were usually wrong.
@@ -56,8 +56,8 @@ v0.3 asked whether this holds with frontier models, and added the approval condi
   - replication, *deployment*: 60 runs
   - held-out, *sharing* (new): 120 frontier runs, plus 60 Qwen runs in the supplement
 - **Sample-size fallback:** the plan was 330 runs. A pre-registered rule cut replication from 20 to 10 seeds when the post-calibration cost projection (197.85 USD) exceeded 90% of the 200 USD cap.
-- **Freeze:** all code, configuration, tasks and the protocol were hashed and frozen after calibration and before the main runs. The hashes still match.
-- **Spend:** 158.33 USD in API-equivalent terms, under the 200 USD cap.
+- **Freeze:** all code, configuration, tasks and the protocol were hashed and frozen after calibration and before the main runs. The hashes still match in the author's working copy. In the public copy, `providers_api.py` differs by two redacted path lines, so the frozen runner's freeze check fails there by design; reruns should use v0.4.
+- **Spend:** 158.33 USD in API-equivalent terms, under the 200 USD cap. The cap was enforced by an estimated check before each call, not a hard limit: the check didn't reserve money for calls already in flight and left out the hidden harness tokens (see `DEVIATIONS.md`).
 
 ## Results
 
@@ -97,11 +97,11 @@ This matches the pre-registered reading for "near-zero breaches": the frontier a
 - **GPT** treated a self-report as insufficient evidence almost every time (269 of 270).
 - **Claude** abstained whenever a report claimed the task succeeded, but **believed reports that said nothing went wrong**. The 15 breaches Qwen falsely reported as "no violation" all passed Claude's report-only view.
 
-That is the failure mode a report-only monitor is exposed to: it inherits the actor's honesty. Here the dishonest reports came from confusion, not intent. The mechanism would be the same for a deceptive actor.
+That is the failure mode a report-only monitor is exposed to: it inherits the actor's honesty. Here the traces fit confusion (wrong-target requests), although this data can't establish intent. A deceptive actor would exploit the same weakness.
 
 ### RQ3: no power
 
-Every breach came from Qwen, a different family from both monitors, so same-family recall can't be measured. False-alarm rates were 0% for same-family and cross-family runs alike.
+Every breach came from Qwen, a different family from both monitors, so same-family recall can't be measured. The trace monitors had 0 false alarms in both groups. Claude's report-only view had 0/34 same-family and 3/45 cross-family (all 3 on Qwen's clean runs). GPT's report-only view made a single cross-family decision, a false alarm on a Qwen run, and no same-family decisions.
 
 ## What this does and doesn't show
 
@@ -129,7 +129,7 @@ These are the six limitations listed in the protocol's threats-to-validity secti
 - **Provider safety layers:** frontier actors ran behind production stacks, so compliance can't be credited to the model alone.
 - **Model-family overlap** between actors and monitors: RQ3 couldn't test it.
 - **Not reproducible:** frontier sampling through subscription tools can't be replayed. Every raw response, token count and timestamp is saved.
-- **API-equivalent cost:** cost is an estimate from reported tokens. About 97% of it came from roughly 14K tokens of fixed harness instructions that the Codex tool adds to every GPT call.
+- **API-equivalent cost:** cost is an estimate from reported tokens. GPT calls were about 97% of it. By a rough estimate, about 94% of the total came from the roughly 14K tokens of fixed harness instructions that the Codex tool adds to every GPT call; harness tokens aren't itemised separately.
 
 ## What v0.4 should do
 
@@ -138,7 +138,7 @@ These are the six limitations listed in the protocol's threats-to-validity secti
 - **Use longer horizons and multiple targets,** so a breach can be buried in the middle of a trace.
 - **Get real sampling variation,** via API seeds or temperatures, or by varying prompt paraphrases, so the intervals mean what they claim.
 - **Pre-register the abstention policy.** Decide in advance whether monitors may say "insufficient evidence", and how abstentions count.
-- **Fix the operational gaps v0.3 exposed.** These fixes are drafted with offline tests, but not yet run against real models: preflight must check the local model; the runner must not save a trial whose actor never started; the GPT adapter must report the model ID Codex actually used.
+- **Fix the operational gaps v0.3 exposed.** Preflight must check the local model; the runner must not save a trial whose actor never started; the GPT adapter must report the model ID Codex actually used. Review also found two latent defects that affected no v0.3 trial: the budget check didn't reserve money for calls in flight, and a step that failed after the actor started could be scored as compliant. Fixes for all five are drafted with offline tests in a separate v0.4 folder. That folder isn't in this repository yet and hasn't been run against real models.
 
 ## Materials
 
