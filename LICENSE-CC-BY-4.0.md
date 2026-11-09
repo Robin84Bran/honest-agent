@@ -1,6 +1,6 @@
 # Creative Commons Attribution 4.0 International (CC BY 4.0)
 
-Copyright (c) 2026 Robin Xie
+Copyright (c) 2026 Bin "Robin" Xie
 
 Everything in this repository that is not code is licensed under the Creative Commons Attribution 4.0 International License. That includes the write-up, protocol, deviation and supplement documents, trial files, spend ledger, run logs and analysis outputs. Code is covered by the MIT license in `LICENSE`.
 
@@ -9,7 +9,7 @@ Everything in this repository that is not code is licensed under the Creative Co
 
 You may share and adapt this material for any purpose, including commercially, as long as you:
 
-- give appropriate credit, for example *Robin Xie, "The Honest Agent v0.3" (2026)*, with a link to this repository;
+- give appropriate credit, for example *Bin "Robin" Xie, "The Honest Agent v0.3" (2026)*, with a link to this repository;
 - link to the license; and
 - say whether you made changes.
 
