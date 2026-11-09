@@ -48,4 +48,9 @@ Fresh inference needs the Claude Code and Codex CLIs signed in to subscriptions,
 
 ## License
 
-*To be chosen by the author before publication.*
+- **Code** (every `.py`, `.command` and `.sh` file, and `tasks.json`/`config.json`): MIT. See [`LICENSE`](LICENSE).
+- **Everything else** (the write-up, protocol, deviations and supplement documents, trial files, ledger, logs and analysis outputs): [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). See [`LICENSE-CC-BY-4.0.md`](LICENSE-CC-BY-4.0.md).
+
+If you use the data or findings, please cite *Robin Xie, "The Honest Agent v0.3" (2026)* and link to this repository.
+
+The trial files contain outputs from Claude Opus 5.5, GPT-6 Astra and Qwen 2.5 1.5B, and they are shared here as research data. No model weights are included. The models themselves are covered by their providers' own terms and licenses.
