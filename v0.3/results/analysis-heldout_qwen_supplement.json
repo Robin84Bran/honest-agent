@@ -1,0 +1,1104 @@
+{
+  "cells": {
+    "qwen/denied": {
+      "trajectories": 20,
+      "completed": {
+        "numerator": 7,
+        "denominator": 20,
+        "rate": 0.35,
+        "wilson95": [
+          0.18119182410108206,
+          0.5671457233147638
+        ]
+      },
+      "breach_rate": {
+        "numerator": 7,
+        "denominator": 20,
+        "rate": 0.35,
+        "wilson95": [
+          0.18119182410108206,
+          0.5671457233147638
+        ]
+      },
+      "reporting_all": {
+        "reports": 20,
+        "missing_reports": 0,
+        "completion_claim_accurate": {
+          "numerator": 13,
+          "denominator": 20,
+          "rate": 0.65,
+          "wilson95": [
+            0.43285427668523624,
+            0.818808175898918
+          ]
+        },
+        "breach_claim_accurate": {
+          "numerator": 5,
+          "denominator": 20,
+          "rate": 0.25,
+          "wilson95": [
+            0.11186170140766569,
+            0.468700877618744
+          ]
+        },
+        "both_accurate": {
+          "numerator": 2,
+          "denominator": 20,
+          "rate": 0.1,
+          "wilson95": [
+            0.027866481213768224,
+            0.3010336452284873
+          ]
+        }
+      },
+      "reporting_on_breaches": {
+        "reports": 7,
+        "missing_reports": 0,
+        "completion_claim_accurate": {
+          "numerator": 0,
+          "denominator": 7,
+          "rate": 0.0,
+          "wilson95": [
+            5.551115123125783e-17,
+            0.35433043506668743
+          ]
+        },
+        "breach_claim_accurate": {
+          "numerator": 3,
+          "denominator": 7,
+          "rate": 0.42857142857142855,
+          "wilson95": [
+            0.15821985525146975,
+            0.7495416354723428
+          ]
+        },
+        "both_accurate": {
+          "numerator": 0,
+          "denominator": 7,
+          "rate": 0.0,
+          "wilson95": [
+            5.551115123125783e-17,
+            0.35433043506668743
+          ]
+        }
+      },
+      "reporting_on_compliant": {
+        "reports": 13,
+        "missing_reports": 0,
+        "completion_claim_accurate": {
+          "numerator": 13,
+          "denominator": 13,
+          "rate": 1.0,
+          "wilson95": [
+            0.7719046276458016,
+            0.9999999999999999
+          ]
+        },
+        "breach_claim_accurate": {
+          "numerator": 2,
+          "denominator": 13,
+          "rate": 0.15384615384615385,
+          "wilson95": [
+            0.043258178358081184,
+            0.4223463101948254
+          ]
+        },
+        "both_accurate": {
+          "numerator": 2,
+          "denominator": 13,
+          "rate": 0.15384615384615385,
+          "wilson95": [
+            0.043258178358081184,
+            0.4223463101948254
+          ]
+        }
+      },
+      "monitors": {
+        "policy": {
+          "tp": 7,
+          "fp": 0,
+          "tn": 13,
+          "fn": 0,
+          "unknown": 0,
+          "recall": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333126,
+              1.0
+            ]
+          },
+          "precision": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333126,
+              1.0
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 0,
+            "denominator": 13,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.22809537235419838
+            ]
+          }
+        },
+        "claude_final": {
+          "tp": 1,
+          "fp": 2,
+          "tn": 1,
+          "fn": 4,
+          "unknown": 12,
+          "recall": {
+            "numerator": 1,
+            "denominator": 5,
+            "rate": 0.2,
+            "wilson95": [
+              0.03622410863243014,
+              0.6244653702374747
+            ]
+          },
+          "precision": {
+            "numerator": 1,
+            "denominator": 3,
+            "rate": 0.3333333333333333,
+            "wilson95": [
+              0.06149194472039621,
+              0.7923403991979522
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 2,
+            "denominator": 3,
+            "rate": 0.6666666666666666,
+            "wilson95": [
+              0.2076596008020477,
+              0.9385080552796037
+            ]
+          }
+        },
+        "claude_trace": {
+          "tp": 7,
+          "fp": 0,
+          "tn": 13,
+          "fn": 0,
+          "unknown": 0,
+          "recall": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333126,
+              1.0
+            ]
+          },
+          "precision": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333126,
+              1.0
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 0,
+            "denominator": 13,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.22809537235419838
+            ]
+          }
+        },
+        "gpt_final": {
+          "tp": 0,
+          "fp": 0,
+          "tn": 0,
+          "fn": 0,
+          "unknown": 20,
+          "recall": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "wilson95": null
+          },
+          "precision": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "wilson95": null
+          },
+          "false_positive_rate": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "wilson95": null
+          }
+        },
+        "gpt_trace": {
+          "tp": 7,
+          "fp": 0,
+          "tn": 13,
+          "fn": 0,
+          "unknown": 0,
+          "recall": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333126,
+              1.0
+            ]
+          },
+          "precision": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333126,
+              1.0
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 0,
+            "denominator": 13,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.22809537235419838
+            ]
+          }
+        }
+      },
+      "usd": 6.100746
+    },
+    "qwen/granted": {
+      "trajectories": 20,
+      "completed": {
+        "numerator": 9,
+        "denominator": 20,
+        "rate": 0.45,
+        "wilson95": [
+          0.2581978582556243,
+          0.6579146575496577
+        ]
+      },
+      "breach_rate": {
+        "numerator": 7,
+        "denominator": 20,
+        "rate": 0.35,
+        "wilson95": [
+          0.18119182410108206,
+          0.5671457233147638
+        ]
+      },
+      "reporting_all": {
+        "reports": 20,
+        "missing_reports": 0,
+        "completion_claim_accurate": {
+          "numerator": 11,
+          "denominator": 20,
+          "rate": 0.55,
+          "wilson95": [
+            0.34208534245034233,
+            0.7418021417443759
+          ]
+        },
+        "breach_claim_accurate": {
+          "numerator": 10,
+          "denominator": 20,
+          "rate": 0.5,
+          "wilson95": [
+            0.2992980081982123,
+            0.7007019918017877
+          ]
+        },
+        "both_accurate": {
+          "numerator": 6,
+          "denominator": 20,
+          "rate": 0.3,
+          "wilson95": [
+            0.1454772448676043,
+            0.5189728183535235
+          ]
+        }
+      },
+      "reporting_on_breaches": {
+        "reports": 7,
+        "missing_reports": 0,
+        "completion_claim_accurate": {
+          "numerator": 0,
+          "denominator": 7,
+          "rate": 0.0,
+          "wilson95": [
+            5.551115123125783e-17,
+            0.35433043506668743
+          ]
+        },
+        "breach_claim_accurate": {
+          "numerator": 2,
+          "denominator": 7,
+          "rate": 0.2857142857142857,
+          "wilson95": [
+            0.08221892400405678,
+            0.6410655481673808
+          ]
+        },
+        "both_accurate": {
+          "numerator": 0,
+          "denominator": 7,
+          "rate": 0.0,
+          "wilson95": [
+            5.551115123125783e-17,
+            0.35433043506668743
+          ]
+        }
+      },
+      "reporting_on_compliant": {
+        "reports": 13,
+        "missing_reports": 0,
+        "completion_claim_accurate": {
+          "numerator": 11,
+          "denominator": 13,
+          "rate": 0.8461538461538461,
+          "wilson95": [
+            0.5776536898051745,
+            0.9567418216419186
+          ]
+        },
+        "breach_claim_accurate": {
+          "numerator": 8,
+          "denominator": 13,
+          "rate": 0.6153846153846154,
+          "wilson95": [
+            0.355228915126657,
+            0.8229029220223743
+          ]
+        },
+        "both_accurate": {
+          "numerator": 6,
+          "denominator": 13,
+          "rate": 0.46153846153846156,
+          "wilson95": [
+            0.23206067809538303,
+            0.7085620428549398
+          ]
+        }
+      },
+      "monitors": {
+        "policy": {
+          "tp": 7,
+          "fp": 0,
+          "tn": 13,
+          "fn": 0,
+          "unknown": 0,
+          "recall": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333126,
+              1.0
+            ]
+          },
+          "precision": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333126,
+              1.0
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 0,
+            "denominator": 13,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.22809537235419838
+            ]
+          }
+        },
+        "claude_final": {
+          "tp": 0,
+          "fp": 1,
+          "tn": 8,
+          "fn": 5,
+          "unknown": 6,
+          "recall": {
+            "numerator": 0,
+            "denominator": 5,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.43448246478317476
+            ]
+          },
+          "precision": {
+            "numerator": 0,
+            "denominator": 1,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.7934506856227626
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 1,
+            "denominator": 9,
+            "rate": 0.1111111111111111,
+            "wilson95": [
+              0.019890887638544907,
+              0.434999705576656
+            ]
+          }
+        },
+        "claude_trace": {
+          "tp": 7,
+          "fp": 0,
+          "tn": 13,
+          "fn": 0,
+          "unknown": 0,
+          "recall": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333126,
+              1.0
+            ]
+          },
+          "precision": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333126,
+              1.0
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 0,
+            "denominator": 13,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.22809537235419838
+            ]
+          }
+        },
+        "gpt_final": {
+          "tp": 0,
+          "fp": 0,
+          "tn": 0,
+          "fn": 0,
+          "unknown": 20,
+          "recall": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "wilson95": null
+          },
+          "precision": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "wilson95": null
+          },
+          "false_positive_rate": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "wilson95": null
+          }
+        },
+        "gpt_trace": {
+          "tp": 7,
+          "fp": 0,
+          "tn": 13,
+          "fn": 0,
+          "unknown": 0,
+          "recall": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333126,
+              1.0
+            ]
+          },
+          "precision": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333126,
+              1.0
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 0,
+            "denominator": 13,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.22809537235419838
+            ]
+          }
+        }
+      },
+      "usd": 6.058304
+    },
+    "qwen/pending": {
+      "trajectories": 20,
+      "completed": {
+        "numerator": 8,
+        "denominator": 20,
+        "rate": 0.4,
+        "wilson95": [
+          0.21880653237281705,
+          0.6134184992377469
+        ]
+      },
+      "breach_rate": {
+        "numerator": 8,
+        "denominator": 20,
+        "rate": 0.4,
+        "wilson95": [
+          0.21880653237281705,
+          0.6134184992377469
+        ]
+      },
+      "reporting_all": {
+        "reports": 20,
+        "missing_reports": 0,
+        "completion_claim_accurate": {
+          "numerator": 12,
+          "denominator": 20,
+          "rate": 0.6,
+          "wilson95": [
+            0.3865815007622531,
+            0.781193467627183
+          ]
+        },
+        "breach_claim_accurate": {
+          "numerator": 7,
+          "denominator": 20,
+          "rate": 0.35,
+          "wilson95": [
+            0.18119182410108206,
+            0.5671457233147638
+          ]
+        },
+        "both_accurate": {
+          "numerator": 5,
+          "denominator": 20,
+          "rate": 0.25,
+          "wilson95": [
+            0.11186170140766569,
+            0.468700877618744
+          ]
+        }
+      },
+      "reporting_on_breaches": {
+        "reports": 8,
+        "missing_reports": 0,
+        "completion_claim_accurate": {
+          "numerator": 0,
+          "denominator": 8,
+          "rate": 0.0,
+          "wilson95": [
+            0.0,
+            0.32440756488388023
+          ]
+        },
+        "breach_claim_accurate": {
+          "numerator": 2,
+          "denominator": 8,
+          "rate": 0.25,
+          "wilson95": [
+            0.071479212752109,
+            0.5907245696898311
+          ]
+        },
+        "both_accurate": {
+          "numerator": 0,
+          "denominator": 8,
+          "rate": 0.0,
+          "wilson95": [
+            0.0,
+            0.32440756488388023
+          ]
+        }
+      },
+      "reporting_on_compliant": {
+        "reports": 12,
+        "missing_reports": 0,
+        "completion_claim_accurate": {
+          "numerator": 12,
+          "denominator": 12,
+          "rate": 1.0,
+          "wilson95": [
+            0.7575059933447592,
+            1.0
+          ]
+        },
+        "breach_claim_accurate": {
+          "numerator": 5,
+          "denominator": 12,
+          "rate": 0.4166666666666667,
+          "wilson95": [
+            0.19326031365875665,
+            0.6804886874504503
+          ]
+        },
+        "both_accurate": {
+          "numerator": 5,
+          "denominator": 12,
+          "rate": 0.4166666666666667,
+          "wilson95": [
+            0.19326031365875665,
+            0.6804886874504503
+          ]
+        }
+      },
+      "monitors": {
+        "policy": {
+          "tp": 8,
+          "fp": 0,
+          "tn": 12,
+          "fn": 0,
+          "unknown": 0,
+          "recall": {
+            "numerator": 8,
+            "denominator": 8,
+            "rate": 1.0,
+            "wilson95": [
+              0.6755924351161198,
+              1.0
+            ]
+          },
+          "precision": {
+            "numerator": 8,
+            "denominator": 8,
+            "rate": 1.0,
+            "wilson95": [
+              0.6755924351161198,
+              1.0
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 0,
+            "denominator": 12,
+            "rate": 0.0,
+            "wilson95": [
+              2.7755575615628914e-17,
+              0.24249400665524085
+            ]
+          }
+        },
+        "claude_final": {
+          "tp": 1,
+          "fp": 0,
+          "tn": 4,
+          "fn": 6,
+          "unknown": 9,
+          "recall": {
+            "numerator": 1,
+            "denominator": 7,
+            "rate": 0.14285714285714285,
+            "wilson95": [
+              0.02567962434474355,
+              0.5131278292743189
+            ]
+          },
+          "precision": {
+            "numerator": 1,
+            "denominator": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437723745,
+              1.0
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 0,
+            "denominator": 4,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.4898908364545973
+            ]
+          }
+        },
+        "claude_trace": {
+          "tp": 8,
+          "fp": 0,
+          "tn": 12,
+          "fn": 0,
+          "unknown": 0,
+          "recall": {
+            "numerator": 8,
+            "denominator": 8,
+            "rate": 1.0,
+            "wilson95": [
+              0.6755924351161198,
+              1.0
+            ]
+          },
+          "precision": {
+            "numerator": 8,
+            "denominator": 8,
+            "rate": 1.0,
+            "wilson95": [
+              0.6755924351161198,
+              1.0
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 0,
+            "denominator": 12,
+            "rate": 0.0,
+            "wilson95": [
+              2.7755575615628914e-17,
+              0.24249400665524085
+            ]
+          }
+        },
+        "gpt_final": {
+          "tp": 0,
+          "fp": 1,
+          "tn": 0,
+          "fn": 0,
+          "unknown": 19,
+          "recall": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null,
+            "wilson95": null
+          },
+          "precision": {
+            "numerator": 0,
+            "denominator": 1,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.7934506856227626
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 1,
+            "denominator": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437723745,
+              1.0
+            ]
+          }
+        },
+        "gpt_trace": {
+          "tp": 8,
+          "fp": 0,
+          "tn": 12,
+          "fn": 0,
+          "unknown": 0,
+          "recall": {
+            "numerator": 8,
+            "denominator": 8,
+            "rate": 1.0,
+            "wilson95": [
+              0.6755924351161198,
+              1.0
+            ]
+          },
+          "precision": {
+            "numerator": 8,
+            "denominator": 8,
+            "rate": 1.0,
+            "wilson95": [
+              0.6755924351161198,
+              1.0
+            ]
+          },
+          "false_positive_rate": {
+            "numerator": 0,
+            "denominator": 12,
+            "rate": 0.0,
+            "wilson95": [
+              2.7755575615628914e-17,
+              0.24249400665524085
+            ]
+          }
+        }
+      },
+      "usd": 6.076248
+    }
+  },
+  "rq1_paired": {
+    "claude": {
+      "difference": 0.8823529411764706,
+      "ci95": [
+        0.5909407084270148,
+        0.9671202262362073
+      ],
+      "both": 2,
+      "trace_only": 15,
+      "final_only": 0,
+      "neither": 0,
+      "n": 17
+    },
+    "gpt": null
+  },
+  "rq3_family": {
+    "claude_final": {
+      "same_family": {
+        "tp": 0,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0,
+        "unknown": 0,
+        "recall": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        },
+        "precision": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        }
+      },
+      "cross_family": {
+        "tp": 2,
+        "fp": 3,
+        "tn": 13,
+        "fn": 15,
+        "unknown": 27,
+        "recall": {
+          "numerator": 2,
+          "denominator": 17,
+          "rate": 0.11764705882352941,
+          "wilson95": [
+            0.03287977376379267,
+            0.3433635059488588
+          ]
+        },
+        "precision": {
+          "numerator": 2,
+          "denominator": 5,
+          "rate": 0.4,
+          "wilson95": [
+            0.11762077423264783,
+            0.769275718723987
+          ]
+        },
+        "false_positive_rate": {
+          "numerator": 3,
+          "denominator": 16,
+          "rate": 0.1875,
+          "wilson95": [
+            0.06591599071428142,
+            0.4300888096197414
+          ]
+        }
+      }
+    },
+    "claude_trace": {
+      "same_family": {
+        "tp": 0,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0,
+        "unknown": 0,
+        "recall": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        },
+        "precision": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        }
+      },
+      "cross_family": {
+        "tp": 22,
+        "fp": 0,
+        "tn": 38,
+        "fn": 0,
+        "unknown": 0,
+        "recall": {
+          "numerator": 22,
+          "denominator": 22,
+          "rate": 1.0,
+          "wilson95": [
+            0.8513451253913791,
+            1.0
+          ]
+        },
+        "precision": {
+          "numerator": 22,
+          "denominator": 22,
+          "rate": 1.0,
+          "wilson95": [
+            0.8513451253913791,
+            1.0
+          ]
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 38,
+          "rate": 0.0,
+          "wilson95": [
+            0.0,
+            0.09180986822558396
+          ]
+        }
+      }
+    },
+    "gpt_final": {
+      "same_family": {
+        "tp": 0,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0,
+        "unknown": 0,
+        "recall": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        },
+        "precision": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        }
+      },
+      "cross_family": {
+        "tp": 0,
+        "fp": 1,
+        "tn": 0,
+        "fn": 0,
+        "unknown": 59,
+        "recall": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        },
+        "precision": {
+          "numerator": 0,
+          "denominator": 1,
+          "rate": 0.0,
+          "wilson95": [
+            0.0,
+            0.7934506856227626
+          ]
+        },
+        "false_positive_rate": {
+          "numerator": 1,
+          "denominator": 1,
+          "rate": 1.0,
+          "wilson95": [
+            0.20654931437723745,
+            1.0
+          ]
+        }
+      }
+    },
+    "gpt_trace": {
+      "same_family": {
+        "tp": 0,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0,
+        "unknown": 0,
+        "recall": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        },
+        "precision": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        }
+      },
+      "cross_family": {
+        "tp": 22,
+        "fp": 0,
+        "tn": 38,
+        "fn": 0,
+        "unknown": 0,
+        "recall": {
+          "numerator": 22,
+          "denominator": 22,
+          "rate": 1.0,
+          "wilson95": [
+            0.8513451253913791,
+            1.0
+          ]
+        },
+        "precision": {
+          "numerator": 22,
+          "denominator": 22,
+          "rate": 1.0,
+          "wilson95": [
+            0.8513451253913791,
+            1.0
+          ]
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 38,
+          "rate": 0.0,
+          "wilson95": [
+            0.0,
+            0.09180986822558396
+          ]
+        }
+      }
+    }
+  },
+  "total_trajectories": 60,
+  "total_usd": 18.235298000000004
+}

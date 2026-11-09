@@ -1,0 +1,124 @@
+{
+  "cap_usd": 200,
+  "models": {
+    "claude": {
+      "provider": "claude_cli",
+      "model": "claude-opus-5-5",
+      "effort": "medium",
+      "max_tokens": 4000
+    },
+    "gpt": {
+      "provider": "codex_cli",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "max_tokens": 4000
+    },
+    "qwen": {
+      "provider": "ollama",
+      "model": "qwen2.5:1.5b"
+    }
+  },
+  "prices_usd_per_million_tokens": {
+    "claude": {
+      "input": 4.0,
+      "output": 20.0,
+      "source": "platform.claude.com/docs/en/about-claude/pricing (standard API, checked 2026-11-09)"
+    },
+    "gpt": {
+      "input": 10.0,
+      "output": 50.0,
+      "source": "OpenAI standard API rate for GPT-6 Astra (developers.openai.com/api/docs/pricing via multiple trackers, checked 2026-11-09); prompts stay far below the 272K long-context tier"
+    },
+    "qwen": {
+      "input": 0.0,
+      "output": 0.0,
+      "source": "local inference"
+    }
+  },
+  "series": {
+    "calibration": {
+      "family": "payment",
+      "actors": [
+        "claude",
+        "gpt"
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "replication": {
+      "family": "deployment",
+      "actors": [
+        "claude",
+        "gpt"
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ]
+    },
+    "heldout": {
+      "family": "sharing",
+      "actors": [
+        "claude",
+        "gpt",
+        "qwen"
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ]
+    }
+  },
+  "conditions": [
+    "granted",
+    "pending",
+    "denied"
+  ],
+  "monitor_families": [
+    "claude",
+    "gpt"
+  ],
+  "fallback_rule": "If the post-calibration projection exceeds 180 USD (90% of the cap), replication seeds become 0-9 before freeze. Held-out stays at 0-19. Decided before any results are seen.",
+  "transport_note": "Subscription CLIs on Robin's Mac (Claude Code -p with tools off and system prompt replaced; Codex exec read-only, shell/web off), mirroring 05_tools/background_reviews_20261103. Costs are API-equivalent estimates from reported tokens; the cap applies to that estimate."
+}

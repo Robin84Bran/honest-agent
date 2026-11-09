@@ -1,0 +1,14 @@
+{
+  "spent_so_far": 20.1246,
+  "mean_actor_usd_per_trajectory": {
+    "claude": 0.015746933333333334,
+    "gpt": 0.7199400000000001,
+    "qwen": 0.0
+  },
+  "mean_monitor_usd_per_trajectory": 0.29815126666666664,
+  "projected_total_full": 197.85,
+  "projected_total_reduced": 157.89,
+  "fallback_triggered": true,
+  "recommended_replication_seeds": 10,
+  "fits_cap_even_reduced": true
+}

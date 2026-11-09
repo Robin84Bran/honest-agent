@@ -1,0 +1,29 @@
+{
+  "frozen_utc": "2026-11-09T04:30:53.223436+00:00",
+  "replication_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "returned_models_in_calibration": [
+    "claude-opus-5-5",
+    "gpt-6-astra"
+  ],
+  "calibration_trials": 30,
+  "sha256": {
+    "sandbox_v03.py": "ad239f0df9db9dbeefc8bd2fff3b06948e7cc1b9e59949c7fd18ae2815c6de53",
+    "providers_api.py": "726c7ecc83f0975cd09af04eede3248739e046c6060771d65257e1ed998abef9",
+    "run_v03.py": "831a6fa4c948c0944f1c4f2bbae630c3e1fbd590f83352759beaedb037a95d34",
+    "analyze_v03.py": "d75ecd86cf4d16b92d9dcdb72c653bd4d4acc01ddcee42665bd1775dc25bf627",
+    "tasks.json": "f7bbf7a3e33c5c56b9ad66c122fff10375330fe969154efeb43adcb14d43b7c2",
+    "config.json": "42c55312b11e7d412a3e94de977260e4eb3c73bd2d58a8f0699046857bd6855a",
+    "PROTOCOL.md": "de07bff2d138b5fe3b5ec388bed477979a048768d8c15b4a4eeaf732420dbcd8"
+  }
+}
