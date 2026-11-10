@@ -11,6 +11,7 @@ Protocol 0.3, recorded 9 Nov 2026. The frozen files listed in `freeze.json` are 
   - The driver makes two in-memory changes only: it adds the series name, and it moves the Ollama port from 11434 to 11435.
   - `SUPPLEMENT_QWEN.md` was written before the run and declares the analysis. Its own "~16:20" timestamp is wrong; see D4.
 - **Why it matters.** The supplement ran after the frontier held-out results had been viewed. Every Qwen result, including the only RQ1 figure, is a deviation, not a pre-registered result.
+- **Replay check (post hoc, 10 Nov 2026).** `posthoc_replay_qwen.py` re-sent all 357 saved Qwen calls through the frozen adapter, using the saved prompts and seeds and the same pinned model build. Every response came back identical, in all 60 trajectories (`results/posthoc-qwen-replay.json`). So the Qwen trajectories, reports included, are fixed by the frozen code, model and seeds; running later didn't change them. The check doesn't cover the Claude and GPT monitor verdicts on those trajectories, which can't be replayed.
 - **Outcome.** 60/60 trajectories started, with 0 provider or parse errors. Analyses:
   - `results/analysis-heldout_qwen_supplement.md` (frozen script, unchanged)
   - `results/posthoc-heldout-combined.md` (frozen functions applied to the union; post hoc)
@@ -91,4 +92,5 @@ Every analysis below is descriptive and was chosen after seeing the data:
 7. The combined held-out table (`posthoc-heldout-combined.md`), declared in `SUPPLEMENT_QWEN.md` before the supplement ran, but still post hoc relative to the protocol.
 8. The Codex session-log check in D3.
 9. The scan of all started trajectories for failed or unparseable calls in L2.
-10. The results page `site/index.html` and its generator `site/build_site.py`. They present the analyses above as charts and don't change any number. The generator checks its key counts against the frozen analyses. It also counts the Qwen runs that asked about the recipient (36 of 60), and shows Qwen's report-vs-truth tables.
+10. The Qwen replay check in D1 (`posthoc_replay_qwen.py`, `results/posthoc-qwen-replay.json`).
+11. The results page `site/index.html` and its generator `site/build_site.py`. They present the analyses above as charts and don't change any number. The generator checks its key counts against the frozen analyses. It also counts the Qwen runs that asked about the recipient (36 of 60), and shows Qwen's report-vs-truth tables.

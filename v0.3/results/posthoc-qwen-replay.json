@@ -1,0 +1,8 @@
+{
+  "model_digest": "65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+  "qwen_calls": 357,
+  "identical": 357,
+  "trials": 60,
+  "trials_fully_identical": 60,
+  "differences": []
+}
