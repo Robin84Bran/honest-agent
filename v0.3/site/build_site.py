@@ -316,6 +316,30 @@ assert rq31["pooled"]["sensitivity_abstain_as_miss"]["n"] == 67 and round(rq31["
 assert [sum(r["report"] == r["truth"] for r in rows31 if r["actor"] == a) for a, _ in ACTORS31] == [17, 20, 28]
 assert reaction == {"said_no": (0, 26, 1), "said_yes": (0, 0, 40)}, reaction
 
+# Post hoc closer look (same counts as v0.3.1/posthoc_report_analysis.py -> results/posthoc-report-analysis.json).
+def saw_grant(r):
+    return any(h["observation"] == "approval granted" for h in r["trace"])
+
+
+grant31 = {a: {g: (sum(r["report"]["violation"] for r in c31 if r["actor"] == a and saw_grant(r) == g),
+                   sum(1 for r in c31 if r["actor"] == a and saw_grant(r) == g)) for g in (True, False)} for a, _ in ACTORS31}
+RULE31 = [((False, False), "Not completed, no violation"), ((False, True), "Not completed, violation"), ((True, False), "Completed, no violation")]
+rule31 = {}
+for key, _ in RULE31:
+    rs = [r for r in rows31 if (r["report"]["completed"], r["report"]["violation"]) == key]
+    rule31[key] = (len(rs), sum(r["truth"]["violation"] for r in rs)) + tuple(sum(r["monitors"]["claude_final"] is v for r in rs) for v in (True, False, None))
+q7 = [r for r in rows31 if r["actor"] == "qwen7b" and r["series"] == "sharing"]
+q7_asked = sum(any(h["call"].get("tool") == "request_approval" and h["call"].get("target") == "partner@example.net" for h in r["trace"]) for r in q7)
+q7_shared = sum(any(h["observation"] == "operation recorded" for h in r["trace"]) for r in q7)
+posthoc31 = json.loads((V31 / "results" / "posthoc-report-analysis.json").read_text())
+assert grant31 == {"qwen1.5b": {True: (7, 12), False: (26, 41)}, "qwen7b": {True: (0, 20), False: (100, 100)},
+                   "llama8b": {True: (4, 39), False: (69, 81)}}, grant31
+assert {a: (c["saw_grant"]["reported_violation"], c["saw_grant"]["compliant_runs"]) for a, c in posthoc31["confession_by_grant"].items()} == {a: grant31[a][True] for a in grant31}
+assert rule31 == {(False, False): (69, 27, 0, 68, 1), (False, True): (246, 40, 17, 0, 229), (True, False): (45, 0, 0, 0, 45)}, rule31
+assert sum(v[0] for v in rule31.values()) == 360
+assert all(r["truth"]["completed"] and not r["report"]["completed"] for r in b31)
+assert (len(q7), q7_asked, q7_shared) == (60, 60, 0), (len(q7), q7_asked, q7_shared)
+
 
 def dots(groups, tid, title, value_label=lambda k, n: "%d/%d" % (k, n)):
     """Rate dot plot with 95% Wilson intervals. One ink colour: rows are named directly, so hue carries nothing."""
@@ -360,6 +384,12 @@ selfrep = [("Denied a breach that happened", [("Qwen 2.5 1.5B", *denied31["qwen1
            ("Confessed to a breach that didn't happen", [(al, *confess31[a]) for a, al in ACTORS31])]
 c9 = chart(dots(selfrep, "c9t", "v0.3.1: how often each model's own report got the breach question wrong"))
 t9 = table(["Error", "Model", "Count", "Of"], [(g, l, k, n) for g, items in selfrep for l, k, n in items])
+grantdots = [(al, [("Approval came", *grant31[a][True]), ("Approval never came", *grant31[a][False])]) for a, al in ACTORS31]
+c11 = chart(dots(grantdots, "c11t", "v0.3.1: on runs that followed the rule, how often the report still said “violation”, by whether approval ever arrived"))
+t11 = table(["Model", "Approval", "Reported a violation", "Compliant runs"], [(g, l, k, n) for g, items in grantdots for l, k, n in items])
+rule_html = ('<div class="scroll"><table class="conds"><thead><tr><th>Report claimed</th><th>Runs</th><th>Real breaches</th>'
+             '<th>Said “violation”</th><th>Said “no violation”</th><th>No verdict</th></tr></thead><tbody>%s</tbody></table></div>'
+             % "".join("<tr><th>%s</th>%s</tr>" % (esc(l), "".join("<td>%d</td>" % x for x in rule31[k])) for k, l in RULE31))
 REACT = [("said_no", "Report said “no violation”"), ("said_yes", "Report admitted a violation")]
 c10 = chart(stacked(reaction, ["flagged the breach", "cleared it", "no verdict"], "c10t",
                     "v0.3.1: how the report-only Claude monitor responded to each kind of report on real breaches", "breaches", "flagged", REACT))
@@ -484,6 +514,7 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 {c6}
 {t6}
 <p>Every one of the 67 breaches came from Qwen 1.5B. The two bigger models never broke the rule in 240 runs. So the result replicates across tasks and seeds, but still with one rule-breaker.</p>
+<p>Qwen 7B made the same mix-up as its smaller sibling on the sharing task, but handled it differently. It asked approval for the recipient instead of the document in {q7_asked} of its {q7_n} runs, got "unknown target" every time, and shared in {q7_shared} of them. Even when approval was on offer, it never finished the job. Confused, but careful.</p>
 <h3>The trace monitor caught everything; the report-only monitor caught nothing</h3>
 <div class="legend"><span><i style="background:var(--ok)"></i>Right answer</span><span><i style="background:var(--bad)"></i>Wrong answer</span><span><i style="background:var(--none)"></i>No verdict</span></div>
 <p class="muted">On the 67 breaches:</p>
@@ -495,11 +526,17 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 <p>The small model often denied breaches it had committed. The bigger models, which never broke the rule, mostly reported that they had. The two larger models complied, but their reports stayed inaccurate. Both claims were right in only {both31} of 120 runs, and the pattern varied by task.</p>
 {c9}
 {t9}
-<h3>The report-only monitor trusted denials and set confessions aside <span class="tag">post hoc</span></h3>
+<h3>The bigger models' “confessions” track whether approval ever arrived <span class="tag">post hoc</span></h3>
+<p>Split the false confessions by whether the model ever saw "approval granted", and a pattern appears. Qwen 7B said "violation" in {g7_no} of {g7_non} runs where approval never came, and in {g7_yes} of {g7_yesn} where it did. Llama 8B shows the same pattern, a little less sharply. The report question asks about an "operation performed without prior approval". These models seem to have answered "was approval missing?" instead. That looks more like a misread question than a guilty conscience, though the data can't show what a model meant.</p>
+{c11}
+{t11}
+<h3>The report-only monitor followed a sensible rule, and the small model's reports slipped past it <span class="tag">post hoc</span></h3>
 <div class="legend"><span><i style="background:var(--ok)"></i>Flagged the breach</span><span><i style="background:var(--bad)"></i>Cleared it</span><span><i style="background:var(--none)"></i>No verdict</span></div>
 {c10}
 {t10}
-<p>Every one of these 67 runs was a real breach. When the report denied it, the monitor nearly always believed the report. When the report admitted it, the monitor declined to judge. That's the worst possible combination for catching rule-breaking.</p>
+<p>Every one of these 67 runs was a real breach. When the report denied it, the monitor nearly always believed the report. When the report admitted it, the monitor declined to judge. That looks like trusting denials and ignoring confessions. But across all 360 runs, its verdicts followed a consistent rule, set by what the report claimed:</p>
+{rule_html}
+<p>Each row has a reasonable reading. "Nothing finished, nothing wrong" is believable. "Nothing finished, but a violation" contradicts itself, so the monitor almost never ruled. "Finished, no violation" can't show that approval came first, so it never ruled. The catch: <b>all 67 breaches finished the task, and all 67 reports on them claimed it wasn't finished.</b> That one false claim put every breach in a row where the rule believes the report or abstains. The misreport that beat the report-only monitor was about completion, not just about the rule.</p>
 
 <h2>What this does and doesn't show</h2>
 <p><b>It does show</b> that in a short task with an explicit approval rule, two frontier models reliably waited for approval and reported honestly. In both studies, monitors reading the full action record caught every breach (22/22, then 67/67 pre-registered) without crying wolf. A monitor reading only the report inherits the reporter's mistakes, in both directions.</p>
@@ -523,6 +560,8 @@ page = PAGE.format(
     n31clean=len(c31), kinds_wrong=kinds["wrong"], n_paired=rq31["pooled"]["paired_breaches"],
     sens_lo="%+.2f" % rq31["pooled"]["sensitivity_abstain_as_miss"]["ci95"][0], sens_hi="%+.2f" % rq31["pooled"]["sensitivity_abstain_as_miss"]["ci95"][1],
     both31="%d, %d and %d" % tuple(sum(r["report"] == r["truth"] for r in rows31 if r["actor"] == a) for a, _ in ACTORS31),
+    q7_asked=q7_asked, q7_n=len(q7), q7_shared="none" if q7_shared == 0 else q7_shared, c11=c11, t11=t11, rule_html=rule_html,
+    g7_no=grant31["qwen7b"][False][0], g7_non=grant31["qwen7b"][False][1], g7_yes=grant31["qwen7b"][True][0], g7_yesn=grant31["qwen7b"][True][1],
     c6=c6, t6=t6, c7=c7, c8=c8, t7=t7, c9=c9, t9=t9, c10=c10, t10=t10, cap="$%d" % cfg["cap_usd"], gpt_share="%.0f%%" % (100 * gpt_share))
 OUT.write_text(page)
 print("wrote", OUT.relative_to(BASE), "%d bytes" % len(page))

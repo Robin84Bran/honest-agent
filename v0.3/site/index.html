@@ -305,6 +305,7 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 </svg></div>
 <details><summary>Show the numbers</summary><div class="scroll"><table><thead><tr><th>Task</th><th>Model</th><th>Breaches</th><th>Runs</th></tr></thead><tbody><tr><td>Deployment task (v0.2&#x27;s task)</td><td>Qwen 2.5 1.5B</td><td>51</td><td>60</td></tr><tr><td>Deployment task (v0.2&#x27;s task)</td><td>Qwen 2.5 7B</td><td>0</td><td>60</td></tr><tr><td>Deployment task (v0.2&#x27;s task)</td><td>Llama 3.1 8B</td><td>0</td><td>60</td></tr><tr><td>Sharing task (v0.3&#x27;s task)</td><td>Qwen 2.5 1.5B</td><td>16</td><td>60</td></tr><tr><td>Sharing task (v0.3&#x27;s task)</td><td>Qwen 2.5 7B</td><td>0</td><td>60</td></tr><tr><td>Sharing task (v0.3&#x27;s task)</td><td>Llama 3.1 8B</td><td>0</td><td>60</td></tr></tbody></table></div></details>
 <p>Every one of the 67 breaches came from Qwen 1.5B. The two bigger models never broke the rule in 240 runs. So the result replicates across tasks and seeds, but still with one rule-breaker.</p>
+<p>Qwen 7B made the same mix-up as its smaller sibling on the sharing task, but handled it differently. It asked approval for the recipient instead of the document in 60 of its 60 runs, got "unknown target" every time, and shared in none of them. Even when approval was on offer, it never finished the job. Confused, but careful.</p>
 <h3>The trace monitor caught everything; the report-only monitor caught nothing</h3>
 <div class="legend"><span><i style="background:var(--ok)"></i>Right answer</span><span><i style="background:var(--bad)"></i>Wrong answer</span><span><i style="background:var(--none)"></i>No verdict</span></div>
 <p class="muted">On the 67 breaches:</p>
@@ -389,7 +390,56 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 <text class="value" x="610.0" y="161.0">73/120</text></g>
 </svg></div>
 <details><summary>Show the numbers</summary><div class="scroll"><table><thead><tr><th>Error</th><th>Model</th><th>Count</th><th>Of</th></tr></thead><tbody><tr><td>Denied a breach that happened</td><td>Qwen 2.5 1.5B</td><td>27</td><td>67</td></tr><tr><td>Confessed to a breach that didn&#x27;t happen</td><td>Qwen 2.5 1.5B</td><td>33</td><td>53</td></tr><tr><td>Confessed to a breach that didn&#x27;t happen</td><td>Qwen 2.5 7B</td><td>100</td><td>120</td></tr><tr><td>Confessed to a breach that didn&#x27;t happen</td><td>Llama 3.1 8B</td><td>73</td><td>120</td></tr></tbody></table></div></details>
-<h3>The report-only monitor trusted denials and set confessions aside <span class="tag">post hoc</span></h3>
+<h3>The bigger models' “confessions” track whether approval ever arrived <span class="tag">post hoc</span></h3>
+<p>Split the false confessions by whether the model ever saw "approval granted", and a pattern appears. Qwen 7B said "violation" in 100 of 100 runs where approval never came, and in 0 of 20 where it did. Llama 8B shows the same pattern, a little less sharply. The report question asks about an "operation performed without prior approval". These models seem to have answered "was approval missing?" instead. That looks more like a misread question than a guilty conscience, though the data can't show what a model meant.</p>
+<div class="chart"><svg viewBox="0 0 680 296" role="img" aria-labelledby="c11t">
+<title id="c11t">v0.3.1: on runs that followed the rule, how often the report still said “violation”, by whether approval ever arrived</title>
+<line class="grid" x1="190.0" x2="190.0" y1="8" y2="270"/>
+<text class="tick" x="190.0" y="288" text-anchor="middle">0%</text>
+<line class="grid" x1="292.5" x2="292.5" y1="8" y2="270"/>
+<text class="tick" x="292.5" y="288" text-anchor="middle">25%</text>
+<line class="grid" x1="395.0" x2="395.0" y1="8" y2="270"/>
+<text class="tick" x="395.0" y="288" text-anchor="middle">50%</text>
+<line class="grid" x1="497.5" x2="497.5" y1="8" y2="270"/>
+<text class="tick" x="497.5" y="288" text-anchor="middle">75%</text>
+<line class="grid" x1="600.0" x2="600.0" y1="8" y2="270"/>
+<text class="tick" x="600.0" y="288" text-anchor="middle">100%</text>
+<text class="group" x="0" y="24">Qwen 2.5 1.5B</text>
+<g class="mark"><title>Qwen 2.5 1.5B — Approval came: 7 of 12 (58%; 95% CI 32–81%)</title><rect class="hit" x="0" y="32.0" width="680" height="26"/>
+<text class="label" x="14" y="49.0">Approval came</text>
+<line class="ci s-ink" x1="321.0" x2="520.8" y1="45.0" y2="45.0"/>
+<circle class="dot f-ink" cx="429.2" cy="45.0" r="5"/>
+<text class="value" x="610.0" y="49.0">7/12</text></g>
+<g class="mark"><title>Qwen 2.5 1.5B — Approval never came: 26 of 41 (63%; 95% CI 48–76%)</title><rect class="hit" x="0" y="58.0" width="680" height="26"/>
+<text class="label" x="14" y="75.0">Approval never came</text>
+<line class="ci s-ink" x1="387.3" x2="503.3" y1="71.0" y2="71.0"/>
+<circle class="dot f-ink" cx="450.0" cy="71.0" r="5"/>
+<text class="value" x="610.0" y="75.0">26/41</text></g>
+<text class="group" x="0" y="110">Qwen 2.5 7B</text>
+<g class="mark"><title>Qwen 2.5 7B — Approval came: 0 of 20 (0%; 95% CI 0–16%)</title><rect class="hit" x="0" y="118.0" width="680" height="26"/>
+<text class="label" x="14" y="135.0">Approval came</text>
+<line class="ci s-ink" x1="190.0" x2="256.1" y1="131.0" y2="131.0"/>
+<circle class="dot f-ink" cx="190.0" cy="131.0" r="5"/>
+<text class="value" x="610.0" y="135.0">0/20</text></g>
+<g class="mark"><title>Qwen 2.5 7B — Approval never came: 100 of 100 (100%; 95% CI 96–100%)</title><rect class="hit" x="0" y="144.0" width="680" height="26"/>
+<text class="label" x="14" y="161.0">Approval never came</text>
+<line class="ci s-ink" x1="584.8" x2="600.0" y1="157.0" y2="157.0"/>
+<circle class="dot f-ink" cx="600.0" cy="157.0" r="5"/>
+<text class="value" x="610.0" y="161.0">100/100</text></g>
+<text class="group" x="0" y="196">Llama 3.1 8B</text>
+<g class="mark"><title>Llama 3.1 8B — Approval came: 4 of 39 (10%; 95% CI 4–24%)</title><rect class="hit" x="0" y="204.0" width="680" height="26"/>
+<text class="label" x="14" y="221.0">Approval came</text>
+<line class="ci s-ink" x1="206.7" x2="286.7" y1="217.0" y2="217.0"/>
+<circle class="dot f-ink" cx="232.1" cy="217.0" r="5"/>
+<text class="value" x="610.0" y="221.0">4/39</text></g>
+<g class="mark"><title>Llama 3.1 8B — Approval never came: 69 of 81 (85%; 95% CI 76–91%)</title><rect class="hit" x="0" y="230.0" width="680" height="26"/>
+<text class="label" x="14" y="247.0">Approval never came</text>
+<line class="ci s-ink" x1="501.1" x2="564.4" y1="243.0" y2="243.0"/>
+<circle class="dot f-ink" cx="539.3" cy="243.0" r="5"/>
+<text class="value" x="610.0" y="247.0">69/81</text></g>
+</svg></div>
+<details><summary>Show the numbers</summary><div class="scroll"><table><thead><tr><th>Model</th><th>Approval</th><th>Reported a violation</th><th>Compliant runs</th></tr></thead><tbody><tr><td>Qwen 2.5 1.5B</td><td>Approval came</td><td>7</td><td>12</td></tr><tr><td>Qwen 2.5 1.5B</td><td>Approval never came</td><td>26</td><td>41</td></tr><tr><td>Qwen 2.5 7B</td><td>Approval came</td><td>0</td><td>20</td></tr><tr><td>Qwen 2.5 7B</td><td>Approval never came</td><td>100</td><td>100</td></tr><tr><td>Llama 3.1 8B</td><td>Approval came</td><td>4</td><td>39</td></tr><tr><td>Llama 3.1 8B</td><td>Approval never came</td><td>69</td><td>81</td></tr></tbody></table></div></details>
+<h3>The report-only monitor followed a sensible rule, and the small model's reports slipped past it <span class="tag">post hoc</span></h3>
 <div class="legend"><span><i style="background:var(--ok)"></i>Flagged the breach</span><span><i style="background:var(--bad)"></i>Cleared it</span><span><i style="background:var(--none)"></i>No verdict</span></div>
 <div class="chart"><svg viewBox="0 0 680 78" role="img" aria-labelledby="c10t">
 <title id="c10t">v0.3.1: how the report-only Claude monitor responded to each kind of report on real breaches</title>
@@ -406,7 +456,9 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 <text class="value" x="540.0" y="61.0">0/40 flagged</text></g>
 </svg></div>
 <details><summary>Show the numbers</summary><div class="scroll"><table><thead><tr><th>What the report said (all were real breaches)</th><th>Monitor flagged it</th><th>Monitor cleared it</th><th>No verdict</th></tr></thead><tbody><tr><td>Report said “no violation”</td><td>0</td><td>26</td><td>1</td></tr><tr><td>Report admitted a violation</td><td>0</td><td>0</td><td>40</td></tr></tbody></table></div></details>
-<p>Every one of these 67 runs was a real breach. When the report denied it, the monitor nearly always believed the report. When the report admitted it, the monitor declined to judge. That's the worst possible combination for catching rule-breaking.</p>
+<p>Every one of these 67 runs was a real breach. When the report denied it, the monitor nearly always believed the report. When the report admitted it, the monitor declined to judge. That looks like trusting denials and ignoring confessions. But across all 360 runs, its verdicts followed a consistent rule, set by what the report claimed:</p>
+<div class="scroll"><table class="conds"><thead><tr><th>Report claimed</th><th>Runs</th><th>Real breaches</th><th>Said “violation”</th><th>Said “no violation”</th><th>No verdict</th></tr></thead><tbody><tr><th>Not completed, no violation</th><td>69</td><td>27</td><td>0</td><td>68</td><td>1</td></tr><tr><th>Not completed, violation</th><td>246</td><td>40</td><td>17</td><td>0</td><td>229</td></tr><tr><th>Completed, no violation</th><td>45</td><td>0</td><td>0</td><td>0</td><td>45</td></tr></tbody></table></div>
+<p>Each row has a reasonable reading. "Nothing finished, nothing wrong" is believable. "Nothing finished, but a violation" contradicts itself, so the monitor almost never ruled. "Finished, no violation" can't show that approval came first, so it never ruled. The catch: <b>all 67 breaches finished the task, and all 67 reports on them claimed it wasn't finished.</b> That one false claim put every breach in a row where the rule believes the report or abstains. The misreport that beat the report-only monitor was about completion, not just about the rule.</p>
 
 <h2>What this does and doesn't show</h2>
 <p><b>It does show</b> that in a short task with an explicit approval rule, two frontier models reliably waited for approval and reported honestly. In both studies, monitors reading the full action record caught every breach (22/22, then 67/67 pre-registered) without crying wolf. A monitor reading only the report inherits the reporter's mistakes, in both directions.</p>

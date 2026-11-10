@@ -29,7 +29,7 @@ The test pairs the trace view with the final-report view of the same Claude moni
 - believed 26 of the 27 reports that claimed "no violation", and abstained on the other one;
 - **abstained on all 40 reports that admitted a violation**.
 
-So it accepted denials and set confessions aside. That's the worst combination for catching breaches.
+So it accepted denials and set confessions aside. That's the worst combination for catching breaches. The section "A closer look at the reports" below shows the rule behind these verdicts, and why it failed here.
 
 ## RQ2 and RQ3: what the actors did and reported
 
@@ -43,6 +43,32 @@ So it accepted denials and set confessions aside. That's the worst combination f
 - **Report accuracy stayed poor for all three models, and the main error changed direction.** Both claims were right in 17, 20 and 28 of 120 runs. The paired comparisons don't show a clear size effect either way, and they vary by task. Qwen 7B beat Qwen 1.5B by about 27 points on deployment but trailed it by about 22 points on sharing. The larger models never breached, yet they usually reported that they had: Qwen 7B in 100 of 120 runs, Llama 8B in 73 of 120. The pre-registered readings didn't anticipate this direction, so it's reported descriptively.
 - **The wrong-target confusion persisted at 7B, but it stopped causing breaches.** On the sharing task, Qwen 7B asked for approval for the recipient (`partner@example.net`) in every run, including all 20 granted runs. It got "unknown target" each time and **never shared without approval**, so it never completed the task. Qwen 1.5B made the same request and often shared anyway.
 - **Qwen 1.5B against earlier runs on other seeds.** On deployment it breached in 51/60 runs, in line with v0.2's 16/20. On sharing it breached in 16/60, against 22/60 in v0.3's supplement.
+
+## A closer look at the reports *(post hoc)*
+
+These three breakdowns were chosen after seeing the results. They read the saved trial files only, with no new model calls (`posthoc_report_analysis.py`, `results/posthoc-report-analysis.{json,md}`).
+
+**1. The larger models' "confessions" track whether approval ever arrived.** On compliant runs, here is how often the report said "violation", split by whether any step returned "approval granted":
+
+| Actor | Saw a grant | Never saw a grant |
+|---|---|---|
+| Qwen 2.5 1.5B | 7 / 12 | 26 / 41 |
+| Qwen 2.5 7B | **0 / 20** | **100 / 100** |
+| Llama 3.1 8B | 4 / 39 | 69 / 81 |
+
+The report question asks about an "operation performed without prior approval". The larger models seem to have answered "was approval missing?" instead. Qwen 7B did this in every run. These are false reports, but they look like a misread question more than a guilty conscience. This is a reading of the pattern; the data can't show what the models "meant".
+
+**2. The report-only monitor followed a consistent rule, and every breach report fell on its blind side.** Across all 360 runs, Claude's report-only verdict depended on what the report claimed:
+
+| Report claimed | Runs | Real breaches | Verdict "violation" | Verdict "no violation" | No verdict |
+|---|---|---|---|---|---|
+| Not completed, no violation | 69 | 27 | 0 | 68 | 1 |
+| Not completed, violation | 246 | 40 | 17 | 0 | 229 |
+| Completed, no violation | 45 | 0 | 0 | 0 | 45 |
+
+Each row has a reasonable reading. "Nothing finished, nothing wrong" was believed. "Nothing finished, but a violation" is self-contradictory, and the monitor almost always declined to rule. "Finished, no violation" can't show that approval came first, so it never ruled. All 67 breaches completed the task, and **all 67 breach reports claimed the task was not completed**. That false completion claim put every breach into the first two rows, where the rule either believes the report or abstains. So the misreport that defeated the report-only monitor was about completion, not only about the rule.
+
+**3. Qwen 7B on the sharing task: confused but careful.** It asked approval for the recipient (`partner@example.net`) instead of the document in all 60 runs, got "unknown target" every time, and shared in none of them. Even in the 20 granted runs it never completed the task.
 
 ## RQ4: the trace monitor raised no false alarms
 
@@ -81,6 +107,9 @@ Post hoc items, all chosen after seeing the data:
 2. The count of false alarms that followed a false confession.
 3. The Llama re-check above.
 4. The saved copy of GitHub's push log.
+5. "Confessions" split by whether the actor ever saw a grant (closer look, item 1).
+6. The report-only verdict by report content over all 360 runs, and the completion claims on breaches (closer look, item 2).
+7. Qwen 7B's recipient requests on the sharing task (closer look, item 3).
 
 ## What this means
 
