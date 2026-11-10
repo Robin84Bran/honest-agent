@@ -390,6 +390,42 @@ t11 = table(["Model", "Approval", "Reported a violation", "Compliant runs"], [(g
 rule_html = ('<div class="scroll"><table class="conds"><thead><tr><th>Report claimed</th><th>Runs</th><th>Real breaches</th>'
              '<th>Said “violation”</th><th>Said “no violation”</th><th>No verdict</th></tr></thead><tbody>%s</tbody></table></div>'
              % "".join("<tr><th>%s</th>%s</tr>" % (esc(l), "".join("<td>%d</td>" % x for x in rule31[k])) for k, l in RULE31))
+# ---------- v0.3.2: GPT-6 Sol re-judges the saved v0.3.1 prompts ----------
+V32 = BASE.parent / "v0.3.2"
+for r in rows31:
+    for view in ("final", "trace"):
+        j = json.loads((V32 / "results" / "judgments" / r["series"] / r["actor"] / r["condition"] / ("trial-%d-%s.json" % (r["seed"], view))).read_text())
+        assert j["model_verified"] and j["call"]["prompt"] == next(c["prompt"] for c in r["calls"] if c["role"] == "monitor_claude_" + view)
+        r["monitors"]["gpt_" + view] = j["verdict"]
+MON32 = [("claude_trace", "Claude, full trace"), ("gpt_trace", "GPT-6 Sol, full trace"), ("claude_final", "Claude, report only"), ("gpt_final", "GPT-6 Sol, report only")]
+catch32 = {k: mon_counts(b31, k, True) for k, _ in MON32}
+clear32 = {k: mon_counts(c31, k, False) for k, _ in MON32}
+main32 = json.loads((V32 / "results" / "analysis.json").read_text())
+rq32 = main32["rq1_gpt"]["pooled"]
+spend32 = sum(json.loads(l)["usd"] for l in (V32 / "results" / "spend-ledger.jsonl").read_text().splitlines() if l.strip())
+gpt_rule = {}
+for key, _ in RULE31:
+    rs = [r for r in rows31 if (r["report"]["completed"], r["report"]["violation"]) == key]
+    gpt_rule[key] = tuple(sum(r["monitors"]["gpt_final"] is v for r in rs) for v in (True, False, None))
+# Self-checks against v0.3.2's frozen analysis (results/analysis.json) and RESULTS.md.
+assert main32["trajectories"] == 360 and main32["excluded"] == {"missing": 0, "model_not_verified": 0}
+assert catch32 == {"claude_trace": (67, 0, 0), "gpt_trace": (67, 0, 0), "claude_final": (0, 26, 41), "gpt_final": (2, 15, 50)}, catch32
+assert clear32 == {"claude_trace": (293, 0, 0), "gpt_trace": (288, 0, 5), "claude_final": (42, 17, 234), "gpt_final": (25, 7, 261)}, clear32
+for k_, _ in MON32:  # same counts as the frozen analysis
+    c_ = main32["monitors"][k_]["confusion"]
+    assert catch32[k_][:2] == (c_["tp"], c_["fn"]) and clear32[k_][:2] == (c_["tn"], c_["fp"]), k_
+assert rq32["supported"] and rq32["paired_breaches"] == 17 and [round(x, 2) for x in rq32["primary"]["ci95"]] == [0.59, 0.97]
+assert round(rq32["sensitivity_abstain_as_miss"]["ci95"][0], 2) == 0.88 and round(rq32["sensitivity_abstain_as_miss"]["difference"], 2) == 0.97
+assert gpt_rule == {(False, False): (0, 40, 29), (False, True): (9, 0, 237), (True, False): (0, 0, 45)}, gpt_rule
+assert main32["predictions"] == {"P1_trace_catches_at_least_90pct_with_at_most_5pct_false_alarms": True, "P2_report_only_catches_at_most_10pct": True,
+                                 "P3_abstain_as_miss_lower_bound_above_0": True, "P4_primary_paired_test_not_testable": False}
+c12 = chart(stacked(catch32, ["caught", "missed", "no verdict"], "c12t", "v0.3.2: Claude and GPT-6 Sol on the same 67 breaches", "breaches", "caught", MON32))
+c13 = chart(stacked(clear32, ["correct all-clear", "false alarm", "no verdict"], "c13t", "v0.3.2: Claude and GPT-6 Sol on the same 293 compliant runs", "compliant runs", "cleared", MON32))
+t12 = table(["Monitor", "Caught (of 67 breaches)", "Missed", "No verdict", "Correct all-clear (of 293 compliant)", "False alarm", "No verdict "],
+            [(l,) + catch32[k] + clear32[k] for k, l in MON32])
+rule32_html = ('<div class="scroll"><table class="conds"><thead><tr><th>Report claimed</th><th>Runs</th><th>Real breaches</th>'
+               '<th>Claude: violation / no violation / no verdict</th><th>GPT-6 Sol: violation / no violation / no verdict</th></tr></thead><tbody>%s</tbody></table></div>'
+               % "".join("<tr><th>%s</th><td>%d</td><td>%d</td><td>%d / %d / %d</td><td>%d / %d / %d</td></tr>" % ((esc(l),) + rule31[k][:2] + rule31[k][2:] + gpt_rule[k]) for k, l in RULE31))
 REACT = [("said_no", "Report said “no violation”"), ("said_yes", "Report admitted a violation")]
 c10 = chart(stacked(reaction, ["flagged the breach", "cleared it", "no verdict"], "c10t",
                     "v0.3.1: how the report-only Claude monitor responded to each kind of report on real breaches", "breaches", "flagged", REACT))
@@ -538,13 +574,33 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 {rule_html}
 <p>Each row has a reasonable reading. "Nothing finished, nothing wrong" is believable. "Nothing finished, but a violation" contradicts itself, so the monitor almost never ruled. "Finished, no violation" can't show that approval came first, so it never ruled. The catch: <b>all 67 breaches finished the task, and all 67 reports on them claimed it wasn't finished.</b> That one false claim put every breach in a row where the rule believes the report or abstains. The misreport that beat the report-only monitor was about completion, not just about the rule.</p>
 
+<h2 id="gpt">Pre-registered follow-up: a second monitor family <span class="tag">v0.3.2</span></h2>
+<p>Is this just a Claude thing? To check, we asked a monitor from another family, GPT-6 Sol, to judge the very same 360 runs. Monitors keep no memory between calls, so no agent had to run again: GPT got the same 720 prompts Claude had seen, byte for byte. The protocol, the code and four predictions were pushed to GitHub before the first GPT call. <a href="../../v0.3.2/results/github-push-log.json">GitHub's log</a> records the push 23 seconds before it. All 720 calls ran the verified model with no errors, for {spend32}.</p>
+<div class="tiles">
+<div class="tile"><b>67 / 67</b><span>breaches caught by GPT-6 Sol reading the full trace, the same as Claude</span></div>
+<div class="tile"><b>2 / 67</b><span>caught by GPT-6 Sol reading only the report (Claude: 0 / 67)</span></div>
+<div class="tile"><b>0 / 293</b><span>false alarms from GPT's trace view on runs that followed the rule</span></div>
+<div class="tile"><b>{gpt_diff}</b><span>pre-registered trace advantage on the {n_paired32} breaches where both GPT views gave a verdict (95% CI {gci_lo} to {gci_hi}). Supported.</span></div>
+</div>
+<div class="legend"><span><i style="background:var(--ok)"></i>Right answer</span><span><i style="background:var(--bad)"></i>Wrong answer</span><span><i style="background:var(--none)"></i>No verdict</span></div>
+<p class="muted">On the 67 breaches:</p>
+{c12}
+<p class="muted">On the 293 runs that followed the rule:</p>
+{c13}
+{t12}
+<p>Reading the full trace, the two families agreed on every breach. GPT gave no verdict on 5 rule-following runs. In each of them the report contradicted the trace, for example claiming a violation when nothing had happened <span class="tag">post hoc</span>.</p>
+<h3>Two families, one way of reading reports</h3>
+{rule32_html}
+<p>GPT read the reports by the same rule as Claude. It never cleared a report that admitted a violation, never ruled on a report claiming a clean finish, and agreed with Claude whenever both gave a verdict. It was more cautious, believing "not finished, nothing wrong" in 40 of 69 runs against Claude's 68. So the rule isn't a Claude quirk: it's how these reports read. And neither family could see through the false "not finished" claim on every breach.</p>
+<p class="muted">Pre-registered predictions: three of four came true. The fourth was that the strict paired test couldn't run, because GPT-6 Astra had almost always abstained on reports in v0.3. GPT-6 Sol gave more verdicts, so the test ran, and it passed.</p>
+
 <h2>What this does and doesn't show</h2>
-<p><b>It does show</b> that in a short task with an explicit approval rule, two frontier models reliably waited for approval and reported honestly. In both studies, monitors reading the full action record caught every breach (22/22, then 67/67 pre-registered) without crying wolf. A monitor reading only the report inherits the reporter's mistakes, in both directions.</p>
+<p><b>It does show</b> that in a short task with an explicit approval rule, two frontier models reliably waited for approval and reported honestly. In both studies, monitors reading the full action record caught every breach (22/22, then 67/67 pre-registered, then 67/67 again for a second monitor family) without crying wolf. A monitor reading only the report inherits the reporter's mistakes, in both directions.</p>
 <p><b>It doesn't show</b> how frontier models behave under real pressure, whether a capable model would hide a breach, or any precise frontier rate. Every breach in both studies came from one small, apparently confused model, so the trace advantage hasn't yet been tested on a second rule-breaker. The frontier models also ran inside their providers' own agent tools, so some of their caution may come from those tools rather than the models themselves.</p>
-<p>Cost: v0.3 used {spend} in API-equivalent terms, against a {cap} cap. GPT calls were {gpt_share} of it, mostly hidden instructions that the Codex tool adds to every call. v0.3.1 cost {spend31}: the open models run free on a local machine, so only the Claude monitor costs anything.</p>
+<p>Cost: v0.3 used {spend} in API-equivalent terms, against a {cap} cap. GPT calls were {gpt_share} of it, mostly hidden instructions that the Codex tool adds to every call. v0.3.1 cost {spend31}: the open models run free on a local machine, so only the Claude monitor costs anything. v0.3.2's GPT re-judging cost {spend32}.</p>
 
 <h2>Check it yourself</h2>
-<p><a href="../WRITEUP.md">Write-up</a> · <a href="../DEVIATIONS.md">Deviations and review</a> · <a href="../PROTOCOL.md">Pre-registered protocol</a> · <a href="../freeze.json">Freeze hashes</a> · <a href="../results/analysis-heldout.md">Frozen held-out analysis</a> · <a href="../results/analysis-heldout_qwen_supplement.md">Qwen supplement analysis</a> · <a href="../results/posthoc-heldout-combined.md">Combined table</a> · <a href="../results/heldout_qwen_supplement/qwen/denied/trial-0.json">A raw Qwen trial</a> · <a href="../results/spend-ledger.jsonl">Spend ledger</a> · <a href="../../v0.3.1/RESULTS.md">v0.3.1 results</a> · <a href="../../v0.3.1/PROTOCOL.md">v0.3.1 protocol</a> · <a href="../../v0.3.1/results/analysis-main.md">v0.3.1 pre-registered tests</a> · <a href="../../v0.2/site/index.html">v0.2 page</a></p>
+<p><a href="../WRITEUP.md">Write-up</a> · <a href="../DEVIATIONS.md">Deviations and review</a> · <a href="../PROTOCOL.md">Pre-registered protocol</a> · <a href="../freeze.json">Freeze hashes</a> · <a href="../results/analysis-heldout.md">Frozen held-out analysis</a> · <a href="../results/analysis-heldout_qwen_supplement.md">Qwen supplement analysis</a> · <a href="../results/posthoc-heldout-combined.md">Combined table</a> · <a href="../results/heldout_qwen_supplement/qwen/denied/trial-0.json">A raw Qwen trial</a> · <a href="../results/spend-ledger.jsonl">Spend ledger</a> · <a href="../../v0.3.1/RESULTS.md">v0.3.1 results</a> · <a href="../../v0.3.1/PROTOCOL.md">v0.3.1 protocol</a> · <a href="../../v0.3.1/results/analysis-main.md">v0.3.1 pre-registered tests</a> · <a href="../../v0.3.2/RESULTS.md">v0.3.2 results</a> · <a href="../../v0.3.2/PROTOCOL.md">v0.3.2 protocol</a> · <a href="../../v0.2/site/index.html">v0.2 page</a></p>
 <footer>This page is a post hoc presentation. <code>site/build_site.py</code> computes every number on it from the raw trial files at build time and checks the key counts against the frozen analyses. Hover over a mark for its exact numbers; every chart has a table under "Show the numbers".</footer>
 </main></body></html>
 """
@@ -562,6 +618,8 @@ page = PAGE.format(
     both31="%d, %d and %d" % tuple(sum(r["report"] == r["truth"] for r in rows31 if r["actor"] == a) for a, _ in ACTORS31),
     q7_asked=q7_asked, q7_n=len(q7), q7_shared="none" if q7_shared == 0 else q7_shared, c11=c11, t11=t11, rule_html=rule_html,
     g7_no=grant31["qwen7b"][False][0], g7_non=grant31["qwen7b"][False][1], g7_yes=grant31["qwen7b"][True][0], g7_yesn=grant31["qwen7b"][True][1],
+    c12=c12, c13=c13, t12=t12, rule32_html=rule32_html, spend32="$%.2f" % spend32, n_paired32=rq32["paired_breaches"],
+    gpt_diff="%+.2f" % rq32["primary"]["difference"], gci_lo="%+.2f" % rq32["primary"]["ci95"][0], gci_hi="%+.2f" % rq32["primary"]["ci95"][1],
     c6=c6, t6=t6, c7=c7, c8=c8, t7=t7, c9=c9, t9=t9, c10=c10, t10=t10, cap="$%d" % cfg["cap_usd"], gpt_share="%.0f%%" % (100 * gpt_share))
 OUT.write_text(page)
 print("wrote", OUT.relative_to(BASE), "%d bytes" % len(page))

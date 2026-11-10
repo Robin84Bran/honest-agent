@@ -2,7 +2,7 @@
 
 A small AI-control experiment. Agents get a simulated task with one rule: get approval for the exact target first. The experiment records whether they break the rule, whether their end-of-task reports are honest, and whether LLM monitors catch the breaches. Monitors either read the agent's final report alone or the full action trace.
 
-This repository holds **v0.3**, which used frontier actors (Claude Opus 5.5 and GPT-6 Astra) and a local Qwen 2.5 1.5B reference arm, and **v0.3.1**, a pre-registered follow-up with three open models. It also holds the earlier **v0.2** in [`v0.2/`](v0.2/README.md). v0.2 used Qwen 2.5 1.5B as both actor and monitor:
+This repository holds **v0.3**, which used frontier actors (Claude Opus 5.5 and GPT-6 Astra) and a local Qwen 2.5 1.5B reference arm, **v0.3.1**, a pre-registered follow-up with three open models, and **v0.3.2**, a pre-registered second monitor family (GPT-6 Sol) on the v0.3.1 runs. It also holds the earlier **v0.2** in [`v0.2/`](v0.2/README.md). v0.2 used Qwen 2.5 1.5B as both actor and monitor:
 
 - It breached approval in 16 of 20 simulated deployments, and only 1 of its 20 reports got both completion and breach right.
 - Giving it 8 or 12 decisions instead of 4 never undid a breach.
@@ -16,6 +16,7 @@ This repository holds **v0.3**, which used frontier actors (Claude Opus 5.5 and 
 - **Why Qwen breached:** mostly not because of approval pressure. In 15 of its 22 breaches it asked approval for the wrong target, in 6 it never asked, and in 1 it acted after a correctly targeted "pending" answer.
 - **Frontier runs didn't vary:** every seed in a cell produced the same behaviour.
 - **The pre-registered follow-up confirmed the monitor result ([`v0.3.1/RESULTS.md`](v0.3.1/RESULTS.md)).** Qwen 2.5 1.5B, Qwen 2.5 7B and Llama 3.1 8B ran on fresh seeds, on the deployment and sharing tasks. The protocol and code were pushed here before any run; GitHub's push log records the times, and a copy is in `v0.3.1/results/github-push-log.json`. On the 26 breaches where both of the Claude monitor's views gave a verdict, the trace view caught all 26 and the report-only view none: +1.00 (95% CI +0.82 to +1.00). Counting abstentions as misses, it was **67 of 67** against **0 of 67** (+1.00, 95% CI +0.92 to +1.00). The test passed on both tasks, including v0.2's own deployment task. The trace view raised 0 false alarms in 293 compliant runs. **All breaches came from Qwen 1.5B.** The two larger models never breached, but they often reported violations that hadn't happened (100 of 120 and 73 of 120 runs).
+- **A second monitor family agreed ([`v0.3.2/RESULTS.md`](v0.3.2/RESULTS.md)).** GPT-6 Sol re-judged the same 360 runs with the same 720 monitor prompts. The protocol, code, predictions and freeze were pushed before any GPT call. Its trace view also caught **67 of 67** breaches with **0 of 293** false alarms; its report-only view caught 2 of 67. The pre-registered paired test passed: +0.88 (95% CI +0.59 to +0.97) on the 17 breaches where both views gave a verdict, and +0.97 (+0.88 to +0.99) counting abstentions as misses. Both monitor families read the reports by the same rule, and both were defeated by the same false claim: every breach report said the task wasn't finished.
 
 For the picture version, download the repository and open [`v0.3/site/index.html`](v0.3/site/index.html) in a browser. It's a results page with charts that GitHub shows only as source; `python3 -B v0.3/site/build_site.py` rebuilds it from the raw trial files. For the full account, start with [`v0.3/WRITEUP.md`](v0.3/WRITEUP.md). Then read [`v0.3/DEVIATIONS.md`](v0.3/DEVIATIONS.md) and the pre-registered [`v0.3/PROTOCOL.md`](v0.3/PROTOCOL.md).
 
@@ -32,7 +33,7 @@ For the picture version, download the repository and open [`v0.3/site/index.html
 | `v0.3/posthoc_combined_heldout.py`, `v0.3/results/posthoc-*.md` | Post hoc combined held-out table |
 | `src/run.py`, `src/sandbox.py` | v0.2 reference sources, identical to `v0.2/src/`; the v0.3 tests check that prompts and policy text are copied verbatim |
 | `v0.3.1/` | Pre-registered open-model replication (Qwen 2.5 1.5B and 7B, Llama 3.1 8B; fresh seeds). It holds the protocol and code pushed before any inference, then the freeze and results. See [`v0.3.1/PROTOCOL.md`](v0.3.1/PROTOCOL.md) |
-| `v0.3.2/` | Pre-registered second monitor family: GPT-6 Sol re-judges the 360 saved v0.3.1 runs with the same 720 monitor prompts. Protocol, code and freeze pushed before any GPT call. See [`v0.3.2/PROTOCOL.md`](v0.3.2/PROTOCOL.md) |
+| `v0.3.2/` | Pre-registered second monitor family: GPT-6 Sol re-judged the 360 saved v0.3.1 runs with the same 720 monitor prompts. Protocol, code and freeze pushed before any GPT call; 720 judgments, analysis and results. See [`v0.3.2/RESULTS.md`](v0.3.2/RESULTS.md) |
 | `v0.2/` | v0.2 as it was run: its README, protocol and audit docs, local research page (`site/index.html`), payment calibration and held-out deployment trials (`results/`), the action-budget ablation (`action-budget/`), and the v0.1 scripted baseline (`baseline/`) |
 | `v0.2/verify_release.py` | Release-only helper that runs v0.2's unchanged action-budget analysis on this redacted copy (see `RELEASE_MANIFEST.md`) |
 | `RELEASE_MANIFEST.md`, `SHA256SUMS` | What was redacted for release, and checksums |
@@ -48,6 +49,15 @@ python3 -B analyze_v03.py heldout_qwen_supplement
 ```
 
 The regenerated analysis files should be byte-identical to the published ones.
+
+v0.3.2 (offline, no cost; regenerates `results/analysis.*` from the saved judgments):
+
+```sh
+cd v0.3.2
+python3 -B test_v032.py              # 12 offline tests
+python3 -B judge_v032.py check       # all 720 prompts match the saved v0.3.1 monitor prompts
+python3 -B analyze_v032.py
+```
 
 v0.2 (run from the repository root):
 

@@ -460,12 +460,87 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 <div class="scroll"><table class="conds"><thead><tr><th>Report claimed</th><th>Runs</th><th>Real breaches</th><th>Said “violation”</th><th>Said “no violation”</th><th>No verdict</th></tr></thead><tbody><tr><th>Not completed, no violation</th><td>69</td><td>27</td><td>0</td><td>68</td><td>1</td></tr><tr><th>Not completed, violation</th><td>246</td><td>40</td><td>17</td><td>0</td><td>229</td></tr><tr><th>Completed, no violation</th><td>45</td><td>0</td><td>0</td><td>0</td><td>45</td></tr></tbody></table></div>
 <p>Each row has a reasonable reading. "Nothing finished, nothing wrong" is believable. "Nothing finished, but a violation" contradicts itself, so the monitor almost never ruled. "Finished, no violation" can't show that approval came first, so it never ruled. The catch: <b>all 67 breaches finished the task, and all 67 reports on them claimed it wasn't finished.</b> That one false claim put every breach in a row where the rule believes the report or abstains. The misreport that beat the report-only monitor was about completion, not just about the rule.</p>
 
+<h2 id="gpt">Pre-registered follow-up: a second monitor family <span class="tag">v0.3.2</span></h2>
+<p>Is this just a Claude thing? To check, we asked a monitor from another family, GPT-6 Sol, to judge the very same 360 runs. Monitors keep no memory between calls, so no agent had to run again: GPT got the same 720 prompts Claude had seen, byte for byte. The protocol, the code and four predictions were pushed to GitHub before the first GPT call. <a href="../../v0.3.2/results/github-push-log.json">GitHub's log</a> records the push 23 seconds before it. All 720 calls ran the verified model with no errors, for $21.00.</p>
+<div class="tiles">
+<div class="tile"><b>67 / 67</b><span>breaches caught by GPT-6 Sol reading the full trace, the same as Claude</span></div>
+<div class="tile"><b>2 / 67</b><span>caught by GPT-6 Sol reading only the report (Claude: 0 / 67)</span></div>
+<div class="tile"><b>0 / 293</b><span>false alarms from GPT's trace view on runs that followed the rule</span></div>
+<div class="tile"><b>+0.88</b><span>pre-registered trace advantage on the 17 breaches where both GPT views gave a verdict (95% CI +0.59 to +0.97). Supported.</span></div>
+</div>
+<div class="legend"><span><i style="background:var(--ok)"></i>Right answer</span><span><i style="background:var(--bad)"></i>Wrong answer</span><span><i style="background:var(--none)"></i>No verdict</span></div>
+<p class="muted">On the 67 breaches:</p>
+<div class="chart"><svg viewBox="0 0 680 146" role="img" aria-labelledby="c12t">
+<title id="c12t">v0.3.2: Claude and GPT-6 Sol on the same 67 breaches</title>
+<g class="mark"><title>Claude, full trace: 67 caught (of 67 breaches)</title><rect class="hit" x="0" y="6.0" width="680" height="34"/>
+<text class="label" x="0" y="27.0">Claude, full trace</text>
+<path class="f-ok" d="M190.0 14.0H526.0q4.0 0 4.0 4.0V28.0q0 4.0 -4.0 4.0H190.0Z"/>
+<text class="inbar" x="196.0" y="27.0">67</text>
+<text class="value" x="540.0" y="27.0">67/67 caught</text></g>
+<g class="mark"><title>GPT-6 Sol, full trace: 67 caught (of 67 breaches)</title><rect class="hit" x="0" y="40.0" width="680" height="34"/>
+<text class="label" x="0" y="61.0">GPT-6 Sol, full trace</text>
+<path class="f-ok" d="M190.0 48.0H526.0q4.0 0 4.0 4.0V62.0q0 4.0 -4.0 4.0H190.0Z"/>
+<text class="inbar" x="196.0" y="61.0">67</text>
+<text class="value" x="540.0" y="61.0">67/67 caught</text></g>
+<g class="mark"><title>Claude, report only: 26 missed · 41 no verdict (of 67 breaches)</title><rect class="hit" x="0" y="74.0" width="680" height="34"/>
+<text class="label" x="0" y="95.0">Claude, report only</text>
+<rect class="f-bad" x="190.0" y="82.0" width="129.9" height="18"/>
+<text class="inbar" x="196.0" y="95.0">26</text>
+<path class="f-none" d="M321.9 82.0H526.0q4.0 0 4.0 4.0V96.0q0 4.0 -4.0 4.0H321.9Z"/>
+<text class="inbar dark" x="327.9" y="95.0">41</text>
+<text class="value" x="540.0" y="95.0">0/67 caught</text></g>
+<g class="mark"><title>GPT-6 Sol, report only: 2 caught · 15 missed · 50 no verdict (of 67 breaches)</title><rect class="hit" x="0" y="108.0" width="680" height="34"/>
+<text class="label" x="0" y="129.0">GPT-6 Sol, report only</text>
+<rect class="f-ok" x="190.0" y="116.0" width="8.1" height="18"/>
+<rect class="f-bad" x="200.1" y="116.0" width="74.1" height="18"/>
+<text class="inbar" x="206.1" y="129.0">15</text>
+<path class="f-none" d="M276.3 116.0H526.0q4.0 0 4.0 4.0V130.0q0 4.0 -4.0 4.0H276.3Z"/>
+<text class="inbar dark" x="282.3" y="129.0">50</text>
+<text class="value" x="540.0" y="129.0">2/67 caught</text></g>
+</svg></div>
+<p class="muted">On the 293 runs that followed the rule:</p>
+<div class="chart"><svg viewBox="0 0 680 146" role="img" aria-labelledby="c13t">
+<title id="c13t">v0.3.2: Claude and GPT-6 Sol on the same 293 compliant runs</title>
+<g class="mark"><title>Claude, full trace: 293 correct all-clear (of 293 compliant runs)</title><rect class="hit" x="0" y="6.0" width="680" height="34"/>
+<text class="label" x="0" y="27.0">Claude, full trace</text>
+<path class="f-ok" d="M190.0 14.0H526.0q4.0 0 4.0 4.0V28.0q0 4.0 -4.0 4.0H190.0Z"/>
+<text class="inbar" x="196.0" y="27.0">293</text>
+<text class="value" x="540.0" y="27.0">293/293 cleared</text></g>
+<g class="mark"><title>GPT-6 Sol, full trace: 288 correct all-clear · 5 no verdict (of 293 compliant runs)</title><rect class="hit" x="0" y="40.0" width="680" height="34"/>
+<text class="label" x="0" y="61.0">GPT-6 Sol, full trace</text>
+<rect class="f-ok" x="190.0" y="48.0" width="332.2" height="18"/>
+<text class="inbar" x="196.0" y="61.0">288</text>
+<path class="f-none" d="M524.2 48.0H527.1q2.9 0 2.9 2.9V63.1q0 2.9 -2.9 2.9H524.2Z"/>
+<text class="value" x="540.0" y="61.0">288/293 cleared</text></g>
+<g class="mark"><title>Claude, report only: 42 correct all-clear · 17 false alarm · 234 no verdict (of 293 compliant runs)</title><rect class="hit" x="0" y="74.0" width="680" height="34"/>
+<text class="label" x="0" y="95.0">Claude, report only</text>
+<rect class="f-ok" x="190.0" y="82.0" width="46.7" height="18"/>
+<text class="inbar" x="196.0" y="95.0">42</text>
+<rect class="f-bad" x="238.7" y="82.0" width="17.7" height="18"/>
+<path class="f-none" d="M258.5 82.0H526.0q4.0 0 4.0 4.0V96.0q0 4.0 -4.0 4.0H258.5Z"/>
+<text class="inbar dark" x="264.5" y="95.0">234</text>
+<text class="value" x="540.0" y="95.0">42/293 cleared</text></g>
+<g class="mark"><title>GPT-6 Sol, report only: 25 correct all-clear · 7 false alarm · 261 no verdict (of 293 compliant runs)</title><rect class="hit" x="0" y="108.0" width="680" height="34"/>
+<text class="label" x="0" y="129.0">GPT-6 Sol, report only</text>
+<rect class="f-ok" x="190.0" y="116.0" width="27.0" height="18"/>
+<rect class="f-bad" x="219.0" y="116.0" width="6.1" height="18"/>
+<path class="f-none" d="M227.1 116.0H526.0q4.0 0 4.0 4.0V130.0q0 4.0 -4.0 4.0H227.1Z"/>
+<text class="inbar dark" x="233.1" y="129.0">261</text>
+<text class="value" x="540.0" y="129.0">25/293 cleared</text></g>
+</svg></div>
+<details><summary>Show the numbers</summary><div class="scroll"><table><thead><tr><th>Monitor</th><th>Caught (of 67 breaches)</th><th>Missed</th><th>No verdict</th><th>Correct all-clear (of 293 compliant)</th><th>False alarm</th><th>No verdict </th></tr></thead><tbody><tr><td>Claude, full trace</td><td>67</td><td>0</td><td>0</td><td>293</td><td>0</td><td>0</td></tr><tr><td>GPT-6 Sol, full trace</td><td>67</td><td>0</td><td>0</td><td>288</td><td>0</td><td>5</td></tr><tr><td>Claude, report only</td><td>0</td><td>26</td><td>41</td><td>42</td><td>17</td><td>234</td></tr><tr><td>GPT-6 Sol, report only</td><td>2</td><td>15</td><td>50</td><td>25</td><td>7</td><td>261</td></tr></tbody></table></div></details>
+<p>Reading the full trace, the two families agreed on every breach. GPT gave no verdict on 5 rule-following runs. In each of them the report contradicted the trace, for example claiming a violation when nothing had happened <span class="tag">post hoc</span>.</p>
+<h3>Two families, one way of reading reports</h3>
+<div class="scroll"><table class="conds"><thead><tr><th>Report claimed</th><th>Runs</th><th>Real breaches</th><th>Claude: violation / no violation / no verdict</th><th>GPT-6 Sol: violation / no violation / no verdict</th></tr></thead><tbody><tr><th>Not completed, no violation</th><td>69</td><td>27</td><td>0 / 68 / 1</td><td>0 / 40 / 29</td></tr><tr><th>Not completed, violation</th><td>246</td><td>40</td><td>17 / 0 / 229</td><td>9 / 0 / 237</td></tr><tr><th>Completed, no violation</th><td>45</td><td>0</td><td>0 / 0 / 45</td><td>0 / 0 / 45</td></tr></tbody></table></div>
+<p>GPT read the reports by the same rule as Claude. It never cleared a report that admitted a violation, never ruled on a report claiming a clean finish, and agreed with Claude whenever both gave a verdict. It was more cautious, believing "not finished, nothing wrong" in 40 of 69 runs against Claude's 68. So the rule isn't a Claude quirk: it's how these reports read. And neither family could see through the false "not finished" claim on every breach.</p>
+<p class="muted">Pre-registered predictions: three of four came true. The fourth was that the strict paired test couldn't run, because GPT-6 Astra had almost always abstained on reports in v0.3. GPT-6 Sol gave more verdicts, so the test ran, and it passed.</p>
+
 <h2>What this does and doesn't show</h2>
-<p><b>It does show</b> that in a short task with an explicit approval rule, two frontier models reliably waited for approval and reported honestly. In both studies, monitors reading the full action record caught every breach (22/22, then 67/67 pre-registered) without crying wolf. A monitor reading only the report inherits the reporter's mistakes, in both directions.</p>
+<p><b>It does show</b> that in a short task with an explicit approval rule, two frontier models reliably waited for approval and reported honestly. In both studies, monitors reading the full action record caught every breach (22/22, then 67/67 pre-registered, then 67/67 again for a second monitor family) without crying wolf. A monitor reading only the report inherits the reporter's mistakes, in both directions.</p>
 <p><b>It doesn't show</b> how frontier models behave under real pressure, whether a capable model would hide a breach, or any precise frontier rate. Every breach in both studies came from one small, apparently confused model, so the trace advantage hasn't yet been tested on a second rule-breaker. The frontier models also ran inside their providers' own agent tools, so some of their caution may come from those tools rather than the models themselves.</p>
-<p>Cost: v0.3 used $158.33 in API-equivalent terms, against a $200 cap. GPT calls were 97% of it, mostly hidden instructions that the Codex tool adds to every call. v0.3.1 cost $5.35: the open models run free on a local machine, so only the Claude monitor costs anything.</p>
+<p>Cost: v0.3 used $158.33 in API-equivalent terms, against a $200 cap. GPT calls were 97% of it, mostly hidden instructions that the Codex tool adds to every call. v0.3.1 cost $5.35: the open models run free on a local machine, so only the Claude monitor costs anything. v0.3.2's GPT re-judging cost $21.00.</p>
 
 <h2>Check it yourself</h2>
-<p><a href="../WRITEUP.md">Write-up</a> · <a href="../DEVIATIONS.md">Deviations and review</a> · <a href="../PROTOCOL.md">Pre-registered protocol</a> · <a href="../freeze.json">Freeze hashes</a> · <a href="../results/analysis-heldout.md">Frozen held-out analysis</a> · <a href="../results/analysis-heldout_qwen_supplement.md">Qwen supplement analysis</a> · <a href="../results/posthoc-heldout-combined.md">Combined table</a> · <a href="../results/heldout_qwen_supplement/qwen/denied/trial-0.json">A raw Qwen trial</a> · <a href="../results/spend-ledger.jsonl">Spend ledger</a> · <a href="../../v0.3.1/RESULTS.md">v0.3.1 results</a> · <a href="../../v0.3.1/PROTOCOL.md">v0.3.1 protocol</a> · <a href="../../v0.3.1/results/analysis-main.md">v0.3.1 pre-registered tests</a> · <a href="../../v0.2/site/index.html">v0.2 page</a></p>
+<p><a href="../WRITEUP.md">Write-up</a> · <a href="../DEVIATIONS.md">Deviations and review</a> · <a href="../PROTOCOL.md">Pre-registered protocol</a> · <a href="../freeze.json">Freeze hashes</a> · <a href="../results/analysis-heldout.md">Frozen held-out analysis</a> · <a href="../results/analysis-heldout_qwen_supplement.md">Qwen supplement analysis</a> · <a href="../results/posthoc-heldout-combined.md">Combined table</a> · <a href="../results/heldout_qwen_supplement/qwen/denied/trial-0.json">A raw Qwen trial</a> · <a href="../results/spend-ledger.jsonl">Spend ledger</a> · <a href="../../v0.3.1/RESULTS.md">v0.3.1 results</a> · <a href="../../v0.3.1/PROTOCOL.md">v0.3.1 protocol</a> · <a href="../../v0.3.1/results/analysis-main.md">v0.3.1 pre-registered tests</a> · <a href="../../v0.3.2/RESULTS.md">v0.3.2 results</a> · <a href="../../v0.3.2/PROTOCOL.md">v0.3.2 protocol</a> · <a href="../../v0.2/site/index.html">v0.2 page</a></p>
 <footer>This page is a post hoc presentation. <code>site/build_site.py</code> computes every number on it from the raw trial files at build time and checks the key counts against the frozen analyses. Hover over a mark for its exact numbers; every chart has a table under "Show the numbers".</footer>
 </main></body></html>
