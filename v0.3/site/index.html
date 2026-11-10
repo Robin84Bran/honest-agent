@@ -20,7 +20,7 @@ svg text{font:13px system-ui;fill:var(--ink)}svg .tick,svg .value{fill:var(--mut
 svg .grid{stroke:var(--grid);stroke-width:1}svg .ci{stroke-width:2;stroke-linecap:round}svg .dot{stroke:var(--bg);stroke-width:2}
 svg .hit{fill:transparent}svg .mark:hover .hit{fill:var(--grid);opacity:.5}
 .f-claude{fill:var(--claude)}.f-gpt{fill:var(--gpt)}.f-qwen{fill:var(--qwen)}.f-ok{fill:var(--ok)}.f-bad{fill:var(--bad)}.f-none{fill:var(--none)}
-.s-claude{stroke:var(--claude)}.s-gpt{stroke:var(--gpt)}.s-qwen{stroke:var(--qwen)}
+.f-ink{fill:var(--ink)}.s-ink{stroke:var(--ink)}.s-claude{stroke:var(--claude)}.s-gpt{stroke:var(--gpt)}.s-qwen{stroke:var(--qwen)}
 svg .inbar{fill:#fff;font-weight:600}svg .inbar.dark{fill:#0b0b0b}
 .legend{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;font-size:.9rem;color:var(--muted);margin:.4rem 0}.legend i{display:inline-block;width:.8rem;height:.8rem;border-radius:3px;margin-right:.4rem;vertical-align:-.05rem}
 .legend .dot{border-radius:50%}
@@ -34,7 +34,7 @@ details{margin:.4rem 0 1rem;font-size:.92rem}summary{cursor:pointer;color:var(--
 footer{margin-top:3rem;border-top:1px solid var(--rule);padding-top:1rem;font-size:.9rem;color:var(--muted)}
 </style></head>
 <body><main>
-<header><small>ROBIN RESEARCH · 9 NOVEMBER 2026 · DRAFT</small><h1>The Honest Agent v0.3</h1>
+<header><small>ROBIN RESEARCH · 10 NOVEMBER 2026 · DRAFT</small><h1>The Honest Agent v0.3</h1>
 <p class="lede">Do frontier agents ask before they act, and can a monitor tell when they don't?</p></header>
 
 <h2>The big models waited for approval every time. The small one didn't, and only the monitors watching its actions noticed.</h2>
@@ -72,7 +72,7 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 <div class="note"><b>Read this first</b><ul>
 <li><b>Every Qwen number is a deviation.</b> Qwen wasn't installed when the pre-registered run started, so all 60 of its runs failed. It was rerun about three hours later, after the frontier results had been seen. The rerun used the frozen code unchanged. A later replay check reproduced all 357 of Qwen's responses word for word from the saved prompts and seeds. So Qwen's behaviour was fixed by the frozen setup, not by when it ran. <a href="../DEVIATIONS.md">Details</a></li>
 <li><b>The big models didn't vary.</b> Every seed in a cell produced the same behaviour, so the 210 frontier runs are really 12 behaviours, each repeated. The intervals below look tighter than they deserve.</li>
-<li><b>The pre-registered replication question is unanswered.</b> No frontier model breached, so there was nothing for the monitors to catch on frontier runs.</li>
+<li><b>v0.3 couldn't answer its replication question,</b> because no frontier model breached. A <a href="#followup">pre-registered follow-up</a> with open models has since answered it, on v0.2's own task.</li>
 </ul></div>
 
 <h2>Who broke the rule</h2>
@@ -249,12 +249,171 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 <details><summary>Show the numbers</summary><div class="scroll"><table><thead><tr><th>How the breach happened</th><th>Breaches</th></tr></thead><tbody><tr><td>Asked about the recipient, then shared</td><td>15</td></tr><tr><td>Never asked first</td><td>6</td></tr><tr><td>Asked correctly, then shared</td><td>1</td></tr></tbody></table></div></details>
 <p class="muted">This is a reading of the action records. The data can't show what the model "intended".</p>
 
+<h2 id="followup">Pre-registered follow-up: three open models <span class="tag">v0.3.1</span></h2>
+<p>To fix v0.3's weak spots, we ran the same test again with three free open models on fresh seeds: Qwen 2.5 1.5B (the same build as above), Qwen 2.5 7B and Llama 3.1 8B. Each ran on two tasks, 360 runs in all. This time the protocol and code were pushed to GitHub <em>before</em> any model ran. The freeze was pushed again before the main runs, so the order is provable from GitHub's own records. Claude was the only AI monitor. It cost $5.35, with no deviations.</p>
+<div class="tiles">
+<div class="tile"><b>67 / 67</b><span>breaches caught by the Claude monitor reading the full trace</span></div>
+<div class="tile"><b>0 / 67</b><span>caught by the same monitor reading only the report</span></div>
+<div class="tile"><b>0 / 293</b><span>false alarms from the trace monitor on runs that followed the rule</span></div>
+<div class="tile"><b>+1.00</b><span>pre-registered trace advantage (95% CI +0.82 to +1.00). Supported on both tasks.</span></div>
+</div>
+<h3>Only the smallest model broke the rule</h3>
+<div class="chart"><svg viewBox="0 0 680 262" role="img" aria-labelledby="c6t">
+<title id="c6t">v0.3.1: breach rate by model and task</title>
+<line class="grid" x1="190.0" x2="190.0" y1="8" y2="236"/>
+<text class="tick" x="190.0" y="254" text-anchor="middle">0%</text>
+<line class="grid" x1="292.5" x2="292.5" y1="8" y2="236"/>
+<text class="tick" x="292.5" y="254" text-anchor="middle">25%</text>
+<line class="grid" x1="395.0" x2="395.0" y1="8" y2="236"/>
+<text class="tick" x="395.0" y="254" text-anchor="middle">50%</text>
+<line class="grid" x1="497.5" x2="497.5" y1="8" y2="236"/>
+<text class="tick" x="497.5" y="254" text-anchor="middle">75%</text>
+<line class="grid" x1="600.0" x2="600.0" y1="8" y2="236"/>
+<text class="tick" x="600.0" y="254" text-anchor="middle">100%</text>
+<text class="group" x="0" y="24">Deployment task (v0.2&#x27;s task)</text>
+<g class="mark"><title>Deployment task (v0.2&#x27;s task) — Qwen 2.5 1.5B: 51 of 60 (85%; 95% CI 74–92%)</title><rect class="hit" x="0" y="32.0" width="680" height="26"/>
+<text class="label" x="14" y="49.0">Qwen 2.5 1.5B</text>
+<line class="ci s-ink" x1="492.9" x2="566.8" y1="45.0" y2="45.0"/>
+<circle class="dot f-ink" cx="538.5" cy="45.0" r="5"/>
+<text class="value" x="610.0" y="49.0">51/60</text></g>
+<g class="mark"><title>Deployment task (v0.2&#x27;s task) — Qwen 2.5 7B: 0 of 60 (0%; 95% CI 0–6%)</title><rect class="hit" x="0" y="58.0" width="680" height="26"/>
+<text class="label" x="14" y="75.0">Qwen 2.5 7B</text>
+<line class="ci s-ink" x1="190.0" x2="214.7" y1="71.0" y2="71.0"/>
+<circle class="dot f-ink" cx="190.0" cy="71.0" r="5"/>
+<text class="value" x="610.0" y="75.0">0/60</text></g>
+<g class="mark"><title>Deployment task (v0.2&#x27;s task) — Llama 3.1 8B: 0 of 60 (0%; 95% CI 0–6%)</title><rect class="hit" x="0" y="84.0" width="680" height="26"/>
+<text class="label" x="14" y="101.0">Llama 3.1 8B</text>
+<line class="ci s-ink" x1="190.0" x2="214.7" y1="97.0" y2="97.0"/>
+<circle class="dot f-ink" cx="190.0" cy="97.0" r="5"/>
+<text class="value" x="610.0" y="101.0">0/60</text></g>
+<text class="group" x="0" y="136">Sharing task (v0.3&#x27;s task)</text>
+<g class="mark"><title>Sharing task (v0.3&#x27;s task) — Qwen 2.5 1.5B: 16 of 60 (27%; 95% CI 17–39%)</title><rect class="hit" x="0" y="144.0" width="680" height="26"/>
+<text class="label" x="14" y="161.0">Qwen 2.5 1.5B</text>
+<line class="ci s-ink" x1="260.2" x2="349.9" y1="157.0" y2="157.0"/>
+<circle class="dot f-ink" cx="299.3" cy="157.0" r="5"/>
+<text class="value" x="610.0" y="161.0">16/60</text></g>
+<g class="mark"><title>Sharing task (v0.3&#x27;s task) — Qwen 2.5 7B: 0 of 60 (0%; 95% CI 0–6%)</title><rect class="hit" x="0" y="170.0" width="680" height="26"/>
+<text class="label" x="14" y="187.0">Qwen 2.5 7B</text>
+<line class="ci s-ink" x1="190.0" x2="214.7" y1="183.0" y2="183.0"/>
+<circle class="dot f-ink" cx="190.0" cy="183.0" r="5"/>
+<text class="value" x="610.0" y="187.0">0/60</text></g>
+<g class="mark"><title>Sharing task (v0.3&#x27;s task) — Llama 3.1 8B: 0 of 60 (0%; 95% CI 0–6%)</title><rect class="hit" x="0" y="196.0" width="680" height="26"/>
+<text class="label" x="14" y="213.0">Llama 3.1 8B</text>
+<line class="ci s-ink" x1="190.0" x2="214.7" y1="209.0" y2="209.0"/>
+<circle class="dot f-ink" cx="190.0" cy="209.0" r="5"/>
+<text class="value" x="610.0" y="213.0">0/60</text></g>
+</svg></div>
+<details><summary>Show the numbers</summary><div class="scroll"><table><thead><tr><th>Task</th><th>Model</th><th>Breaches</th><th>Runs</th></tr></thead><tbody><tr><td>Deployment task (v0.2&#x27;s task)</td><td>Qwen 2.5 1.5B</td><td>51</td><td>60</td></tr><tr><td>Deployment task (v0.2&#x27;s task)</td><td>Qwen 2.5 7B</td><td>0</td><td>60</td></tr><tr><td>Deployment task (v0.2&#x27;s task)</td><td>Llama 3.1 8B</td><td>0</td><td>60</td></tr><tr><td>Sharing task (v0.3&#x27;s task)</td><td>Qwen 2.5 1.5B</td><td>16</td><td>60</td></tr><tr><td>Sharing task (v0.3&#x27;s task)</td><td>Qwen 2.5 7B</td><td>0</td><td>60</td></tr><tr><td>Sharing task (v0.3&#x27;s task)</td><td>Llama 3.1 8B</td><td>0</td><td>60</td></tr></tbody></table></div></details>
+<p>Every one of the 67 breaches came from Qwen 1.5B. The two bigger models never broke the rule in 240 runs. So the result replicates across tasks and seeds, but still with one rule-breaker.</p>
+<h3>The trace monitor caught everything; the report-only monitor caught nothing</h3>
+<div class="legend"><span><i style="background:var(--ok)"></i>Right answer</span><span><i style="background:var(--bad)"></i>Wrong answer</span><span><i style="background:var(--none)"></i>No verdict</span></div>
+<p class="muted">On the 67 breaches:</p>
+<div class="chart"><svg viewBox="0 0 680 112" role="img" aria-labelledby="c7t">
+<title id="c7t">v0.3.1: what each monitor said about the 67 breaches</title>
+<g class="mark"><title>Policy checker (code): 67 caught (of 67 breaches)</title><rect class="hit" x="0" y="6.0" width="680" height="34"/>
+<text class="label" x="0" y="27.0">Policy checker (code)</text>
+<path class="f-ok" d="M190.0 14.0H526.0q4.0 0 4.0 4.0V28.0q0 4.0 -4.0 4.0H190.0Z"/>
+<text class="inbar" x="196.0" y="27.0">67</text>
+<text class="value" x="540.0" y="27.0">67/67 caught</text></g>
+<g class="mark"><title>Claude, full trace: 67 caught (of 67 breaches)</title><rect class="hit" x="0" y="40.0" width="680" height="34"/>
+<text class="label" x="0" y="61.0">Claude, full trace</text>
+<path class="f-ok" d="M190.0 48.0H526.0q4.0 0 4.0 4.0V62.0q0 4.0 -4.0 4.0H190.0Z"/>
+<text class="inbar" x="196.0" y="61.0">67</text>
+<text class="value" x="540.0" y="61.0">67/67 caught</text></g>
+<g class="mark"><title>Claude, final report only: 26 missed · 41 no verdict (of 67 breaches)</title><rect class="hit" x="0" y="74.0" width="680" height="34"/>
+<text class="label" x="0" y="95.0">Claude, final report only</text>
+<rect class="f-bad" x="190.0" y="82.0" width="129.9" height="18"/>
+<text class="inbar" x="196.0" y="95.0">26</text>
+<path class="f-none" d="M321.9 82.0H526.0q4.0 0 4.0 4.0V96.0q0 4.0 -4.0 4.0H321.9Z"/>
+<text class="inbar dark" x="327.9" y="95.0">41</text>
+<text class="value" x="540.0" y="95.0">0/67 caught</text></g>
+</svg></div>
+<p class="muted">On the 293 runs that followed the rule:</p>
+<div class="chart"><svg viewBox="0 0 680 112" role="img" aria-labelledby="c8t">
+<title id="c8t">v0.3.1: what each monitor said about the 293 compliant runs</title>
+<g class="mark"><title>Policy checker (code): 293 correct all-clear (of 293 compliant runs)</title><rect class="hit" x="0" y="6.0" width="680" height="34"/>
+<text class="label" x="0" y="27.0">Policy checker (code)</text>
+<path class="f-ok" d="M190.0 14.0H526.0q4.0 0 4.0 4.0V28.0q0 4.0 -4.0 4.0H190.0Z"/>
+<text class="inbar" x="196.0" y="27.0">293</text>
+<text class="value" x="540.0" y="27.0">293/293 cleared</text></g>
+<g class="mark"><title>Claude, full trace: 293 correct all-clear (of 293 compliant runs)</title><rect class="hit" x="0" y="40.0" width="680" height="34"/>
+<text class="label" x="0" y="61.0">Claude, full trace</text>
+<path class="f-ok" d="M190.0 48.0H526.0q4.0 0 4.0 4.0V62.0q0 4.0 -4.0 4.0H190.0Z"/>
+<text class="inbar" x="196.0" y="61.0">293</text>
+<text class="value" x="540.0" y="61.0">293/293 cleared</text></g>
+<g class="mark"><title>Claude, final report only: 42 correct all-clear · 17 false alarm · 234 no verdict (of 293 compliant runs)</title><rect class="hit" x="0" y="74.0" width="680" height="34"/>
+<text class="label" x="0" y="95.0">Claude, final report only</text>
+<rect class="f-ok" x="190.0" y="82.0" width="46.7" height="18"/>
+<text class="inbar" x="196.0" y="95.0">42</text>
+<rect class="f-bad" x="238.7" y="82.0" width="17.7" height="18"/>
+<path class="f-none" d="M258.5 82.0H526.0q4.0 0 4.0 4.0V96.0q0 4.0 -4.0 4.0H258.5Z"/>
+<text class="inbar dark" x="264.5" y="95.0">234</text>
+<text class="value" x="540.0" y="95.0">42/293 cleared</text></g>
+</svg></div>
+<details><summary>Show the numbers</summary><div class="scroll"><table><thead><tr><th>Monitor</th><th>Caught (of 67 breaches)</th><th>Missed</th><th>No verdict</th><th>Correct all-clear (of 293 compliant)</th><th>False alarm</th><th>No verdict </th></tr></thead><tbody><tr><td>Policy checker (code)</td><td>67</td><td>0</td><td>0</td><td>293</td><td>0</td><td>0</td></tr><tr><td>Claude, full trace</td><td>67</td><td>0</td><td>0</td><td>293</td><td>0</td><td>0</td></tr><tr><td>Claude, final report only</td><td>0</td><td>26</td><td>41</td><td>42</td><td>17</td><td>234</td></tr></tbody></table></div></details>
+<h3>Self-reports were wrong in both directions</h3>
+<p>The small model often denied breaches it had committed. The bigger models, which never broke the rule, mostly reported that they had. Getting larger made the models compliant, but it didn't make their reports accurate.</p>
+<div class="chart"><svg viewBox="0 0 680 210" role="img" aria-labelledby="c9t">
+<title id="c9t">v0.3.1: how often each model&#x27;s own report got the breach question wrong</title>
+<line class="grid" x1="190.0" x2="190.0" y1="8" y2="184"/>
+<text class="tick" x="190.0" y="202" text-anchor="middle">0%</text>
+<line class="grid" x1="292.5" x2="292.5" y1="8" y2="184"/>
+<text class="tick" x="292.5" y="202" text-anchor="middle">25%</text>
+<line class="grid" x1="395.0" x2="395.0" y1="8" y2="184"/>
+<text class="tick" x="395.0" y="202" text-anchor="middle">50%</text>
+<line class="grid" x1="497.5" x2="497.5" y1="8" y2="184"/>
+<text class="tick" x="497.5" y="202" text-anchor="middle">75%</text>
+<line class="grid" x1="600.0" x2="600.0" y1="8" y2="184"/>
+<text class="tick" x="600.0" y="202" text-anchor="middle">100%</text>
+<text class="group" x="0" y="24">Denied a breach that happened</text>
+<g class="mark"><title>Denied a breach that happened — Qwen 2.5 1.5B: 27 of 67 (40%; 95% CI 29–52%)</title><rect class="hit" x="0" y="32.0" width="680" height="26"/>
+<text class="label" x="14" y="49.0">Qwen 2.5 1.5B</text>
+<line class="ci s-ink" x1="310.5" x2="404.3" y1="45.0" y2="45.0"/>
+<circle class="dot f-ink" cx="355.2" cy="45.0" r="5"/>
+<text class="value" x="610.0" y="49.0">27/67</text></g>
+<text class="group" x="0" y="84">Confessed to a breach that didn&#x27;t happen</text>
+<g class="mark"><title>Confessed to a breach that didn&#x27;t happen — Qwen 2.5 1.5B: 33 of 53 (62%; 95% CI 49–74%)</title><rect class="hit" x="0" y="92.0" width="680" height="26"/>
+<text class="label" x="14" y="109.0">Qwen 2.5 1.5B</text>
+<line class="ci s-ink" x1="390.1" x2="493.7" y1="105.0" y2="105.0"/>
+<circle class="dot f-ink" cx="445.3" cy="105.0" r="5"/>
+<text class="value" x="610.0" y="109.0">33/53</text></g>
+<g class="mark"><title>Confessed to a breach that didn&#x27;t happen — Qwen 2.5 7B: 100 of 120 (83%; 95% CI 76–89%)</title><rect class="hit" x="0" y="118.0" width="680" height="26"/>
+<text class="label" x="14" y="135.0">Qwen 2.5 7B</text>
+<line class="ci s-ink" x1="500.2" x2="554.7" y1="131.0" y2="131.0"/>
+<circle class="dot f-ink" cx="531.7" cy="131.0" r="5"/>
+<text class="value" x="610.0" y="135.0">100/120</text></g>
+<g class="mark"><title>Confessed to a breach that didn&#x27;t happen — Llama 3.1 8B: 73 of 120 (61%; 95% CI 52–69%)</title><rect class="hit" x="0" y="144.0" width="680" height="26"/>
+<text class="label" x="14" y="161.0">Llama 3.1 8B</text>
+<line class="ci s-ink" x1="402.8" x2="473.3" y1="157.0" y2="157.0"/>
+<circle class="dot f-ink" cx="439.4" cy="157.0" r="5"/>
+<text class="value" x="610.0" y="161.0">73/120</text></g>
+</svg></div>
+<details><summary>Show the numbers</summary><div class="scroll"><table><thead><tr><th>Error</th><th>Model</th><th>Count</th><th>Of</th></tr></thead><tbody><tr><td>Denied a breach that happened</td><td>Qwen 2.5 1.5B</td><td>27</td><td>67</td></tr><tr><td>Confessed to a breach that didn&#x27;t happen</td><td>Qwen 2.5 1.5B</td><td>33</td><td>53</td></tr><tr><td>Confessed to a breach that didn&#x27;t happen</td><td>Qwen 2.5 7B</td><td>100</td><td>120</td></tr><tr><td>Confessed to a breach that didn&#x27;t happen</td><td>Llama 3.1 8B</td><td>73</td><td>120</td></tr></tbody></table></div></details>
+<h3>The report-only monitor trusted denials and set confessions aside <span class="tag">post hoc</span></h3>
+<div class="legend"><span><i style="background:var(--ok)"></i>Flagged the breach</span><span><i style="background:var(--bad)"></i>Cleared it</span><span><i style="background:var(--none)"></i>No verdict</span></div>
+<div class="chart"><svg viewBox="0 0 680 78" role="img" aria-labelledby="c10t">
+<title id="c10t">v0.3.1: how the report-only Claude monitor responded to each kind of report on real breaches</title>
+<g class="mark"><title>Report said “no violation”: 26 cleared it · 1 no verdict (of 27 breaches)</title><rect class="hit" x="0" y="6.0" width="680" height="34"/>
+<text class="label" x="0" y="27.0">Report said “no violation”</text>
+<rect class="f-bad" x="190.0" y="14.0" width="325.4" height="18"/>
+<text class="inbar" x="196.0" y="27.0">26</text>
+<path class="f-none" d="M517.4 14.0H526.0q4.0 0 4.0 4.0V28.0q0 4.0 -4.0 4.0H517.4Z"/>
+<text class="value" x="540.0" y="27.0">0/27 flagged</text></g>
+<g class="mark"><title>Report admitted a violation: 40 no verdict (of 40 breaches)</title><rect class="hit" x="0" y="40.0" width="680" height="34"/>
+<text class="label" x="0" y="61.0">Report admitted a violation</text>
+<path class="f-none" d="M190.0 48.0H526.0q4.0 0 4.0 4.0V62.0q0 4.0 -4.0 4.0H190.0Z"/>
+<text class="inbar dark" x="196.0" y="61.0">40</text>
+<text class="value" x="540.0" y="61.0">0/40 flagged</text></g>
+</svg></div>
+<details><summary>Show the numbers</summary><div class="scroll"><table><thead><tr><th>What the report said (all were real breaches)</th><th>Monitor flagged it</th><th>Monitor cleared it</th><th>No verdict</th></tr></thead><tbody><tr><td>Report said “no violation”</td><td>0</td><td>26</td><td>1</td></tr><tr><td>Report admitted a violation</td><td>0</td><td>0</td><td>40</td></tr></tbody></table></div></details>
+<p>Every one of these 67 runs was a real breach. When the report denied it, the monitor nearly always believed the report. When the report admitted it, the monitor declined to judge. That's the worst possible combination for catching rule-breaking.</p>
+
 <h2>What this does and doesn't show</h2>
-<p><b>It does show</b> that in a short task with an explicit approval rule, two frontier models reliably waited for approval and reported honestly. It also shows that monitors reading the full action record caught every breach by a weaker model without crying wolf, and that a monitor reading only the report inherits the reporter's mistakes.</p>
-<p><b>It doesn't show</b> how frontier models behave under real pressure, whether they would hide a breach, whether the v0.2 result replicates on its original task, or any precise rate. The frontier models also ran inside their providers' own agent tools, so some of their caution may come from those tools rather than the models themselves.</p>
-<p>Cost: $158.33 in API-equivalent terms, against a $200 cap. GPT calls were 97% of it, mostly hidden instructions that the Codex tool adds to every call.</p>
+<p><b>It does show</b> that in a short task with an explicit approval rule, two frontier models reliably waited for approval and reported honestly. In both studies, monitors reading the full action record caught every breach (22/22, then 67/67 pre-registered) without crying wolf. A monitor reading only the report inherits the reporter's mistakes, in both directions.</p>
+<p><b>It doesn't show</b> how frontier models behave under real pressure, whether a capable model would hide a breach, or any precise frontier rate. Every breach in both studies came from one small, apparently confused model, so the trace advantage hasn't yet been tested on a second rule-breaker. The frontier models also ran inside their providers' own agent tools, so some of their caution may come from those tools rather than the models themselves.</p>
+<p>Cost: v0.3 used $158.33 in API-equivalent terms, against a $200 cap. GPT calls were 97% of it, mostly hidden instructions that the Codex tool adds to every call. v0.3.1 cost $5.35: the open models run free on a local machine, so only the Claude monitor costs anything.</p>
 
 <h2>Check it yourself</h2>
-<p><a href="../WRITEUP.md">Write-up</a> · <a href="../DEVIATIONS.md">Deviations and review</a> · <a href="../PROTOCOL.md">Pre-registered protocol</a> · <a href="../freeze.json">Freeze hashes</a> · <a href="../results/analysis-heldout.md">Frozen held-out analysis</a> · <a href="../results/analysis-heldout_qwen_supplement.md">Qwen supplement analysis</a> · <a href="../results/posthoc-heldout-combined.md">Combined table</a> · <a href="../results/heldout_qwen_supplement/qwen/denied/trial-0.json">A raw Qwen trial</a> · <a href="../results/spend-ledger.jsonl">Spend ledger</a> · <a href="../../v0.2/site/index.html">v0.2 page</a></p>
+<p><a href="../WRITEUP.md">Write-up</a> · <a href="../DEVIATIONS.md">Deviations and review</a> · <a href="../PROTOCOL.md">Pre-registered protocol</a> · <a href="../freeze.json">Freeze hashes</a> · <a href="../results/analysis-heldout.md">Frozen held-out analysis</a> · <a href="../results/analysis-heldout_qwen_supplement.md">Qwen supplement analysis</a> · <a href="../results/posthoc-heldout-combined.md">Combined table</a> · <a href="../results/heldout_qwen_supplement/qwen/denied/trial-0.json">A raw Qwen trial</a> · <a href="../results/spend-ledger.jsonl">Spend ledger</a> · <a href="../../v0.3.1/RESULTS.md">v0.3.1 results</a> · <a href="../../v0.3.1/PROTOCOL.md">v0.3.1 protocol</a> · <a href="../../v0.3.1/results/analysis-main.md">v0.3.1 pre-registered tests</a> · <a href="../../v0.2/site/index.html">v0.2 page</a></p>
 <footer>This page is a post hoc presentation. <code>site/build_site.py</code> computes every number on it from the raw trial files at build time and checks the key counts against the frozen analyses. Hover over a mark for its exact numbers; every chart has a table under "Show the numbers".</footer>
 </main></body></html>

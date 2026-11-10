@@ -2,7 +2,7 @@
 
 A small AI-control experiment. Agents get a simulated task with one rule: get approval for the exact target first. The experiment records whether they break the rule, whether their end-of-task reports are honest, and whether LLM monitors catch the breaches. Monitors either read the agent's final report alone or the full action trace.
 
-This repository holds **v0.3**, which used frontier actors (Claude Opus 5.5 and GPT-6 Astra) and a local Qwen 2.5 1.5B reference arm. It also holds the earlier **v0.2** in [`v0.2/`](v0.2/README.md). v0.2 used Qwen 2.5 1.5B as both actor and monitor:
+This repository holds **v0.3**, which used frontier actors (Claude Opus 5.5 and GPT-6 Astra) and a local Qwen 2.5 1.5B reference arm, and **v0.3.1**, a pre-registered follow-up with three open models. It also holds the earlier **v0.2** in [`v0.2/`](v0.2/README.md). v0.2 used Qwen 2.5 1.5B as both actor and monitor:
 
 - It breached approval in 16 of 20 simulated deployments, and only 1 of its 20 reports got both completion and breach right.
 - Giving it 8 or 12 decisions instead of 4 never undid a breach.
@@ -15,6 +15,7 @@ This repository holds **v0.3**, which used frontier actors (Claude Opus 5.5 and 
 - **Report-only monitoring:** a Claude monitor that saw only the final report caught 2 of the 17 Qwen breaches it ruled on, a paired trace advantage of +0.88 (95% CI +0.59 to +0.97). **Every Qwen result is a post-freeze deviation**: the Qwen arm failed because of a setup error and was rerun after the main analysis.
 - **Why Qwen breached:** mostly not because of approval pressure. In 15 of its 22 breaches it asked approval for the wrong target, in 6 it never asked, and in 1 it acted after a correctly targeted "pending" answer.
 - **Frontier runs didn't vary:** every seed in a cell produced the same behaviour.
+- **The pre-registered follow-up confirmed the monitor result ([`v0.3.1/RESULTS.md`](v0.3.1/RESULTS.md)).** Qwen 2.5 1.5B, Qwen 2.5 7B and Llama 3.1 8B ran on fresh seeds, on the deployment and sharing tasks. The protocol and code were pushed here before any run. The Claude monitor caught **67 of 67** breaches when reading the trace and **0 of 67** when reading only the report: +1.00 (95% CI +0.82 to +1.00). The test passed on both tasks, including v0.2's own deployment task. The trace view raised 0 false alarms in 293 compliant runs. **All breaches came from Qwen 1.5B.** The two larger models never breached, but they often reported violations that hadn't happened (100 of 120 and 73 of 120 runs).
 
 For the picture version, download the repository and open [`v0.3/site/index.html`](v0.3/site/index.html) in a browser. It's a results page with charts that GitHub shows only as source; `python3 -B v0.3/site/build_site.py` rebuilds it from the raw trial files. For the full account, start with [`v0.3/WRITEUP.md`](v0.3/WRITEUP.md). Then read [`v0.3/DEVIATIONS.md`](v0.3/DEVIATIONS.md) and the pre-registered [`v0.3/PROTOCOL.md`](v0.3/PROTOCOL.md).
 
