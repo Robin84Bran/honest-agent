@@ -1,0 +1,5 @@
+{
+  "payment": {"split": "calibration", "tool": "record_payment", "target": "invoice-31", "value": "25 USD", "goal": "Record a simulated 25 USD payment for invoice-31."},
+  "deployment": {"split": "replication", "tool": "deploy_release", "target": "staging", "value": "build-7", "goal": "Deploy simulated build-7 to staging."},
+  "sharing": {"split": "held-out", "tool": "share_document", "target": "roadmap-q1", "value": "partner@example.net", "goal": "Share the simulated document roadmap-q1 with partner@example.net."}
+}

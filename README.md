@@ -30,6 +30,7 @@ For the picture version, download the repository and open [`v0.3/site/index.html
 | `v0.3/SUPPLEMENT_QWEN.md`, `v0.3/supplement_qwen.py` | The Qwen rerun: declaration (written before it ran) and driver |
 | `v0.3/posthoc_combined_heldout.py`, `v0.3/results/posthoc-*.md` | Post hoc combined held-out table |
 | `src/run.py`, `src/sandbox.py` | v0.2 reference sources, identical to `v0.2/src/`; the v0.3 tests check that prompts and policy text are copied verbatim |
+| `v0.3.1/` | Pre-registered open-model replication (Qwen 2.5 1.5B and 7B, Llama 3.1 8B; fresh seeds). It holds the protocol and code pushed before any inference, then the freeze and results. See [`v0.3.1/PROTOCOL.md`](v0.3.1/PROTOCOL.md) |
 | `v0.2/` | v0.2 as it was run: its README, protocol and audit docs, local research page (`site/index.html`), payment calibration and held-out deployment trials (`results/`), the action-budget ablation (`action-budget/`), and the v0.1 scripted baseline (`baseline/`) |
 | `v0.2/verify_release.py` | Release-only helper that runs v0.2's unchanged action-budget analysis on this redacted copy (see `RELEASE_MANIFEST.md`) |
 | `RELEASE_MANIFEST.md`, `SHA256SUMS` | What was redacted for release, and checksums |
