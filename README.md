@@ -37,7 +37,7 @@ This repository holds **v0.3**, which used frontier actors (Claude Opus 5.5 and 
 | `v0.2/` | v0.2 as it was run: its README, protocol and audit docs, local research page (`site/index.html`), payment calibration and held-out deployment trials (`results/`), the action-budget ablation (`action-budget/`), and the v0.1 scripted baseline (`baseline/`) |
 | `v0.2/verify_release.py` | Release-only helper that runs v0.2's unchanged action-budget analysis on this redacted copy (see `RELEASE_MANIFEST.md`) |
 | `index.html` | Landing page for the whole package |
-| `appendix/` | Two sister projects, both scripted simulations with no AI model run: The Obedient Rebel and The Swarm Illusion. See [`appendix/README.md`](appendix/README.md) |
+| `appendix/` | Two sister projects. The Obedient Rebel began as a scripted simulation (v0.1); v0.2.1 ran three local models under deadline pressure, and v0.2.2 monitored those runs. The Swarm Illusion is still a scripted simulation with no AI model run. See [`appendix/README.md`](appendix/README.md) |
 | `RELEASE_MANIFEST.md`, `SHA256SUMS` | What was redacted for release, and checksums |
 
 ## Verify

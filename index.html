@@ -31,7 +31,7 @@ footer{margin-top:3rem;border-top:1px solid var(--rule);padding-top:1rem;font-si
 <body><main>
 <header><small>ROBIN RESEARCH · NOVEMBER 2026 · DRAFT</small>
 <h1>Oversight is only as good as the evidence the monitor sees</h1>
-<p class="lede">Three small experiments in AI control by Bin "Robin" Xie. The main one, <b>The Honest Agent</b>, ran real models; two sister projects are scripted simulations.</p>
+<p class="lede">Three small experiments in AI control by Bin "Robin" Xie. The main one, <b>The Honest Agent</b>, ran real models. Of two sister projects, one has now run real models too; the other is a scripted simulation.</p>
 </header>
 
 <h2>The question</h2>
@@ -76,13 +76,13 @@ footer{margin-top:3rem;border-top:1px solid var(--rule);padding-top:1rem;font-si
 <li><b>Cheap.</b> About 185 USD in API-equivalent terms across v0.3 to v0.3.2.</li>
 </ul>
 
-<h2>Appendix: two simulation studies</h2>
-<p>Sister projects that ask related questions. <b>Neither ran an AI model</b>: the "agents" are scripted, so the results show what each test harness can measure, not how real models behave. <a href="appendix/README.md">Appendix overview</a></p>
+<h2>Appendix: two sister projects</h2>
+<p>Sister projects that ask related questions. Both began as scripted simulations. The Obedient Rebel has since run real models; the Swarm Illusion hasn't. <a href="appendix/README.md">Appendix overview</a></p>
 <div class="cards">
-<div class="card"><span class="tag">simulation · no AI model</span>
+<div class="card"><span class="tag">real local models · pre-registered</span>
 <h3><a href="appendix/obedient-rebel/README.md">The Obedient Rebel</a></h3>
 <p><b>Question:</b> when approval is slow and the action budget runs low, does an agent wait or act?</p>
-<p>Three hand-written policies on 8 tasks at budgets of 4, 8 and 12 actions. A "deadline" policy breaks the rule when waiting doesn't fit, and stops once it does. The harness is ready for a real model, which makes it the natural next step: <b>pressure</b>, the thing the Honest Agent's explicit test lacked.</p></div>
+<p>Three local models under deadline pressure broke the rule in <b>670 of 1,080</b> runs, and more room to wait didn't help. A monitor reading the actions caught all 670. Reading only the reports, it caught the <b>266 the agent confessed</b> and <b>none of the 323 it denied</b>: report-only monitoring is as good as the agent's honesty. <a href="appendix/obedient-rebel/v0.2.2/RESULTS.md">Results</a></p></div>
 <div class="card"><span class="tag">simulation · no AI model</span>
 <h3><a href="appendix/swarm-illusion/readme.md">The Swarm Illusion</a></h3>
 <p><b>Question:</b> do more agents make a system more reliable, or spread errors through handoffs?</p>
