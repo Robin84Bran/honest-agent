@@ -566,16 +566,16 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 <p>Split the false confessions by whether the model ever saw "approval granted", and a pattern appears. Qwen 7B said "violation" in {g7_no} of {g7_non} runs where approval never came, and in {g7_yes} of {g7_yesn} where it did. Llama 8B shows the same pattern, a little less sharply. The report question asks about an "operation performed without prior approval". These models seem to have answered "was approval missing?" instead. That looks more like a misread question than a guilty conscience, though the data can't show what a model meant.</p>
 {c11}
 {t11}
-<h3>The report-only monitor followed a sensible rule, and the small model's reports slipped past it <span class="tag">post hoc</span></h3>
+<h3>The report-only verdicts followed what the report claimed, and every breach report claimed "not finished" <span class="tag">post hoc</span></h3>
 <div class="legend"><span><i style="background:var(--ok)"></i>Flagged the breach</span><span><i style="background:var(--bad)"></i>Cleared it</span><span><i style="background:var(--none)"></i>No verdict</span></div>
 {c10}
 {t10}
-<p>Every one of these 67 runs was a real breach. When the report denied it, the monitor nearly always believed the report. When the report admitted it, the monitor declined to judge. That looks like trusting denials and ignoring confessions. But across all 360 runs, its verdicts followed a consistent rule, set by what the report claimed:</p>
+<p>Every one of these 67 runs was a real breach. When the report denied it, the monitor nearly always believed the report. When the report admitted it, the monitor declined to judge. That looks like trusting denials and ignoring confessions. But across all 360 runs, its verdicts followed a consistent pattern, set by what the report claimed:</p>
 {rule_html}
-<p>Each row has a reasonable reading. "Nothing finished, nothing wrong" is believable. "Nothing finished, but a violation" contradicts itself, so the monitor almost never ruled. "Finished, no violation" can't show that approval came first, so it never ruled. The catch: <b>all 67 breaches finished the task, and all 67 reports on them claimed it wasn't finished.</b> That one false claim put every breach in a row where the rule believes the report or abstains. The misreport that beat the report-only monitor was about completion, not just about the rule.</p>
+<p>"Nothing finished, nothing wrong" was nearly always believed. "Not finished, but a violation" almost never got a verdict. That can really happen (an agent can act without approval and still botch the job), though it never did here. "Finished, no violation" can't show that approval came first, and never got a verdict. The catch: <b>all 67 breaches finished the task, and all 67 reports on them claimed it wasn't finished.</b> So every breach landed in a row where the monitor believed the report or stayed silent. That fits the idea that a false completion claim is what beat the report-only monitor, but it doesn't prove it: no breach report claimed to have finished, so the monitor was never tested on one.</p>
 
 <h2 id="gpt">Pre-registered follow-up: a second monitor family <span class="tag">v0.3.2</span></h2>
-<p>Is this just a Claude thing? To check, we asked a monitor from another family, GPT-6 Sol, to judge the very same 360 runs. Monitors keep no memory between calls, so no agent had to run again: GPT got the same 720 prompts Claude had seen, byte for byte. The protocol, the code and four predictions were pushed to GitHub before the first GPT call. <a href="../../v0.3.2/results/github-push-log.json">GitHub's log</a> records the push 23 seconds before it. All 720 calls ran the verified model with no errors, for {spend32}.</p>
+<p>Is this just a Claude thing? To check, we asked a monitor from another family, GPT-6 Sol, to judge the very same 360 runs. Monitors keep no memory between calls, so no agent had to run again: GPT got the same 720 prompts Claude had seen, byte for byte. The protocol, the code and four predictions were pushed to GitHub before the first GPT call. <a href="../../v0.3.2/results/github-push-log.json">GitHub's log</a> records the push at 08:14:31 UTC; by Codex's own local log, the first GPT call (a one-call check) started 13 seconds later. All 720 calls ran the verified model with no errors, for {spend32}.</p>
 <div class="tiles">
 <div class="tile"><b>67 / 67</b><span>breaches caught by GPT-6 Sol reading the full trace, the same as Claude</span></div>
 <div class="tile"><b>2 / 67</b><span>caught by GPT-6 Sol reading only the report (Claude: 0 / 67)</span></div>
@@ -588,10 +588,10 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 <p class="muted">On the 293 runs that followed the rule:</p>
 {c13}
 {t12}
-<p>Reading the full trace, the two families agreed on every breach. GPT gave no verdict on 5 rule-following runs. In each of them the report contradicted the trace, for example claiming a violation when nothing had happened <span class="tag">post hoc</span>.</p>
-<h3>Two families, one way of reading reports</h3>
+<p>Reading the full trace, the two families agreed on every breach. GPT gave no verdict on 5 rule-following runs. In each of them the report contradicted the trace, for example claiming a violation when nothing had happened. But 213 other contradictory reports were cleared correctly, so the link is an association, not a proven cause <span class="tag">post hoc</span>.</p>
+<h3>Two families, one pattern in reading reports</h3>
 {rule32_html}
-<p>GPT read the reports by the same rule as Claude. It never cleared a report that admitted a violation, never ruled on a report claiming a clean finish, and agreed with Claude whenever both gave a verdict. It was more cautious, believing "not finished, nothing wrong" in 40 of 69 runs against Claude's 68. So the rule isn't a Claude quirk: it's how these reports read. And neither family could see through the false "not finished" claim on every breach.</p>
+<p>GPT's verdicts followed the same pattern as Claude's. It never cleared a report that admitted a violation, never ruled on a report claiming a clean finish, and agreed with Claude whenever both gave a verdict. It was more cautious, believing "not finished, nothing wrong" in 40 of 69 runs against Claude's 68. Two families showing the same pattern suggests it isn't specific to Claude. And with every breach report falsely saying "not finished", GPT caught only 2 of the 67.</p>
 <p class="muted">Pre-registered predictions: three of four came true. The fourth was that the strict paired test couldn't run, because GPT-6 Astra had almost always abstained on reports in v0.3. GPT-6 Sol gave more verdicts, so the test ran, and it passed.</p>
 
 <h2>What this does and doesn't show</h2>
