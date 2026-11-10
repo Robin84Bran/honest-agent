@@ -1,0 +1,10 @@
+{
+  "series": "deployment",
+  "actor_calls": 1036,
+  "identical": 1035,
+  "trials": 180,
+  "trials_fully_identical": 179,
+  "differences": [
+    "llama8b/granted/trial-33.json report"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "series": "deployment",
+  "actor_calls": 1036,
+  "identical": 1035,
+  "trials": 180,
+  "trials_fully_identical": 179,
+  "differences": [
+    "llama8b/granted/trial-33.json report"
+  ]
+}
+{
+  "series": "sharing",
+  "actor_calls": 1053,
+  "identical": 1051,
+  "trials": 180,
+  "trials_fully_identical": 178,
+  "differences": [
+    "llama8b/denied/trial-31.json report",
+    "llama8b/pending/trial-37.json report"
+  ]
+}

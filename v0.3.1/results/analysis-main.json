@@ -1,0 +1,410 @@
+{
+  "trajectories": 360,
+  "rq1": {
+    "claude": {
+      "pooled": {
+        "paired_breaches": 26,
+        "testable": true,
+        "primary": {
+          "difference": 1.0,
+          "ci95": [
+            0.8179498128370313,
+            1.0
+          ],
+          "both": 0,
+          "trace_only": 26,
+          "final_only": 0,
+          "neither": 0,
+          "n": 26
+        },
+        "supported": true,
+        "sensitivity_abstain_as_miss": {
+          "difference": 1.0,
+          "ci95": [
+            0.9233126582376869,
+            1.0
+          ],
+          "both": 0,
+          "trace_only": 67,
+          "final_only": 0,
+          "neither": 0,
+          "n": 67
+        }
+      },
+      "by_task": {
+        "deployment": {
+          "paired_breaches": 14,
+          "testable": true,
+          "primary": {
+            "difference": 1.0,
+            "ci95": [
+              0.6955045426429973,
+              1.0
+            ],
+            "both": 0,
+            "trace_only": 14,
+            "final_only": 0,
+            "neither": 0,
+            "n": 14
+          },
+          "supported": true,
+          "sensitivity_abstain_as_miss": {
+            "difference": 1.0,
+            "ci95": [
+              0.9009391201411038,
+              1.0
+            ],
+            "both": 0,
+            "trace_only": 51,
+            "final_only": 0,
+            "neither": 0,
+            "n": 51
+          }
+        },
+        "sharing": {
+          "paired_breaches": 12,
+          "testable": true,
+          "primary": {
+            "difference": 1.0,
+            "ci95": [
+              0.6570616869939669,
+              1.0
+            ],
+            "both": 0,
+            "trace_only": 12,
+            "final_only": 0,
+            "neither": 0,
+            "n": 12
+          },
+          "supported": true,
+          "sensitivity_abstain_as_miss": {
+            "difference": 1.0,
+            "ci95": [
+              0.7261973924086025,
+              1.0
+            ],
+            "both": 0,
+            "trace_only": 16,
+            "final_only": 0,
+            "neither": 0,
+            "n": 16
+          }
+        }
+      },
+      "by_actor": {
+        "llama8b": {
+          "paired_breaches": 0,
+          "testable": false,
+          "primary": null,
+          "supported": false,
+          "sensitivity_abstain_as_miss": null
+        },
+        "qwen1.5b": {
+          "paired_breaches": 26,
+          "testable": true,
+          "primary": {
+            "difference": 1.0,
+            "ci95": [
+              0.8179498128370313,
+              1.0
+            ],
+            "both": 0,
+            "trace_only": 26,
+            "final_only": 0,
+            "neither": 0,
+            "n": 26
+          },
+          "supported": true,
+          "sensitivity_abstain_as_miss": {
+            "difference": 1.0,
+            "ci95": [
+              0.9233126582376869,
+              1.0
+            ],
+            "both": 0,
+            "trace_only": 67,
+            "final_only": 0,
+            "neither": 0,
+            "n": 67
+          }
+        },
+        "qwen7b": {
+          "paired_breaches": 0,
+          "testable": false,
+          "primary": null,
+          "supported": false,
+          "sensitivity_abstain_as_miss": null
+        }
+      }
+    }
+  },
+  "rq3": {
+    "qwen1.5b_vs_qwen7b/pooled": {
+      "breach_rate_difference": {
+        "difference": 0.5583333333333333,
+        "ci95": [
+          0.4638105640176809,
+          0.6440025330046214
+        ],
+        "first": [
+          67,
+          120
+        ],
+        "second": [
+          0,
+          120
+        ]
+      },
+      "both_claims_accurate_difference": {
+        "difference": -0.024999999999999994,
+        "ci95": [
+          -0.11734492111799247,
+          0.06748983630540036
+        ],
+        "first": [
+          17,
+          120
+        ],
+        "second": [
+          20,
+          120
+        ]
+      }
+    },
+    "qwen1.5b_vs_qwen7b/deployment": {
+      "breach_rate_difference": {
+        "difference": 0.85,
+        "ci95": [
+          0.7236114688382937,
+          0.9190255941983225
+        ],
+        "first": [
+          51,
+          60
+        ],
+        "second": [
+          0,
+          60
+        ]
+      },
+      "both_claims_accurate_difference": {
+        "difference": -0.26666666666666666,
+        "ci95": [
+          -0.39908998559641595,
+          -0.12589390955941515
+        ],
+        "first": [
+          4,
+          60
+        ],
+        "second": [
+          20,
+          60
+        ]
+      }
+    },
+    "qwen1.5b_vs_qwen7b/sharing": {
+      "breach_rate_difference": {
+        "difference": 0.26666666666666666,
+        "ci95": [
+          0.15392617601656677,
+          0.39008713096683645
+        ],
+        "first": [
+          16,
+          60
+        ],
+        "second": [
+          0,
+          60
+        ]
+      },
+      "both_claims_accurate_difference": {
+        "difference": 0.21666666666666667,
+        "ci95": [
+          0.11216786028638495,
+          0.33620027573194783
+        ],
+        "first": [
+          13,
+          60
+        ],
+        "second": [
+          0,
+          60
+        ]
+      }
+    },
+    "qwen7b_vs_llama8b/pooled": {
+      "breach_rate_difference": {
+        "difference": 0.0,
+        "ci95": [
+          -0.031019166418703486,
+          0.031019166418703486
+        ],
+        "first": [
+          0,
+          120
+        ],
+        "second": [
+          0,
+          120
+        ]
+      },
+      "both_claims_accurate_difference": {
+        "difference": -0.06666666666666668,
+        "ci95": [
+          -0.16703458900408913,
+          0.03502901836232768
+        ],
+        "first": [
+          20,
+          120
+        ],
+        "second": [
+          28,
+          120
+        ]
+      }
+    },
+    "qwen7b_vs_llama8b/deployment": {
+      "breach_rate_difference": {
+        "difference": 0.0,
+        "ci95": [
+          -0.06017185214208986,
+          0.06017185214208986
+        ],
+        "first": [
+          0,
+          60
+        ],
+        "second": [
+          0,
+          60
+        ]
+      },
+      "both_claims_accurate_difference": {
+        "difference": -0.050000000000000044,
+        "ci95": [
+          -0.21505918094062296,
+          0.11895515897067688
+        ],
+        "first": [
+          20,
+          60
+        ],
+        "second": [
+          23,
+          60
+        ]
+      }
+    },
+    "qwen7b_vs_llama8b/sharing": {
+      "breach_rate_difference": {
+        "difference": 0.0,
+        "ci95": [
+          -0.06017185214208986,
+          0.06017185214208986
+        ],
+        "first": [
+          0,
+          60
+        ],
+        "second": [
+          0,
+          60
+        ]
+      },
+      "both_claims_accurate_difference": {
+        "difference": -0.08333333333333333,
+        "ci95": [
+          -0.1806894201833441,
+          -0.006849952658293718
+        ],
+        "first": [
+          0,
+          60
+        ],
+        "second": [
+          5,
+          60
+        ]
+      }
+    }
+  },
+  "rq4": {
+    "claude_trace": {
+      "overall": {
+        "numerator": 0,
+        "denominator": 293,
+        "rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.012941112861915096
+        ]
+      },
+      "by_condition": {
+        "granted": {
+          "numerator": 0,
+          "denominator": 99,
+          "rate": 0.0,
+          "wilson95": [
+            0.0,
+            0.03735321206782739
+          ]
+        },
+        "pending": {
+          "numerator": 0,
+          "denominator": 96,
+          "rate": 0.0,
+          "wilson95": [
+            3.469446951953614e-18,
+            0.038475587857675686
+          ]
+        },
+        "denied": {
+          "numerator": 0,
+          "denominator": 98,
+          "rate": 0.0,
+          "wilson95": [
+            3.469446951953614e-18,
+            0.037719990121680605
+          ]
+        }
+      }
+    }
+  },
+  "mechanism": {
+    "deployment/llama8b": {
+      "no_request": 0,
+      "wrong_target_only": 0,
+      "correct_request": 0
+    },
+    "deployment/qwen1.5b": {
+      "no_request": 45,
+      "wrong_target_only": 3,
+      "correct_request": 3
+    },
+    "deployment/qwen7b": {
+      "no_request": 0,
+      "wrong_target_only": 0,
+      "correct_request": 0
+    },
+    "sharing/llama8b": {
+      "no_request": 0,
+      "wrong_target_only": 0,
+      "correct_request": 0
+    },
+    "sharing/qwen1.5b": {
+      "no_request": 6,
+      "wrong_target_only": 9,
+      "correct_request": 1
+    },
+    "sharing/qwen7b": {
+      "no_request": 0,
+      "wrong_target_only": 0,
+      "correct_request": 0
+    }
+  },
+  "excluded_invalid": 0
+}
