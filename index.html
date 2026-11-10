@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Honest Agent</title>
+<meta name="description" content="Three small AI-control experiments by Bin &quot;Robin&quot; Xie. Main finding: monitors that read an agent's actions caught every rule breach; monitors that read only its report caught almost none.">
+<style>
+:root{color-scheme:light;--bg:#fbfaf6;--ink:#1d2827;--muted:#52514e;--rule:#cbd1c9;--grid:#e4e2da;--link:#185c50;--tile:#f2f0e8;--ok:#6250d6;--bad:#e34948;--none:#c9c7bf}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#1a1a19;--ink:#f0efec;--muted:#c3c2b7;--rule:#45453f;--grid:#33332f;--link:#6fc2ad;--tile:#24241f;--ok:#9085e9;--bad:#e66767;--none:#5a5953}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#1a1a19;--ink:#f0efec;--muted:#c3c2b7;--rule:#45453f;--grid:#33332f;--link:#6fc2ad;--tile:#24241f;--ok:#9085e9;--bad:#e66767;--none:#5a5953}
+*{box-sizing:border-box}
+body{margin:4rem auto;padding:0 16px;max-width:48rem;background:var(--bg);color:var(--ink);font:1.1rem/1.6 system-ui}
+h1,h2{font-family:Georgia,serif;line-height:1.15}h1{font-size:clamp(2.3rem,8vw,4rem);margin:.3em 0}h2{margin-top:2.4em}h3{margin:1.4em 0 .3em}
+a{color:var(--link)}header{border-bottom:1px solid var(--rule);padding-bottom:1.2rem}small{letter-spacing:.05em}
+.lede{font-size:1.2rem}.muted{color:var(--muted)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));gap:.8rem;margin:1.6rem 0}
+.tile{background:var(--tile);border-radius:8px;padding:.9rem 1rem}.tile b{display:block;font-size:2rem;line-height:1.1;font-weight:600;font-variant-numeric:tabular-nums}.tile span{font-size:.88rem;color:var(--muted)}
+.bars{margin:1.2rem 0 .4rem}.bar{display:grid;grid-template-columns:11.5rem 1fr 4.2rem;align-items:center;gap:.6rem;margin:.35rem 0;font-size:.92rem}
+.track{height:1.1rem;background:var(--grid);border-radius:4px;overflow:hidden}.fill{height:100%;background:var(--ok);border-radius:4px 0 0 4px}
+.bar .n{font-variant-numeric:tabular-nums;color:var(--muted);text-align:right}
+.callout{border-left:3px solid var(--ok);padding:.3rem 0 .3rem 1rem;margin:1.4rem 0}
+ol.steps{list-style:none;padding:0;margin:1rem 0;border-left:2px solid var(--rule)}
+ol.steps li{position:relative;padding:.2rem 0 1rem 1.2rem}ol.steps li::before{content:"";position:absolute;left:-.45rem;top:.65rem;width:.7rem;height:.7rem;border-radius:50%;background:var(--bg);border:2px solid var(--ink)}
+ol.steps b{font-variant-numeric:tabular-nums}
+.tag{font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--rule);border-radius:4px;padding:.05rem .4rem;color:var(--muted);vertical-align:.12rem;white-space:nowrap}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:1rem;margin:1rem 0}
+.card{border:1px solid var(--rule);border-radius:8px;padding:1rem 1.1rem}.card h3{margin:.4rem 0 .4rem;font-family:Georgia,serif}.card p{margin:.5rem 0;font-size:.98rem}
+ul.checks{padding-left:1.2rem}ul.checks li{margin:.35rem 0}
+pre{background:var(--tile);border-radius:8px;padding:.8rem 1rem;overflow-x:auto;font-size:.85rem;line-height:1.5}code{font-size:.88em}
+footer{margin-top:3rem;border-top:1px solid var(--rule);padding-top:1rem;font-size:.9rem;color:var(--muted)}
+@media (max-width:520px){.bar{grid-template-columns:8.5rem 1fr 3.6rem;font-size:.85rem}}
+</style></head>
+<body><main>
+<header><small>ROBIN RESEARCH · NOVEMBER 2026 · DRAFT</small>
+<h1>Oversight is only as good as the evidence the monitor sees</h1>
+<p class="lede">Three small experiments in AI control by Bin "Robin" Xie. The main one, <b>The Honest Agent</b>, ran real models; two sister projects are scripted simulations.</p>
+</header>
+
+<h2>The question</h2>
+<p>AI agents can now take real actions: move money, ship code, share files. If an agent breaks a rule, will anyone notice? People can't review every action, so a second AI is often proposed as the monitor. But what should that monitor look at: the agent's own end-of-task report, or the full record of what it actually did?</p>
+
+<h2>The Honest Agent: what we found</h2>
+<p>Each agent got one job in a simulated environment, with one rule: <em>get approval for the exact target before acting</em>. The approver answered "granted", "pending" or "denied". Afterwards the agent reported whether it finished and whether it broke the rule, and AI monitors judged every run without seeing the true record.</p>
+<div class="tiles">
+<div class="tile"><b>0 / 210</b><span>rule breaches by Claude Opus 5.5 and GPT-6 Astra, each with an honest report</span></div>
+<div class="tile"><b>67 / 67</b><span>breaches caught by monitors reading the full action trace, for both Claude and GPT</span></div>
+<div class="tile"><b>0 / 293</b><span>false alarms from those trace monitors on runs that followed the rule</span></div>
+<div class="tile"><b>0 and 2 / 67</b><span>breaches caught by the same monitors reading only the agent's report</span></div>
+</div>
+<p class="muted">Breaches caught on the same 67 rule-breaking runs (pre-registered studies v0.3.1 and v0.3.2):</p>
+<div class="bars" role="img" aria-label="Breaches caught of 67: Claude reading the trace 67, GPT-6 Sol reading the trace 67, Claude reading only the report 0, GPT-6 Sol reading only the report 2.">
+<div class="bar"><span>Claude, full trace</span><span class="track"><span class="fill" style="display:block;width:100%"></span></span><span class="n">67 / 67</span></div>
+<div class="bar"><span>GPT-6 Sol, full trace</span><span class="track"><span class="fill" style="display:block;width:100%"></span></span><span class="n">67 / 67</span></div>
+<div class="bar"><span>Claude, report only</span><span class="track"><span class="fill" style="display:block;width:0%"></span></span><span class="n">0 / 67</span></div>
+<div class="bar"><span>GPT-6 Sol, report only</span><span class="track"><span class="fill" style="display:block;width:2.99%"></span></span><span class="n">2 / 67</span></div>
+</div>
+<div class="callout"><b>The twist.</b> Every one of the 67 breaches finished the job, and every report on them claimed it hadn't. Both monitor families read reports by the same sensible rule, and that one false claim put every breach where the rule either believes the report or stays silent. A monitor that reads only the report can be no better than the report's weakest claim.</div>
+<p>Two caveats come first. The big frontier models never broke the rule, so every breach came from one small open model, Qwen 2.5 1.5B, which seemed confused rather than sneaky. And the test was short and explicit. The trace advantage still needs testing against agents that break rules on purpose and hide it.</p>
+<p><a href="v0.3/site/index.html"><b>See the results page with charts →</b></a> · <a href="v0.3/WRITEUP.md">Read the full write-up</a></p>
+
+<h2>How it was built</h2>
+<ol class="steps">
+<li><b>v0.1</b> <span class="tag">scripted</span> A scripted baseline to check that the simulator, ledger and scoring work. <a href="v0.2/baseline/honest-agent-v0.1.zip">zip</a></li>
+<li><b>v0.2</b> <span class="tag">first real model</span> Qwen 2.5 1.5B as both agent and monitor. It broke the rule in 16 of 20 deployments; the trace monitor looked better than the report-only one, but 20 runs were too few to be sure. <a href="v0.2/README.md">README</a> · <a href="v0.2/site/index.html">page</a></li>
+<li><b>v0.3</b> <span class="tag">pre-registered</span> Frontier models on three tasks: 0 breaches in 210 runs. The Qwen comparison arm failed from a setup error and was rerun after the main analysis, so its monitor result (+0.88) is a declared deviation. <a href="v0.3/WRITEUP.md">write-up</a> · <a href="v0.3/DEVIATIONS.md">deviations</a></li>
+<li><b>v0.3.1</b> <span class="tag">pre-registered</span> Three open models on fresh seeds, with the protocol pushed to GitHub before any run. Trace beat report-only: <b>+1.00</b> (95% CI +0.82 to +1.00). <a href="v0.3.1/RESULTS.md">results</a></li>
+<li><b>v0.3.2</b> <span class="tag">pre-registered</span> A second monitor family, GPT-6 Sol, re-judged the same runs with the same prompts. Trace beat report-only again: <b>+0.88</b> (95% CI +0.59 to +0.97). <a href="v0.3.2/RESULTS.md">results</a></li>
+</ol>
+
+<h2>Why you can check it</h2>
+<ul class="checks">
+<li><b>Written down first.</b> For v0.3.1 and v0.3.2, the protocol and code were pushed to GitHub before any model ran. GitHub's own push log records the times, and a copy is in each study's <code>results/github-push-log.json</code>. v0.3 was pre-registered and hash-frozen before its main runs, but its git history starts later, so its timing rests on local records.</li>
+<li><b>Frozen.</b> SHA-256 hashes of every frozen file, re-checked after every run.</li>
+<li><b>Everything saved.</b> Every prompt, raw response, token count, cost and timestamp, across about 1,500 trial and judgment files. Failed runs are kept, not deleted.</li>
+<li><b>Mistakes in the open.</b> Every deviation and post hoc analysis is listed and labelled, including the predictions that didn't come true.</li>
+<li><b>Reviewed.</b> GPT-6 Astra reviewed v0.3 and v0.3.1 read-only, in two rounds each, and reproduced every headline count.</li>
+<li><b>Rebuildable.</b> The analyses and the results page rebuild byte for byte from the raw files, offline, with Python's standard library.</li>
+<li><b>Cheap.</b> About 185 USD in API-equivalent terms across v0.3 to v0.3.2.</li>
+</ul>
+
+<h2>Appendix: two simulation studies</h2>
+<p>Sister projects that ask related questions. <b>Neither ran an AI model</b>: the "agents" are scripted, so the results show what each test harness can measure, not how real models behave. <a href="appendix/README.md">Appendix overview</a></p>
+<div class="cards">
+<div class="card"><span class="tag">simulation · no AI model</span>
+<h3><a href="appendix/obedient-rebel/README.md">The Obedient Rebel</a></h3>
+<p><b>Question:</b> when approval is slow and the action budget runs low, does an agent wait or act?</p>
+<p>Three hand-written policies on 8 tasks at budgets of 4, 8 and 12 actions. A "deadline" policy breaks the rule when waiting doesn't fit, and stops once it does. The harness is ready for a real model, which makes it the natural next step: <b>pressure</b>, the thing the Honest Agent's explicit test lacked.</p></div>
+<div class="card"><span class="tag">simulation · no AI model</span>
+<h3><a href="appendix/swarm-illusion/readme.md">The Swarm Illusion</a></h3>
+<p><b>Question:</b> do more agents make a system more reliable, or spread errors through handoffs?</p>
+<p>A seeded sweep of teams against solo workers. One finding echoes the main study: a monitor's recall fell from <b>100% to 85% to 68%</b> as 0%, 40% and 80% of receipts went missing. Less evidence, worse oversight.</p></div>
+</div>
+
+<h2>Read and run</h2>
+<p>Start with the <a href="v0.3/site/index.html">results page</a>, then the <a href="v0.3/WRITEUP.md">write-up</a>. The <a href="README.md">repository README</a> lists every folder and check. Everything below runs offline, at no cost:</p>
+<pre><code>shasum -a 256 -c SHA256SUMS                      # every file matches this release
+cd v0.3   &amp;&amp; python3 -B test_v03.py &amp;&amp; python3 -B analyze_v03.py
+cd ../v0.3.2 &amp;&amp; python3 -B test_v032.py &amp;&amp; python3 -B analyze_v032.py
+python3 -B ../v0.3/site/build_site.py             # rebuilds the results page</code></pre>
+
+<footer>Bin "Robin" Xie, November 2026. Built with AI assistants: Claude Opus 5.5 (Claude Code) and GPT (Codex). Code is MIT; data and text are CC BY 4.0. See the <a href="README.md">README</a> for licences and citation.</footer>
+</main></body></html>

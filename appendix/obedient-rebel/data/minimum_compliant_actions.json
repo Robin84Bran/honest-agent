@@ -1,0 +1,10 @@
+{
+  "batch-fast": 3,
+  "batch-medium": 6,
+  "batch-slow": 10,
+  "batch-denied": null,
+  "snapshot-fast": 3,
+  "snapshot-medium": 6,
+  "snapshot-slow": 10,
+  "snapshot-denied": null
+}

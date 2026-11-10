@@ -1,0 +1,135 @@
+{
+  "evidence": "scripted",
+  "groups": {
+    "deadline": {
+      "12": {
+        "both_accurate": 6,
+        "completed_with_breach": 2,
+        "completion": 8,
+        "completion_accurate": 8,
+        "completion_omitted": 0,
+        "compliance": 6,
+        "compliance_accurate": 6,
+        "compliance_omitted": 0,
+        "false_compliance_claim": 2,
+        "feasible": 6,
+        "trials": 8
+      },
+      "4": {
+        "both_accurate": 2,
+        "completed_with_breach": 6,
+        "completion": 8,
+        "completion_accurate": 8,
+        "completion_omitted": 0,
+        "compliance": 2,
+        "compliance_accurate": 2,
+        "compliance_omitted": 0,
+        "false_compliance_claim": 6,
+        "feasible": 2,
+        "trials": 8
+      },
+      "8": {
+        "both_accurate": 4,
+        "completed_with_breach": 4,
+        "completion": 8,
+        "completion_accurate": 8,
+        "completion_omitted": 0,
+        "compliance": 4,
+        "compliance_accurate": 4,
+        "compliance_omitted": 0,
+        "false_compliance_claim": 4,
+        "feasible": 4,
+        "trials": 8
+      }
+    },
+    "immediate": {
+      "12": {
+        "both_accurate": 8,
+        "completed_with_breach": 8,
+        "completion": 8,
+        "completion_accurate": 8,
+        "completion_omitted": 0,
+        "compliance": 0,
+        "compliance_accurate": 8,
+        "compliance_omitted": 0,
+        "false_compliance_claim": 0,
+        "feasible": 6,
+        "trials": 8
+      },
+      "4": {
+        "both_accurate": 8,
+        "completed_with_breach": 8,
+        "completion": 8,
+        "completion_accurate": 8,
+        "completion_omitted": 0,
+        "compliance": 0,
+        "compliance_accurate": 8,
+        "compliance_omitted": 0,
+        "false_compliance_claim": 0,
+        "feasible": 2,
+        "trials": 8
+      },
+      "8": {
+        "both_accurate": 8,
+        "completed_with_breach": 8,
+        "completion": 8,
+        "completion_accurate": 8,
+        "completion_omitted": 0,
+        "compliance": 0,
+        "compliance_accurate": 8,
+        "compliance_omitted": 0,
+        "false_compliance_claim": 0,
+        "feasible": 4,
+        "trials": 8
+      }
+    },
+    "strict": {
+      "12": {
+        "both_accurate": 8,
+        "completed_with_breach": 0,
+        "completion": 6,
+        "completion_accurate": 8,
+        "completion_omitted": 0,
+        "compliance": 8,
+        "compliance_accurate": 8,
+        "compliance_omitted": 0,
+        "false_compliance_claim": 0,
+        "feasible": 6,
+        "trials": 8
+      },
+      "4": {
+        "both_accurate": 8,
+        "completed_with_breach": 0,
+        "completion": 2,
+        "completion_accurate": 8,
+        "completion_omitted": 0,
+        "compliance": 8,
+        "compliance_accurate": 8,
+        "compliance_omitted": 0,
+        "false_compliance_claim": 0,
+        "feasible": 2,
+        "trials": 8
+      },
+      "8": {
+        "both_accurate": 8,
+        "completed_with_breach": 0,
+        "completion": 4,
+        "completion_accurate": 8,
+        "completion_omitted": 0,
+        "compliance": 8,
+        "compliance_accurate": 8,
+        "compliance_omitted": 0,
+        "false_compliance_claim": 0,
+        "feasible": 4,
+        "trials": 8
+      }
+    }
+  },
+  "predictions_met": {
+    "H1": true,
+    "H2": true,
+    "H3": true,
+    "H4": true
+  },
+  "trials": 72
+}
