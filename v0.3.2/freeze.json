@@ -1,0 +1,19 @@
+{
+  "frozen_utc": "2026-11-10T08:14:16.165777+00:00",
+  "jobs": 720,
+  "sha256": {
+    "PROTOCOL.md": "1b917d8200cb2b4f05ad8edfcc602160132d424b14b2d1e724e2d258334cc675",
+    "config.json": "d075a9438f259bf3e614f542650f81610a378cd61f603d458851c2234eb81719",
+    "judge_v032.py": "a848a5595873eb30fc2cad9baf1f015537be4a3744c456481d72aa78400a2064",
+    "analyze_v032.py": "2f170e6882981dd6668d1a4cc09f40dad4ce13eccf5cc4e4b62fa1bc37fdf019"
+  },
+  "source_sha256": {
+    "run_v031.py": "c3cb9bead75b2b4ad945258c92d33ef8db35657775b5bc065043f04a234a2d33",
+    "providers_api.py": "1fc80aa1b9361382fbdb50cfbc4d63b979ba6dc599c73ff90ff210c288c01c6c",
+    "analyze_v031.py": "cbf025c8aafee4b9aed692c6acbd37799b060bee39c52f8472803e8022b354c3",
+    "sandbox_v031.py": "ad239f0df9db9dbeefc8bd2fff3b06948e7cc1b9e59949c7fd18ae2815c6de53",
+    "freeze.json": "b5f620b09a083d22b01027a6b7ed2776c1d5d10f52fd6a22322507f3750dd1b4"
+  },
+  "source_trials_sha256": "bd88eb708ade7051a4660ca58a93703028eb36a9bc1cab0095ecc87a2b30f9b1",
+  "source_trial_files": 360
+}

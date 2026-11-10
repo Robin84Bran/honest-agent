@@ -1,0 +1,26 @@
+{
+  "cap_usd": 40,
+  "source": "../v0.3.1",
+  "source_series": ["deployment", "sharing"],
+  "views": ["final", "trace"],
+  "order_seed": 32,
+  "workers": 4,
+  "models": {
+    "gpt": {
+      "provider": "codex_cli",
+      "model": "gpt-6-sol",
+      "effort": "medium",
+      "max_tokens": 4000
+    }
+  },
+  "prices_usd_per_million_tokens": {
+    "gpt": {
+      "input": 2.0,
+      "output": 10.0,
+      "source": "third-party price listings for GPT-6 Sol (anotherwrapper.com, pricepertoken.com), checked 2026-11-10; OpenAI's own page could not be reached",
+      "fixed_input_overhead_tokens": 18000,
+      "overhead_source": "v0.3 GPT monitor calls through the Codex CLI: total input per call median 14,304, max 17,928 tokens (540 calls); rounded up"
+    }
+  },
+  "transport_note": "Protocol 0.3.2. GPT-6 Sol via the subscription Codex CLI (codex exec, read-only sandbox, shell and web off, user config ignored), through v0.3.1's frozen providers_api.CodexCLI. Binary path from ../v0.3.1/local.env (HONEST_AGENT_CODEX_BIN). Costs are API-equivalent estimates from reported tokens."
+}
