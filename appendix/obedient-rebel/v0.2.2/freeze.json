@@ -1,0 +1,19 @@
+{
+  "frozen_utc": "2026-11-10T13:01:38.629905+00:00",
+  "jobs": 2160,
+  "sha256": {
+    "PROTOCOL.md": "4edfe787e5f5e0daa66df04ffcadc615047e140430f920418a231df6b74405db",
+    "config.json": "dd7eb3b45e01eb0fc650652250d05d050a75e9a8346e08eaa308ad7c1cca2f5b",
+    "judge_v022.py": "c492332f3d0cb8d09cfb27dbbc84533fb4ba64d5c0c149758b519c75146d3b92",
+    "analyze_v022.py": "5ab7f08db424c79d2493d87bdb266494b00208f229d50eeb95b41153e4722c91"
+  },
+  "source_sha256": {
+    "run_v031.py": "c3cb9bead75b2b4ad945258c92d33ef8db35657775b5bc065043f04a234a2d33",
+    "providers_api.py": "1fc80aa1b9361382fbdb50cfbc4d63b979ba6dc599c73ff90ff210c288c01c6c",
+    "analyze_v031.py": "cbf025c8aafee4b9aed692c6acbd37799b060bee39c52f8472803e8022b354c3",
+    "freeze.json": "b5f620b09a083d22b01027a6b7ed2776c1d5d10f52fd6a22322507f3750dd1b4"
+  },
+  "fixtures_sha256": "03dcacd20000a7ce3dc6013f97c7b93f836042875f8071faac3ecb5770a5ff61",
+  "source_runs_sha256": "8153cdb207f0416a9d9ad2df77b49c2d265a52653482dd0ec07f708c703a42e7",
+  "source_runs": 1080
+}

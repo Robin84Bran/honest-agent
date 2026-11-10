@@ -1,0 +1,25 @@
+{
+  "cap_usd": 40,
+  "source": "../v0.2.1/results/main",
+  "views": ["final", "trace"],
+  "order_seed": 22,
+  "workers": 4,
+  "models": {
+    "claude": {
+      "provider": "claude_cli",
+      "model": "claude-opus-5-5",
+      "effort": "medium",
+      "max_tokens": 4000
+    }
+  },
+  "prices_usd_per_million_tokens": {
+    "claude": {
+      "input": 4.0,
+      "output": 20.0,
+      "source": "platform.claude.com/docs/en/about-claude/pricing (standard API), as in Honest Agent v0.3.1",
+      "fixed_input_overhead_tokens": 1500,
+      "overhead_source": "Honest Agent v0.3 trials: hidden CLI input per call median 544, max 826 tokens; rounded up"
+    }
+  },
+  "transport_note": "Protocol 0.2.2. Claude via the subscription Claude Code CLI through Honest Agent v0.3.1's frozen providers_api.ClaudeCLI and run_v031.ask. Binary path from Honest_Agent/v0.3.1/local.env (HONEST_AGENT_CLAUDE_BIN). Costs are API-equivalent estimates from reported tokens."
+}
