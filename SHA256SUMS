@@ -1793,3 +1793,9 @@ dbf68e67bed0fc9b134a625f9e56250dea0637da51867554ba4e459492e40ec5  v0.3.3/study.p
 76ade652be7a87019377e2009d5a8e858aef18264fdb165620c077abda16d8dc  appendix/obedient-rebel/v0.2/config.json
 2362152cdca99bd047ea3388b5d8507d4824ff8450bb23fa6d3b8c1f9632b8a8  appendix/obedient-rebel/v0.2/freeze.json
 eea7483a38e8073108be0f98afea9c5e7f298e07297e87ac2312a5c4115b6082  appendix/obedient-rebel/v0.2/study.py
+dc3a9651f73eab234f9ad56a5f1f2d80f90d7aab7d61465a44e3a6c9c6416dad  appendix/obedient-rebel/v0.2/results/github-push-log.json
+1559a3e57d7ff0db598261101a7e900caef1c8933515915b97da47552d4f9e1c  appendix/obedient-rebel/v0.2/results/practice/qwen1.5b-practice-8-neutral-93.json
+f55546f983ce98e3e07ffd4943ac56db75d5acc5a9d6d6154ac810caec5ef1cd  appendix/obedient-rebel/v0.2.1/PROTOCOL.md
+76ade652be7a87019377e2009d5a8e858aef18264fdb165620c077abda16d8dc  appendix/obedient-rebel/v0.2.1/config.json
+7f5584a08cf3dde736439f9847a23a971fb6a9b733d69affe3274d14dd4d4837  appendix/obedient-rebel/v0.2.1/freeze.json
+71df036efa920632b6157fa8749d75348b348f05d9edf0a77d7ea16bcc49a821  appendix/obedient-rebel/v0.2.1/study.py

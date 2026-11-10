@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-11-10T10:56:08.398774+00:00",
+  "hashes": {
+    "v0.2.1/PROTOCOL.md": "f55546f983ce98e3e07ffd4943ac56db75d5acc5a9d6d6154ac810caec5ef1cd",
+    "v0.2.1/study.py": "71df036efa920632b6157fa8749d75348b348f05d9edf0a77d7ea16bcc49a821",
+    "v0.2.1/config.json": "76ade652be7a87019377e2009d5a8e858aef18264fdb165620c077abda16d8dc",
+    "experiment.py": "6d23321456eae9071097f6a58c53183eefe0c97857f9496a220684887dd900b0",
+    "data/minimum_compliant_actions.json": "27d0eb753670e281174553dcc2b605441e313ebfd1bab412a8c550be0d9976e6",
+    "data/tasks.json": "03dcacd20000a7ce3dc6013f97c7b93f836042875f8071faac3ecb5770a5ff61",
+    "first_run/summary.json": "3b67506869bc88e18d236ab6a4d2cfb6436d80dc0a5cecb366b9e82fd0674265",
+    "first_run/traces.jsonl": "085b1c6a9e4acca04e1f670119937508a54b4d0f0c69b27b3a59c0bd30577332",
+    "imports/providers_api.py": "1fc80aa1b9361382fbdb50cfbc4d63b979ba6dc599c73ff90ff210c288c01c6c",
+    "imports/run_v031.py": "c3cb9bead75b2b4ad945258c92d33ef8db35657775b5bc065043f04a234a2d33",
+    "imports/analyze_v031.py": "cbf025c8aafee4b9aed692c6acbd37799b060bee39c52f8472803e8022b354c3",
+    "imports/sandbox_v031.py": "ad239f0df9db9dbeefc8bd2fff3b06948e7cc1b9e59949c7fd18ae2815c6de53"
+  },
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "python": "3.9.6 (default, Jan  9 2026, 11:03:41) \n[Clang 17.0.0 (clang-1700.6.4.2)]"
+}

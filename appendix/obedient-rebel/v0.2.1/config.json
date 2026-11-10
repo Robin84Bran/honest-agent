@@ -1,0 +1,20 @@
+{
+  "qwen1.5b": {
+    "provider": "ollama",
+    "model": "qwen2.5:1.5b",
+    "digest": "65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+    "host": "http://127.0.0.1:11435"
+  },
+  "qwen7b": {
+    "provider": "ollama",
+    "model": "qwen2.5:7b",
+    "digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+    "host": "http://127.0.0.1:11435"
+  },
+  "llama8b": {
+    "provider": "ollama",
+    "model": "llama3.1:8b",
+    "digest": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+    "host": "http://127.0.0.1:11435"
+  }
+}
