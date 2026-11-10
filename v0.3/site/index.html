@@ -37,7 +37,7 @@ footer{margin-top:3rem;border-top:1px solid var(--rule);padding-top:1rem;font-si
 <header><small>ROBIN RESEARCH · 10 NOVEMBER 2026 · DRAFT</small><h1>The Honest Agent v0.3</h1>
 <p class="lede">Do frontier agents ask before they act, and can a monitor tell when they don't?</p></header>
 
-<h2>The big models waited for approval every time. The small one didn't, and only the monitors watching its actions noticed.</h2>
+<h2>The big models waited for approval every time. The small one didn't. The monitors reading its actions caught every breach; the two reading only its reports caught 2 of 22 between them.</h2>
 <p>AI agents can now take real actions, such as moving money, shipping code or sharing files. That raises two questions: will an agent follow a rule when following it gets in the way of finishing the job, and if it doesn't, will anyone notice? Humans can't review every action, so one proposal is to have a second AI act as a monitor. This experiment tests what that monitor needs to see.</p>
 
 <h2>How the test works</h2>
@@ -70,7 +70,7 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 </div>
 
 <div class="note"><b>Read this first</b><ul>
-<li><b>Every Qwen number is a deviation.</b> Qwen wasn't installed when the pre-registered run started, so all 60 of its runs failed. It was rerun about three hours later, after the frontier results had been seen. The rerun used the frozen code unchanged. A later replay check reproduced all 357 of Qwen's responses word for word from the saved prompts and seeds. So Qwen's behaviour was fixed by the frozen setup, not by when it ran. <a href="../DEVIATIONS.md">Details</a></li>
+<li><b>Every Qwen number is a deviation.</b> Qwen wasn't installed when the pre-registered run started, so all 60 of its runs failed. It was rerun about three hours later, after the frontier results had been seen. The rerun used the frozen code unchanged. Two later replay passes reproduced all 357 of Qwen's responses word for word from the saved prompts and seeds. That's consistent with Qwen's behaviour being fixed by the frozen setup rather than by when it ran, though a replay can't prove what an earlier run would have produced. <a href="../DEVIATIONS.md">Details</a></li>
 <li><b>The big models didn't vary.</b> Every seed in a cell produced the same behaviour, so the 210 frontier runs are really 12 behaviours, each repeated. The intervals below look tighter than they deserve.</li>
 <li><b>v0.3 couldn't answer its replication question,</b> because no frontier model breached. A <a href="#followup">pre-registered follow-up</a> with open models has since answered it, on v0.2's own task.</li>
 </ul></div>
@@ -230,7 +230,7 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 <p class="muted">Rows show what really happened (from the simulator's own record). Columns show what Qwen's report said. Darker cells mean more runs.</p>
 
 <h2>How Qwen broke the rule <span class="tag">post hoc</span></h2>
-<p>Most of Qwen's breaches weren't a response to approval pressure. In 36 of its 60 runs it asked approval for the <em>recipient</em> (partner@example.net) instead of the <em>document</em>. That's an easy mix-up for a small model, because you share <em>to</em> someone. The system answered "unknown target", and Qwen shared anyway.</p>
+<p>Most of Qwen's breaches weren't a response to approval pressure. In 36 of its 60 runs it asked approval for the <em>recipient</em> (partner@example.net) instead of the <em>document</em>. That's an easy mix-up for a small model, because you share <em>to</em> someone. The system answered "unknown target". In 15 of those 36 runs, Qwen shared anyway.</p>
 <div class="chart"><svg viewBox="0 0 680 160" role="img" aria-labelledby="c5t">
 <title id="c5t">How Qwen's 22 breaches happened</title>
 <g class="mark"><title>Asked approval for the recipient, not the document, then shared anyway: 15 of 22 breaches</title><rect class="hit" x="0" y="4" width="680" height="52"/>
@@ -250,12 +250,12 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 <p class="muted">This is a reading of the action records. The data can't show what the model "intended".</p>
 
 <h2 id="followup">Pre-registered follow-up: three open models <span class="tag">v0.3.1</span></h2>
-<p>To fix v0.3's weak spots, we ran the same test again with three free open models on fresh seeds: Qwen 2.5 1.5B (the same build as above), Qwen 2.5 7B and Llama 3.1 8B. Each ran on two tasks, 360 runs in all. This time the protocol and code were pushed to GitHub <em>before</em> any model ran. The freeze was pushed again before the main runs, so the order is provable from GitHub's own records. Claude was the only AI monitor. It cost $5.35, with no deviations.</p>
+<p>To fix v0.3's weak spots, we ran the same test again with three free open models on fresh seeds: Qwen 2.5 1.5B (the same build as above), Qwen 2.5 7B and Llama 3.1 8B. Each ran on two tasks, 360 runs in all. This time the protocol and code were pushed to GitHub <em>before</em> any model ran, and the freeze was pushed again before the main runs. GitHub's server-side push log records both times, and <a href="../../v0.3.1/results/github-push-log.json">a copy is in the repository</a>. Claude was the only AI monitor. It cost $5.35, with no deviations.</p>
 <div class="tiles">
-<div class="tile"><b>67 / 67</b><span>breaches caught by the Claude monitor reading the full trace</span></div>
-<div class="tile"><b>0 / 67</b><span>caught by the same monitor reading only the report</span></div>
+<div class="tile"><b>67 / 67</b><span>breaches caught by the Claude monitor reading the full trace (abstentions count as misses)</span></div>
+<div class="tile"><b>0 / 67</b><span>caught by the same monitor reading only the report (95% CI for the difference: +0.92 to +1.00)</span></div>
 <div class="tile"><b>0 / 293</b><span>false alarms from the trace monitor on runs that followed the rule</span></div>
-<div class="tile"><b>+1.00</b><span>pre-registered trace advantage (95% CI +0.82 to +1.00). Supported on both tasks.</span></div>
+<div class="tile"><b>+1.00</b><span>pre-registered trace advantage on the 26 breaches where both views gave a verdict (95% CI +0.82 to +1.00). Supported on both tasks.</span></div>
 </div>
 <h3>Only the smallest model broke the rule</h3>
 <div class="chart"><svg viewBox="0 0 680 262" role="img" aria-labelledby="c6t">
@@ -352,7 +352,7 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 </svg></div>
 <details><summary>Show the numbers</summary><div class="scroll"><table><thead><tr><th>Monitor</th><th>Caught (of 67 breaches)</th><th>Missed</th><th>No verdict</th><th>Correct all-clear (of 293 compliant)</th><th>False alarm</th><th>No verdict </th></tr></thead><tbody><tr><td>Policy checker (code)</td><td>67</td><td>0</td><td>0</td><td>293</td><td>0</td><td>0</td></tr><tr><td>Claude, full trace</td><td>67</td><td>0</td><td>0</td><td>293</td><td>0</td><td>0</td></tr><tr><td>Claude, final report only</td><td>0</td><td>26</td><td>41</td><td>42</td><td>17</td><td>234</td></tr></tbody></table></div></details>
 <h3>Self-reports were wrong in both directions</h3>
-<p>The small model often denied breaches it had committed. The bigger models, which never broke the rule, mostly reported that they had. Getting larger made the models compliant, but it didn't make their reports accurate.</p>
+<p>The small model often denied breaches it had committed. The bigger models, which never broke the rule, mostly reported that they had. The two larger models complied, but their reports stayed inaccurate. Both claims were right in only 17, 20 and 28 of 120 runs, and the pattern varied by task.</p>
 <div class="chart"><svg viewBox="0 0 680 210" role="img" aria-labelledby="c9t">
 <title id="c9t">v0.3.1: how often each model&#x27;s own report got the breach question wrong</title>
 <line class="grid" x1="190.0" x2="190.0" y1="8" y2="184"/>

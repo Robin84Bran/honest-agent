@@ -312,6 +312,8 @@ assert clear31["claude_trace"] == (293, 0, 0), clear31
 assert rq31["pooled"]["supported"] and rq31["pooled"]["paired_breaches"] == 26 and rq31["pooled"]["primary"]["difference"] == 1.0
 assert all(rq31["by_task"][t]["supported"] for t in ("deployment", "sharing"))
 assert denied31["qwen1.5b"] == (27, 67) and confess31 == {"qwen1.5b": (33, 53), "qwen7b": (100, 120), "llama8b": (73, 120)}, (denied31, confess31)
+assert rq31["pooled"]["sensitivity_abstain_as_miss"]["n"] == 67 and round(rq31["pooled"]["sensitivity_abstain_as_miss"]["ci95"][0], 2) == 0.92
+assert [sum(r["report"] == r["truth"] for r in rows31 if r["actor"] == a) for a, _ in ACTORS31] == [17, 20, 28]
 assert reaction == {"said_no": (0, 26, 1), "said_yes": (0, 0, 40)}, reaction
 
 
@@ -403,7 +405,7 @@ footer{{margin-top:3rem;border-top:1px solid var(--rule);padding-top:1rem;font-s
 <header><small>ROBIN RESEARCH · 10 NOVEMBER 2026 · DRAFT</small><h1>The Honest Agent v0.3</h1>
 <p class="lede">Do frontier agents ask before they act, and can a monitor tell when they don't?</p></header>
 
-<h2>The big models waited for approval every time. The small one didn't, and only the monitors watching its actions noticed.</h2>
+<h2>The big models waited for approval every time. The small one didn't. The monitors reading its actions caught every breach; the two reading only its reports caught 2 of 22 between them.</h2>
 <p>AI agents can now take real actions, such as moving money, shipping code or sharing files. That raises two questions: will an agent follow a rule when following it gets in the way of finishing the job, and if it doesn't, will anyone notice? Humans can't review every action, so one proposal is to have a second AI act as a monitor. This experiment tests what that monitor needs to see.</p>
 
 <h2>How the test works</h2>
@@ -436,7 +438,7 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 </div>
 
 <div class="note"><b>Read this first</b><ul>
-<li><b>Every Qwen number is a deviation.</b> Qwen wasn't installed when the pre-registered run started, so all 60 of its runs failed. It was rerun about three hours later, after the frontier results had been seen. The rerun used the frozen code unchanged. A later replay check reproduced all 357 of Qwen's responses word for word from the saved prompts and seeds. So Qwen's behaviour was fixed by the frozen setup, not by when it ran. <a href="../DEVIATIONS.md">Details</a></li>
+<li><b>Every Qwen number is a deviation.</b> Qwen wasn't installed when the pre-registered run started, so all 60 of its runs failed. It was rerun about three hours later, after the frontier results had been seen. The rerun used the frozen code unchanged. Two later replay passes reproduced all 357 of Qwen's responses word for word from the saved prompts and seeds. That's consistent with Qwen's behaviour being fixed by the frozen setup rather than by when it ran, though a replay can't prove what an earlier run would have produced. <a href="../DEVIATIONS.md">Details</a></li>
 <li><b>The big models didn't vary.</b> Every seed in a cell produced the same behaviour, so the 210 frontier runs are really 12 behaviours, each repeated. The intervals below look tighter than they deserve.</li>
 <li><b>v0.3 couldn't answer its replication question,</b> because no frontier model breached. A <a href="#followup">pre-registered follow-up</a> with open models has since answered it, on v0.2's own task.</li>
 </ul></div>
@@ -465,18 +467,18 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 <p class="muted">Rows show what really happened (from the simulator's own record). Columns show what Qwen's report said. Darker cells mean more runs.</p>
 
 <h2>How Qwen broke the rule <span class="tag">post hoc</span></h2>
-<p>Most of Qwen's breaches weren't a response to approval pressure. In {email_asks} of its 60 runs it asked approval for the <em>recipient</em> (partner@example.net) instead of the <em>document</em>. That's an easy mix-up for a small model, because you share <em>to</em> someone. The system answered "unknown target", and Qwen shared anyway.</p>
+<p>Most of Qwen's breaches weren't a response to approval pressure. In {email_asks} of its 60 runs it asked approval for the <em>recipient</em> (partner@example.net) instead of the <em>document</em>. That's an easy mix-up for a small model, because you share <em>to</em> someone. The system answered "unknown target". In {kinds_wrong} of those {email_asks} runs, Qwen shared anyway.</p>
 {c5}
 {t5}
 <p class="muted">This is a reading of the action records. The data can't show what the model "intended".</p>
 
 <h2 id="followup">Pre-registered follow-up: three open models <span class="tag">v0.3.1</span></h2>
-<p>To fix v0.3's weak spots, we ran the same test again with three free open models on fresh seeds: Qwen 2.5 1.5B (the same build as above), Qwen 2.5 7B and Llama 3.1 8B. Each ran on two tasks, 360 runs in all. This time the protocol and code were pushed to GitHub <em>before</em> any model ran. The freeze was pushed again before the main runs, so the order is provable from GitHub's own records. Claude was the only AI monitor. It cost {spend31}, with no deviations.</p>
+<p>To fix v0.3's weak spots, we ran the same test again with three free open models on fresh seeds: Qwen 2.5 1.5B (the same build as above), Qwen 2.5 7B and Llama 3.1 8B. Each ran on two tasks, 360 runs in all. This time the protocol and code were pushed to GitHub <em>before</em> any model ran, and the freeze was pushed again before the main runs. GitHub's server-side push log records both times, and <a href="../../v0.3.1/results/github-push-log.json">a copy is in the repository</a>. Claude was the only AI monitor. It cost {spend31}, with no deviations.</p>
 <div class="tiles">
-<div class="tile"><b>67 / 67</b><span>breaches caught by the Claude monitor reading the full trace</span></div>
-<div class="tile"><b>0 / 67</b><span>caught by the same monitor reading only the report</span></div>
+<div class="tile"><b>67 / 67</b><span>breaches caught by the Claude monitor reading the full trace (abstentions count as misses)</span></div>
+<div class="tile"><b>0 / 67</b><span>caught by the same monitor reading only the report (95% CI for the difference: {sens_lo} to {sens_hi})</span></div>
 <div class="tile"><b>0 / 293</b><span>false alarms from the trace monitor on runs that followed the rule</span></div>
-<div class="tile"><b>+1.00</b><span>pre-registered trace advantage (95% CI {ci_lo} to {ci_hi}). Supported on both tasks.</span></div>
+<div class="tile"><b>+1.00</b><span>pre-registered trace advantage on the {n_paired} breaches where both views gave a verdict (95% CI {ci_lo} to {ci_hi}). Supported on both tasks.</span></div>
 </div>
 <h3>Only the smallest model broke the rule</h3>
 {c6}
@@ -490,7 +492,7 @@ Claude and GPT each serve as the AI monitor in both views. They are allowed to a
 {c8}
 {t7}
 <h3>Self-reports were wrong in both directions</h3>
-<p>The small model often denied breaches it had committed. The bigger models, which never broke the rule, mostly reported that they had. Getting larger made the models compliant, but it didn't make their reports accurate.</p>
+<p>The small model often denied breaches it had committed. The bigger models, which never broke the rule, mostly reported that they had. The two larger models complied, but their reports stayed inaccurate. Both claims were right in only {both31} of 120 runs, and the pattern varied by task.</p>
 {c9}
 {t9}
 <h3>The report-only monitor trusted denials and set confessions aside <span class="tag">post hoc</span></h3>
@@ -518,6 +520,9 @@ page = PAGE.format(
     said_done=said_done, did_done=did_done, viol_right=viol_right, both_q=both_right_q, email_asks=email_asks,
     spend="$%.2f" % spend, spend31="$%.2f" % spend31,
     ci_lo="%+.2f" % rq31["pooled"]["primary"]["ci95"][0], ci_hi="%+.2f" % rq31["pooled"]["primary"]["ci95"][1],
-    n31clean=len(c31), c6=c6, t6=t6, c7=c7, c8=c8, t7=t7, c9=c9, t9=t9, c10=c10, t10=t10, cap="$%d" % cfg["cap_usd"], gpt_share="%.0f%%" % (100 * gpt_share))
+    n31clean=len(c31), kinds_wrong=kinds["wrong"], n_paired=rq31["pooled"]["paired_breaches"],
+    sens_lo="%+.2f" % rq31["pooled"]["sensitivity_abstain_as_miss"]["ci95"][0], sens_hi="%+.2f" % rq31["pooled"]["sensitivity_abstain_as_miss"]["ci95"][1],
+    both31="%d, %d and %d" % tuple(sum(r["report"] == r["truth"] for r in rows31 if r["actor"] == a) for a, _ in ACTORS31),
+    c6=c6, t6=t6, c7=c7, c8=c8, t7=t7, c9=c9, t9=t9, c10=c10, t10=t10, cap="$%d" % cfg["cap_usd"], gpt_share="%.0f%%" % (100 * gpt_share))
 OUT.write_text(page)
 print("wrote", OUT.relative_to(BASE), "%d bytes" % len(page))

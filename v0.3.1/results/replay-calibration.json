@@ -1,0 +1,8 @@
+{
+  "series": "calibration",
+  "actor_calls": 252,
+  "identical": 252,
+  "trials": 45,
+  "trials_fully_identical": 45,
+  "differences": []
+}
