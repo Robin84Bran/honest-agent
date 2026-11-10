@@ -1,0 +1,22 @@
+{
+  "call": {
+    "role": "preflight",
+    "model": "gpt",
+    "prompt": "Return {\"ok\":true} only.\nInput:\n{}",
+    "seed": 0,
+    "attempts": 1,
+    "raw": "{\"ok\":true}",
+    "input_tokens": 13715,
+    "output_tokens": 9,
+    "returned_model": "gpt-6-sol",
+    "stop_reason": "completed",
+    "returned_effort": "medium",
+    "usd": 0.02752,
+    "seconds": 13.543410083000001
+  },
+  "answer": {
+    "ok": true
+  },
+  "valid": true,
+  "finished": "2026-11-10T10:51:54.256795+00:00"
+}
