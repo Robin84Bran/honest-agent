@@ -1,0 +1,14 @@
+{
+  "spent_so_far": 0.5831,
+  "mean_actor_usd_per_trajectory": {
+    "llama8b": 0.0,
+    "qwen1.5b": 0.0,
+    "qwen7b": 0.0
+  },
+  "mean_monitor_usd_per_trajectory": 0.012877066666666664,
+  "projected_total_full": 5.22,
+  "projected_total_reduced": 4.06,
+  "fallback_triggered": false,
+  "recommended_deployment_seeds": 20,
+  "fits_cap_even_reduced": true
+}

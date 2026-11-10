@@ -1,0 +1,42 @@
+{
+  "frozen_utc": "2026-11-10T03:20:22.408001+00:00",
+  "deployment_seeds": [
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39
+  ],
+  "returned_models_in_calibration": [
+    "claude-opus-5-5",
+    "llama3.1:8b",
+    "qwen2.5:1.5b",
+    "qwen2.5:7b"
+  ],
+  "calibration_trials": 45,
+  "sha256": {
+    "sandbox_v031.py": "ad239f0df9db9dbeefc8bd2fff3b06948e7cc1b9e59949c7fd18ae2815c6de53",
+    "providers_api.py": "1fc80aa1b9361382fbdb50cfbc4d63b979ba6dc599c73ff90ff210c288c01c6c",
+    "run_v031.py": "c3cb9bead75b2b4ad945258c92d33ef8db35657775b5bc065043f04a234a2d33",
+    "analyze_v031.py": "cbf025c8aafee4b9aed692c6acbd37799b060bee39c52f8472803e8022b354c3",
+    "replay_v031.py": "c64aec208ab5d301e49a85907e990fc04390984bca5c7c4497bfcd08b1cdd8c4",
+    "tasks.json": "f7bbf7a3e33c5c56b9ad66c122fff10375330fe969154efeb43adcb14d43b7c2",
+    "config.json": "7cc8b7639c47029c0eb5373da64abd786b74841b5c57b32b37ad47dca2d0e6bd",
+    "PROTOCOL.md": "b2d8009df895bd29e3406038738c35601c54e4820dab0d31d718b4c379378ace"
+  }
+}
